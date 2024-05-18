@@ -18,10 +18,10 @@ class Game:
         self.num_random=0
         self.num_rlplayer = 0
         self.num_smarty = 0
-        self.ch_Ch = 0 
-        self.c_c = 0
-        self.c_ch = 0
-        self.ch_c = 0
+        self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
+        self.c_c = 2
+        self.c_ch = -1
+        self.ch_c = 3
 
     def create_players(self):
         while True:
@@ -50,10 +50,11 @@ class Game:
                 self.num_players_left -= self.num_rlplayer
                 self.num_smarty = 0 if self.num_players_left<=0 else min(int(input("Enter the number of 2nd smart players: ")),self.num_players_left)
                 
-                self.ch_Ch = int(input("Cheat-Cheat payoff: "))
-                self.c_c = int(input("Cooperate-Cooperate payoff: "))
-                self.c_ch= int(input("Cooperate-Cheat payoff (COOPERATE): "))
-                self.ch_c= int(input("Cheat-Cooperate payoff (CHEAT): "))
+                # self.ch_Ch = int(input("Cheat-Cheat payoff: "))
+                # self.c_c = int(input("Cooperate-Cooperate payoff: "))
+                # self.c_ch= int(input("Cooperate-Cheat payoff (COOPERATE): "))
+                # self.ch_c= int(input("Cheat-Cooperate payoff (CHEAT): "))
+
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -96,31 +97,24 @@ class Game:
                 for round_number in range(1, self.num_rounds + 1):
                     action1 = player1.perform_action(player2_last_action, round_number)
                     action2 = player2.perform_action(player1_last_action, round_number)
+                    reward1 = self.get_reward(action1, action2)
+                    reward2 = self.get_reward(action2, action1)
 
-                    if isinstance(player1, RLPlayer):
-                        reward1 = self.get_reward(action1, action2)
+                    if isinstance(player1, RLPlayer) or isinstance(player1, Smarty):
                         player1.update_q_table(reward1)
-                    if isinstance(player2, RLPlayer):
-                        reward2 = self.get_reward(action2, action1)
+                    if isinstance(player2, RLPlayer) or isinstance(player2, Smarty):
                         player2.update_q_table(reward2)
-                    
-                    if isinstance(player1, Smarty):
-                        reward1 = self.get_reward(action1, action2)
-                        player1.update_q_table(reward1)
-                    if isinstance(player2, Smarty):
-                        reward2 = self.get_reward(action2, action1)
-                        player2.update_q_table(reward2)
-
+                
                     # Update players' money based on actions and payoffs
-                    player1.money += self.get_reward(action1, action2)
-                    player2.money += self.get_reward(action2, action1)
+                    player1.money += reward1
+                    player2.money += reward2
 
                     player1_last_action = action1
                     player2_last_action = action2
 
-                    print(f"{player1.name} action: {action1}, {player2.name} action: {action2}")
-                    print(f"{player1.name} earn money: {self.get_reward(action1, action2)}, {player2.name} earn money: {self.get_reward(action2, action1)}")
-                    print(f"{player1.name} final money: {player1.money}, {player2.name} final money: {player2.money}")
+                    # print(f"{player1.name} action: {action1}, {player2.name} action: {action2}")
+                    # print(f"{player1.name} earn money: {self.get_reward(action1, action2)}, {player2.name} earn money: {self.get_reward(action2, action1)}")
+                    # print(f"{player1.name} final money: {player1.money}, {player2.name} final money: {player2.money}")
                     
     def get_reward(self, action1, action2):
         if action1 == "Cooperate" and action2 == "Cooperate":
@@ -131,10 +125,12 @@ class Game:
             return self.ch_c
         elif action1 == "Betray" and action2 == "Betray":
             return self.ch_Ch 
+    
     def show_result(self):
         print("Final Results:")
         for player in self.players:
             print(f"{player.name}: {player.money}")
+    
     def next_generation(self):
         very_poors=[]
         reaches = []
@@ -217,6 +213,7 @@ class Game:
     def reset_player_money(self):
         for player in self.players:
             player.money = 0        
+    
     def announce_winner(self):
         player=self.players[0]
         if isinstance(player, CopyCat):
