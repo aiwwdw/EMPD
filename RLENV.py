@@ -231,7 +231,8 @@ class Game:
             print("Winners are 2nd Smarts")
 
 
-
+# GUI는 return 하는 반면 여기는 다 print로 처리
+#
 def main():
     game = Game()
     game.start(1)

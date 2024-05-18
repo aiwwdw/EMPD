@@ -60,7 +60,6 @@ class RLPlayer(Player):
         with open(filename, 'rb') as f:
             self.q_table = pickle.load(f)
 
-
 class Smarty(Player):
     def __init__(self, name, alpha=0.2, gamma=0.95, epsilon=0.08, history_length=4):
         super().__init__(name)

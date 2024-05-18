@@ -1,5 +1,8 @@
 import random
 from Players import Player,Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
+
+
+
 class Game:
     def __init__(self):
         self.players = []
@@ -207,10 +210,7 @@ class Game:
         elif isinstance(player, RandomPlayer):
             print("Winners are RandomPlayer")
 
-
-
-
-
+# RLagent가 제외된 상태에서 진행되는 죄수의 딜레마게임
 def main():
     game = Game()
     game.start(1)
