@@ -6,6 +6,7 @@ class Game:
         self.players = []
         self.num_rounds = 0
         self.num_players = 0
+        self.num_players_left = 0
         self.num_replace = 0
         self.num_copycat=0
         self.num_selfish=0
@@ -26,18 +27,29 @@ class Game:
         while True:
             try:
                 self.num_players = int(input("How many players do you want to have: "))
+                self.num_players_left = self.num_players
                 self.num_rounds = int(input("How many rounds players play: "))
                 self.num_replace = int(input("How many players do you want to replace: "))
                 self.num_generous = int(input("Enter the number of Generous players: "))
-                self.num_selfish = 0 if self.num_generous == self.num_players else int(input("Enter the number of Selfish players: "))
-                self.num_copycat = 0 if self.num_generous + self.num_selfish == self.num_players else int(input("Enter the number of CopyCat players: "))
-                self.num_grudger = 0 if self.num_generous + self.num_selfish + self.num_copycat == self.num_players else int(input("Enter the number of Grudger players: "))
-                self.num_detective = 0 if self.num_generous + self.num_selfish + self.num_copycat + self.num_grudger == self.num_players else int(input("Enter the number of Detective players: "))
-                self.num_simpleton = 0 if self.num_generous + self.num_selfish + self.num_copycat + self.num_grudger + self.num_detective == self.num_players else int(input("Enter the number of Simpleton players: "))
-                self.num_copykitten = 0 if self.num_generous + self.num_selfish + self.num_copycat + self.num_grudger + self.num_detective + self.num_simpleton == self.num_players else int(input("Enter the number of Copykitten players: "))
-                self.num_random = 0 if self.num_generous + self.num_selfish + self.num_copycat + self.num_grudger + self.num_detective + self.num_simpleton + self.num_copykitten== self.num_players else int(input("Enter the number of Random players: "))
-                self.num_rlplayer = 0 if self.num_generous + self.num_selfish + self.num_copycat + self.num_grudger + self.num_detective + self.num_simpleton + self.num_copykitten + self.num_random== self.num_players else int(input("Enter the number of smart players: "))
-                self.num_smarty = 0 if self.num_generous + self.num_selfish + self.num_copycat + self.num_grudger + self.num_detective + self.num_simpleton + self.num_copykitten + self.num_random + self.num_rlplayer== self.num_players else int(input("Enter the number of 2nd smart players: "))
+                self.num_players_left -= self.num_generous
+                self.num_selfish = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Selfish players: ")),self.num_players_left)
+                self.num_players_left -= self.num_selfish
+                self.num_copycat = 0 if self.num_players_left<=0 else min(int(input("Enter the number of CopyCat players: ")),self.num_players_left)
+                self.num_players_left -= self.num_copycat
+                self.num_grudger = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Grudger players: ")),self.num_players_left)
+                self.num_players_left -= self.num_grudger
+                self.num_detective = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Detective players: ")),self.num_players_left)
+                self.num_players_left -= self.num_detective
+                self.num_simpleton = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Simpleton players: ")),self.num_players_left)
+                self.num_players_left -= self.num_simpleton
+                self.num_copykitten = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Copykitten players: ")),self.num_players_left)
+                self.num_players_left -= self.num_copykitten
+                self.num_random = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Random players: ")),self.num_players_left)
+                self.num_players_left -= self.num_random
+                self.num_rlplayer = 0 if self.num_players_left<=0 else min(int(input("Enter the number of smart players: ")),self.num_players_left)
+                self.num_players_left -= self.num_rlplayer
+                self.num_smarty = 0 if self.num_players_left<=0 else min(int(input("Enter the number of 2nd smart players: ")),self.num_players_left)
+                
                 self.ch_Ch = int(input("Cheat-Cheat payoff: "))
                 self.c_c = int(input("Cooperate-Cooperate payoff: "))
                 self.c_ch= int(input("Cooperate-Cheat payoff (COOPERATE): "))
@@ -110,8 +122,6 @@ class Game:
                     print(f"{player1.name} earn money: {self.get_reward(action1, action2)}, {player2.name} earn money: {self.get_reward(action2, action1)}")
                     print(f"{player1.name} final money: {player1.money}, {player2.name} final money: {player2.money}")
                     
-
-
     def get_reward(self, action1, action2):
         if action1 == "Cooperate" and action2 == "Cooperate":
             return self.c_c
