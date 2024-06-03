@@ -54,7 +54,6 @@ class Game:
                 # self.c_c = int(input("Cooperate-Cooperate payoff: "))
                 # self.c_ch= int(input("Cooperate-Cheat payoff (COOPERATE): "))
                 # self.ch_c= int(input("Cheat-Cooperate payoff (CHEAT): "))
-
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -81,11 +80,6 @@ class Game:
             self.players.append(Smarty(f"Smarty Player {i+1}"))       
 
     def start(self, iterate_num):
-        if iterate_num == 1:
-            print("Welcome to the Trust of Evolution game!")
-            print("Let's start...\n")
-            self.create_players()
-
         for i in range(len(self.players)):
             for j in range(i + 1, len(self.players)):
                 player1 = self.players[i]
@@ -139,7 +133,7 @@ class Game:
             money_values = {player.money for player in self.players}
             money_values = sorted(money_values)
             i=0
-            while len(poors) + len(very_poors) <self.num_replace:
+            while len(poors) + len(very_poors) < self.num_replace:
                 if len(money_values)>1:
                     min_money=min(money_values)
                     money_values.remove(min_money)
@@ -210,6 +204,7 @@ class Game:
                     self.num_smarty += 1
 
             self.players = [player for player in self.players if player not in very_poors]+new_players
+    
     def reset_player_money(self):
         for player in self.players:
             player.money = 0        
@@ -242,18 +237,16 @@ class Game:
 #
 def main():
     game = Game()
-    game.start(1)
-    game.show_result()
-    game.next_generation()
-    game.reset_player_money()
-    c=2
+    game.create_players()
+    
+    c=1
     while len(set(type(player) for player in game.players)) > 1:
         print(f"round number {c} started")
-        game.start(2)
+        game.start()
         game.show_result()  
         game.next_generation()
         game.show_result()  
-        game.reset_player_money()  
+        game.reset_player_money()
         c+=1
 
     game.announce_winner()
