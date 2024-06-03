@@ -90,8 +90,8 @@ class Game:
             self.players.append(Smarty(f"Smarty Player {i+1}", num))
             num += 1
         self.player_num = num
-        
-    def start(self, iterate_num):
+
+    def start(self):
         for i in range(len(self.players)):
             for j in range(i + 1, len(self.players)):
                 player1 = self.players[i]
@@ -135,7 +135,7 @@ class Game:
     def show_result(self):
         print("Final Results:")
         for player in self.players:
-            print(f"{player.name}: {player.money}")
+            print(f"Player Num - {player.num}, {player.name}: {player.money}")
     
     def next_generation(self):
         very_poors=[]
@@ -151,6 +151,7 @@ class Game:
                     money_values.remove(min_money)
                 else:
                     min_money=money_values[0]
+                
                 for player in self.players:
                     if player.money == min_money:
                         poors.append(player)
@@ -182,42 +183,53 @@ class Game:
                 j+=1
             random.shuffle(reaches)
             new_players = []
-        
+            num = self.player_num;
             for player in reaches[:self.num_replace]:
                 if isinstance(player, CopyCat):
-                    new_players.append(CopyCat(f"CopyCat Player {self.num_copycat + 1}"))
+                    new_players.append(CopyCat(f"CopyCat Player {self.num_copycat + 1}", num))
+                    num += 1
                     self.num_copycat += 1
                 elif isinstance(player, Selfish):
-                    new_players.append(Selfish(f"Selfish Player {self.num_selfish + 1}"))
+                    new_players.append(Selfish(f"Selfish Player {self.num_selfish + 1}", num))
+                    num += 1
                     self.num_selfish += 1
                 elif isinstance(player, Generous):
-                    new_players.append(Generous(f"Generous Player {self.num_generous + 1}"))
+                    new_players.append(Generous(f"Generous Player {self.num_generous + 1}", num))
+                    num += 1
                     self.num_generous += 1
                 elif isinstance(player, Grudger):
-                    new_players.append(Grudger(f"Grudger Player {self.num_grudger + 1}"))
+                    new_players.append(Grudger(f"Grudger Player {self.num_grudger + 1}", num))
+                    num += 1
                     self.num_grudger += 1
                 elif isinstance(player, Detective):
-                    new_players.append(Detective(f"Detective Player {self.num_detective + 1}"))
+                    new_players.append(Detective(f"Detective Player {self.num_detective + 1}", num))
+                    num += 1
                     self.num_detective += 1
                 elif isinstance(player, Simpleton):
-                    new_players.append(Simpleton(f"Simpleton Player {self.num_simpleton + 1}"))
+                    new_players.append(Simpleton(f"Simpleton Player {self.num_simpleton + 1}", num))
+                    num += 1
                     self.num_simpleton += 1  
                 elif isinstance(player, Copykitten):
-                    new_players.append(Copykitten(f"Copykitten Player {self.num_copykitten + 1}"))
+                    new_players.append(Copykitten(f"Copykitten Player {self.num_copykitten + 1}", num))
+                    num += 1
                     self.num_copykitten += 1  
                 elif isinstance(player, RandomPlayer):
-                    new_players.append(RandomPlayer(f"RandomPlayer Player {self.num_random + 1}"))
+                    new_players.append(RandomPlayer(f"RandomPlayer Player {self.num_random + 1}", num))
+                    num += 1
                     self.num_random += 1    
                 elif isinstance(player, RLPlayer):
-                    new_players.append(RLPlayer(f"RLPlayer Player {self.num_rlplayer + 1}"))
+                    new_players.append(RLPlayer(f"RLPlayer Player {self.num_rlplayer + 1}", num))
+                    num += 1
                     self.num_rlplayer += 1    
                 elif isinstance(player, Smarty):
-                    new_players.append(Smarty(f"Smarty Player {self.num_smarty + 1}"))
+                    new_players.append(Smarty(f"Smarty Player {self.num_smarty + 1}", num))
+                    num += 1
                     self.num_smarty += 1
-
+            self.player_num = num;
             self.players = [player for player in self.players if player not in very_poors]+new_players
     
-   
+
+
     def reset_player_money(self):
         for player in self.players:
             player.money = 0        
