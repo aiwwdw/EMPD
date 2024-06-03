@@ -3,11 +3,16 @@ from Players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simp
 from RLagent import *
 class Game:
     def __init__(self):
+
+        self.num_rounds = 2
+        self.num_replace = 2
+
         self.players = []
-        self.num_rounds = 0
         self.num_players = 0
         self.num_players_left = 0
-        self.num_replace = 0
+        
+
+        # player 종류별 숫자
         self.num_copycat=0
         self.num_selfish=0
         self.num_generous=0
@@ -18,6 +23,7 @@ class Game:
         self.num_random=0
         self.num_rlplayer = 0
         self.num_smarty = 0
+
         self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
         self.c_c = 2
         self.c_ch = -1
@@ -26,37 +32,21 @@ class Game:
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
 
-    def create_players(self):
+    def create_players(self, num_players = 10, original_player_num = [1,1,1,1,1,1,1,1,1,1] ):
         while True:
             try:
-                self.num_players = int(input("How many players do you want to have: "))
+                self.num_players = num_players
                 self.num_players_left = self.num_players
-                self.num_rounds = int(input("How many rounds players play: "))
-                self.num_replace = int(input("How many players do you want to replace: "))
-                self.num_generous = int(input("Enter the number of Generous players: "))
-                self.num_players_left -= self.num_generous
-                self.num_selfish = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Selfish players: ")),self.num_players_left)
-                self.num_players_left -= self.num_selfish
-                self.num_copycat = 0 if self.num_players_left<=0 else min(int(input("Enter the number of CopyCat players: ")),self.num_players_left)
-                self.num_players_left -= self.num_copycat
-                self.num_grudger = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Grudger players: ")),self.num_players_left)
-                self.num_players_left -= self.num_grudger
-                self.num_detective = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Detective players: ")),self.num_players_left)
-                self.num_players_left -= self.num_detective
-                self.num_simpleton = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Simpleton players: ")),self.num_players_left)
-                self.num_players_left -= self.num_simpleton
-                self.num_copykitten = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Copykitten players: ")),self.num_players_left)
-                self.num_players_left -= self.num_copykitten
-                self.num_random = 0 if self.num_players_left<=0 else min(int(input("Enter the number of Random players: ")),self.num_players_left)
-                self.num_players_left -= self.num_random
-                self.num_rlplayer = 0 if self.num_players_left<=0 else min(int(input("Enter the number of smart players: ")),self.num_players_left)
-                self.num_players_left -= self.num_rlplayer
-                self.num_smarty = 0 if self.num_players_left<=0 else min(int(input("Enter the number of 2nd smart players: ")),self.num_players_left)
-                
-                # self.ch_Ch = int(input("Cheat-Cheat payoff: "))
-                # self.c_c = int(input("Cooperate-Cooperate payoff: "))
-                # self.c_ch= int(input("Cooperate-Cheat payoff (COOPERATE): "))
-                # self.ch_c= int(input("Cheat-Cooperate payoff (CHEAT): "))
+                self.num_generous = original_player_num[0]
+                self.num_selfish = original_player_num[1]
+                self.num_copycat = original_player_num[2]
+                self.num_grudger = original_player_num[3]
+                self.num_detective = original_player_num[4]
+                self.num_simpleton = original_player_num[5]
+                self.num_copykitten = original_player_num[6]
+                self.num_random = original_player_num[7]
+                self.num_rlplayer = original_player_num[8]
+                self.num_smarty = original_player_num[9]
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -98,7 +88,7 @@ class Game:
             for j in range(i + 1, len(self.players)):
                 player1 = self.players[i]
                 player2 = self.players[j]
-                player_tuple = player1.num > player2.num ? (player2.num , player1.num) : (player1.num , player2.num)
+                player_tuple = (player2.num , player1.num) if (player1.num > player2.num) else (player1.num , player2.num)
                 player1_last_action = "Cooperate"
                 player2_last_action = "Cooperate"
 
@@ -108,10 +98,20 @@ class Game:
                 for round_number in range(1, self.num_rounds + 1):
                     action1 = player1.perform_action(player2_last_action, round_number, player2_num)
                     action2 = player2.perform_action(player1_last_action, round_number, player1_num)
+                    
                     reward1 = self.get_reward(action1, action2)
                     reward2 = self.get_reward(action2, action1)
+
+                    # History 저장
+                    a1 = 1 if action1 == "Cooperate" else 0
+                    a2 = 1 if action2 == "Cooperate" else 0
+
+                    if player_tuple in self.history_dic:
+                        self.history_dic[player_tuple].append((a1,a2))
+                    else:
+                        self.history_dic[player_tuple] = [(a1,a2)]
                     
-                    self.history_dic
+                    
                     if isinstance(player1, RLPlayer) or isinstance(player1, Smarty):
                         player1.update_q_table(reward1)
                     if isinstance(player2, RLPlayer) or isinstance(player2, Smarty):
@@ -137,7 +137,7 @@ class Game:
             return self.ch_c
         elif action1 == "Betray" and action2 == "Betray":
             return self.ch_Ch 
-    
+  
     def show_result(self):
         print("Final Results:")
         for player in self.players:
@@ -233,8 +233,12 @@ class Game:
                     self.num_smarty += 1
             self.player_num = num;
             self.players = [player for player in self.players if player not in very_poors]+new_players
-    
-
+            for deleted_player in very_poors:
+                deleted_player_num = deleted_player.num
+                for i in range(self.player_num):
+                    delete_tuple = (deleted_player_num,i) if deleted_player_num < i else (i, deleted_player_num)
+                    if delete_tuple in self.history_dic:
+                        del self.history_dic[delete_tuple]
 
     def reset_player_money(self):
         for player in self.players:
@@ -274,6 +278,8 @@ def main():
     while len(set(type(player) for player in game.players)) > 1:
         print(f"round number {c} started")
         game.start()
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print(game.history_dic)
         game.show_result()  
         game.next_generation()
         game.show_result()  

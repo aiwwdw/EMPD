@@ -4,8 +4,8 @@ from RLENV import *
 import pickle
 
 class Q_learning(Player):
-    def __init__(self, name, alpha=0.1, gamma=0.9, epsilon=0.1, history_length=2):
-        super().__init__(name)
+    def __init__(self, name, num, alpha=0.1, gamma=0.9, epsilon=0.1, history_length=2):
+        super().__init__(name, num)
         self.alpha = alpha  # Learning rate
         self.gamma = gamma  # Discount factor
         self.epsilon = epsilon  # Exploration rate
@@ -63,8 +63,8 @@ class Q_learning(Player):
 
 
 class RLPlayer(Player):
-    def __init__(self, name, alpha=0.1, gamma=0.9, epsilon=0.1, history_length=2):
-        super().__init__(name)
+    def __init__(self, name, num, alpha=0.1, gamma=0.9, epsilon=0.1, history_length=2):
+        super().__init__(name, num)
         self.alpha = alpha  # Learning rate
         self.gamma = gamma  # Discount factor
         self.epsilon = epsilon  # Exploration rate
@@ -120,8 +120,8 @@ class RLPlayer(Player):
             self.q_table = pickle.load(f)
 
 class Smarty(Player):
-    def __init__(self, name, alpha=0.2, gamma=0.95, epsilon=0.08, history_length=4):
-        super().__init__(name)
+    def __init__(self, name, num, alpha=0.2, gamma=0.95, epsilon=0.08, history_length=4):
+        super().__init__(name, num)
         self.alpha = alpha  # Learning rate
         self.gamma = gamma  # Discount factor
         self.epsilon = epsilon  # Exploration rate
