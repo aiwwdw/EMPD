@@ -104,8 +104,9 @@ class Game:
                 player2_num = player2.num
 
                 for round_number in range(1, self.num_rounds + 1):
-                    action1 = player1.perform_action(player2_last_action, round_number, player2_num)
-                    action2 = player2.perform_action(player1_last_action, round_number, player1_num)
+                    action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num)
+                    action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num)
+
                     reward1 = self.get_reward(action1, action2)
                     reward2 = self.get_reward(action2, action1)
 

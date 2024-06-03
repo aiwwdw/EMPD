@@ -15,7 +15,7 @@ class Q_learning(Player):
         self.last_action = None
 
 
-    def perform_action(self, opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
 
         self.load_q_table("q_table.pkl")
 
@@ -61,6 +61,10 @@ class Q_learning(Player):
             self.q_table = pickle.load(f)
 
 
+"""
+RLPLayer 와 Smarty의 차이점은
+learning parameter의 차이점이 있다. 
+"""
 
 class RLPlayer(Player):
     def __init__(self, name, alpha=0.1, gamma=0.9, epsilon=0.1, history_length=2):
