@@ -14,16 +14,21 @@ class Q_learning(Player):
         self.opponent_history = []  # List to store opponent action history
         self.last_action = None
 
+        self.history = {}
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
 
-        self.load_q_table("q_table.pkl")
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number, opponent_player):
 
-        self.opponent_history.append(opponent_last_action)
-        if len(self.opponent_history) > self.history_length:
-            self.opponent_history.pop(0)  
+        if opponent_player not in self.history
+            self.history[opponent_player] = []
+        
+        self.history[opponent_player].append((agent_last_action,opponent_last_action))
+        
+        if len(self.history[opponent_player]) > self.history_length:
+            self.history[opponent_player].pop(0)
 
-        state = tuple(self.opponent_history)
+
+        state = tuple(self.history[opponent_player])
 
         if random.random() < self.epsilon or state not in self.q_table:
             action = random.choice(["Cooperate", "Betray"])
@@ -32,6 +37,7 @@ class Q_learning(Player):
 
         self.last_action = action
         return action
+
 
     def update_q_table(self, reward):
 
@@ -75,6 +81,7 @@ class RLPlayer(Player):
         self.q_table = {}  # Q-table to store action-values
         self.opponent_history = []  # List to store opponent action history
         self.last_action = None
+
 
 
     def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):

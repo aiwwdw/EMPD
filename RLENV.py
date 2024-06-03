@@ -4,7 +4,7 @@ from RLagent import *
 class Game:
     def __init__(self):
 
-        self.num_rounds = 2
+        self.num_rounds = 10
         self.num_replace = 2
 
         self.players = []
@@ -32,7 +32,7 @@ class Game:
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
 
-    def create_players(self, num_players = 10, original_player_num = [1,1,1,1,1,1,1,1,1,1] ):
+    def create_players(self, num_players = 20, original_player_num = [2,2,2,2,2,2,2,2,2,2] ):
         while True:
             try:
                 self.num_players = num_players
