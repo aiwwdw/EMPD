@@ -2,32 +2,33 @@ import random
 from abc import ABC, abstractmethod
 
 class Player(ABC):
-    def __init__(self, name, initial_money=0):
+    def __init__(self, name, num, initial_money=0):
         self.name = name
-        self.money=initial_money
+        self.money = initial_money
+        self.num = num
 
     @abstractmethod
     def perform_action(self, opponent_last_action,round_number):
         pass
 
 class Generous(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name,num)
 
     def perform_action(self, opponent_last_action,round_number):
         return "Cooperate"
 
 class Selfish(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
 
     def perform_action(self, opponent_last_action,round_number):
         return "Betray"
 
 
 class RandomPlayer(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
 
     def perform_action(self, opponent_last_action,round_number):
         actions = ["Cooperate", "Betray"]
@@ -35,8 +36,8 @@ class RandomPlayer(Player):
     
 
 class CopyCat(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
 
     def perform_action(self, opponent_last_action,round_number):
         if round_number==1:
@@ -46,8 +47,8 @@ class CopyCat(Player):
 
 
 class Grudger(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
         self.actions=[]
     
     def perform_action(self, opponent_last_action,round_number):
@@ -70,8 +71,8 @@ class Grudger(Player):
     
 
 class Detective(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
         self.actions = []
 
     def perform_action(self, opponent_last_action,round_number):
@@ -95,8 +96,8 @@ class Detective(Player):
             
 
 class Simpleton(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
         self.actions = []
 
     def perform_action(self, opponent_last_action,round_number):
@@ -118,8 +119,8 @@ class Simpleton(Player):
         
           
 class Copykitten(Player):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, num):
+        super().__init__(name, num)
         self.actions = []
 
     def perform_action(self, opponent_last_action,round_number):

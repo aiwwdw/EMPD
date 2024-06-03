@@ -22,6 +22,7 @@ class Game:
         self.c_c = 2
         self.c_ch = -1
         self.ch_c = 3
+        self.player_num = 1
 
     def create_players(self):
         while True:
@@ -57,28 +58,39 @@ class Game:
                 break
             except ValueError:
                 print("Please enter a valid number.")
-        
+        num = self.player_num;
         for i in range(self.num_copycat):
-            self.players.append(CopyCat(f"CopyCat Player {i+1}"))
+            self.players.append(CopyCat(f"CopyCat Player {i+1}", num))
+            num += 1
         for i in range(self.num_selfish):
-            self.players.append(Selfish(f"Selfish Player {i+1}"))
+            self.players.append(Selfish(f"Selfish Player {i+1}", num))
+            num += 1
         for i in range(self.num_generous):
-            self.players.append(Generous(f"Generous Player {i+1}"))
+            self.players.append(Generous(f"Generous Player {i+1}", num))
+            num += 1
         for i in range(self.num_grudger):
-            self.players.append(Grudger(f"Grudger Player {i+1}"))
+            self.players.append(Grudger(f"Grudger Player {i+1}", num))
+            num += 1
         for i in range(self.num_detective):
-            self.players.append(Detective(f"Detective Player {i+1}"))
+            self.players.append(Detective(f"Detective Player {i+1}", num))
+            num += 1
         for i in range(self.num_simpleton):
-            self.players.append(Simpleton(f"Simpleton Player {i+1}"))
+            self.players.append(Simpleton(f"Simpleton Player {i+1}", num))
+            num += 1
         for i in range(self.num_copykitten):
-            self.players.append(Copykitten(f"Copykitten Player {i+1}"))
+            self.players.append(Copykitten(f"Copykitten Player {i+1}", num))
+            num += 1
         for i in range(self.num_random):
-            self.players.append(RandomPlayer(f"RandomPlayer Player {i+1}"))     
+            self.players.append(RandomPlayer(f"RandomPlayer Player {i+1}", num)) 
+            num += 1   
         for i in range(self.num_rlplayer): # Add this
-            self.players.append(RLPlayer(f"RLPlayer Player {i+1}"))
+            self.players.append(RLPlayer(f"RLPlayer Player {i+1}", num))
+            num += 1
         for i in range(self.num_smarty): # Add this
-            self.players.append(Smarty(f"Smarty Player {i+1}"))       
-
+            self.players.append(Smarty(f"Smarty Player {i+1}", num))
+            num += 1
+        self.player_num = num
+        
     def start(self, iterate_num):
         for i in range(len(self.players)):
             for j in range(i + 1, len(self.players)):
@@ -205,6 +217,7 @@ class Game:
 
             self.players = [player for player in self.players if player not in very_poors]+new_players
     
+   
     def reset_player_money(self):
         for player in self.players:
             player.money = 0        
