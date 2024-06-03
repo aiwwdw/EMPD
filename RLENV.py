@@ -3,15 +3,20 @@ from Players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simp
 from RLagent import *
 class Game:
     def __init__(self):
-
-        self.num_rounds = 2
+        # Environment Setting
+        self.num_rounds = 10
         self.num_replace = 2
+        self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
+        self.c_c = 2
+        self.c_ch = -1
+        self.ch_c = 3
+        self.player_num = 1
 
+        # Player Setting
         self.players = []
         self.num_players = 0
         self.num_players_left = 0
         
-
         # player 종류별 숫자
         self.num_copycat=0
         self.num_selfish=0
@@ -24,11 +29,7 @@ class Game:
         self.num_rlplayer = 0
         self.num_smarty = 0
 
-        self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
-        self.c_c = 2
-        self.c_ch = -1
-        self.ch_c = 3
-        self.player_num = 1
+       
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
 
@@ -88,30 +89,44 @@ class Game:
             for j in range(i + 1, len(self.players)):
                 player1 = self.players[i]
                 player2 = self.players[j]
-                player_tuple = (player2.num , player1.num) if (player1.num > player2.num) else (player1.num , player2.num)
-                player1_last_action = "Cooperate"
-                player2_last_action = "Cooperate"
-
                 player1_num = player1.num
                 player2_num = player2.num
+                player_tuple = (player2.num , player1.num) if (player1.num > player2.num) else (player1.num , player2.num)
+                
+                
+                # 가장 최근 action의 정의
+                player1_last_action = "Cooperate"
+                player2_last_action = "Cooperate" 
+                # 이전 사이클 내에서 전적 있을시, 최근 action 수정 
+                if player_tuple in self.history_dic:
+                    if player_tuple[0] == player1.num:
+                        player1_last_action = self.history_dic[player_tuple][-1][0]
+                        player2_last_action = self.history_dic[player_tuple][-1][1]
+                    else:
+                        player1_last_action = self.history_dic[player_tuple][-1][1]
+                        player2_last_action = self.history_dic[player_tuple][-1][0]
 
+
+                
                 for round_number in range(1, self.num_rounds + 1):
+                    
                     action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num)
                     action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num)
 
-                    reward1 = self.get_reward(action1, action2)
-                    reward2 = self.get_reward(action2, action1)
 
                     # History 저장
                     a1 = 1 if action1 == "Cooperate" else 0
                     a2 = 1 if action2 == "Cooperate" else 0
-
                     if player_tuple in self.history_dic:
                         self.history_dic[player_tuple].append((a1,a2))
                     else:
                         self.history_dic[player_tuple] = [(a1,a2)]
-                    
-                    
+
+
+                    reward1 = self.get_reward(action1, action2)
+                    reward2 = self.get_reward(action2, action1)
+
+                    # Train
                     if isinstance(player1, RLPlayer) or isinstance(player1, Smarty):
                         player1.update_q_table(reward1)
                     if isinstance(player2, RLPlayer) or isinstance(player2, Smarty):
@@ -275,18 +290,19 @@ def main():
     game.create_players()
     
     c=1
-    while len(set(type(player) for player in game.players)) > 1:
+    while len(set(type(player) for player in game.players)) > 1 and c<100:
+        
         print(f"round number {c} started")
+        
         game.start()
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print(game.history_dic)
-        game.show_result()  
+        
+        game.show_result()
+
         game.next_generation()
-        game.show_result()  
         game.reset_player_money()
         c+=1
 
-    game.announce_winner()
+    # game.announce_winner()
 
 
 if __name__ == "__main__":
