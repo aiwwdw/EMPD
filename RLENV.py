@@ -23,6 +23,8 @@ class Game:
         self.c_ch = -1
         self.ch_c = 3
         self.player_num = 1
+        # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
+        self.history_dic = {}
 
     def create_players(self):
         while True:
@@ -96,7 +98,7 @@ class Game:
             for j in range(i + 1, len(self.players)):
                 player1 = self.players[i]
                 player2 = self.players[j]
-                
+                player_tuple = player1.num > player2.num ? (player2.num , player1.num) : (player1.num , player2.num)
                 player1_last_action = "Cooperate"
                 player2_last_action = "Cooperate"
 
@@ -105,7 +107,8 @@ class Game:
                     action2 = player2.perform_action(player1_last_action, round_number)
                     reward1 = self.get_reward(action1, action2)
                     reward2 = self.get_reward(action2, action1)
-
+                    
+                    self.history_dic
                     if isinstance(player1, RLPlayer) or isinstance(player1, Smarty):
                         player1.update_q_table(reward1)
                     if isinstance(player2, RLPlayer) or isinstance(player2, Smarty):
