@@ -189,7 +189,7 @@ class Game:
                 j+=1
             random.shuffle(reaches)
             new_players = []
-            num = self.player_num;
+            num = self.player_num
             for player in reaches[:self.num_replace]:
                 if isinstance(player, CopyCat):
                     new_players.append(CopyCat(f"CopyCat Player {self.num_copycat + 1}", num))

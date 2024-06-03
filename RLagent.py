@@ -19,7 +19,6 @@ class Q_learning(Player):
 
         self.load_q_table("q_table.pkl")
 
-  
         self.opponent_history.append(opponent_last_action)
         if len(self.opponent_history) > self.history_length:
             self.opponent_history.pop(0)  
@@ -78,7 +77,7 @@ class RLPlayer(Player):
         self.last_action = None
 
 
-    def perform_action(self, opponent_last_action, round_number, opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
 
         self.load_q_table("q_table.pkl")
 
@@ -135,7 +134,7 @@ class Smarty(Player):
         self.last_action = None
 
 
-    def perform_action(self, opponent_last_action, round_number, opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
 
         self.load_q_table("smarty_table.pkl")
 
