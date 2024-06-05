@@ -37,8 +37,8 @@ class Game:
         self.num_q_learning = 0
         self.num_DQN = 0
 
-        self.original_player_num = [2,2,2,2,2,2,2,2,2,2,2,2]
-        self.num_players = 24
+        self.original_player_num = [2,2,2,2,2,2,2,2,0,0,0,2]
+        self.num_players = 18
         self.epsilon = 0.9
 
         # Q learning business에서는 3으로 고정
@@ -98,9 +98,9 @@ class Game:
         for i in range(self.num_smarty): # Add this
             self.players.append(Smarty(f"Smarty Player {i+1}", num, output_path=self.output_path))
             num += 1
-        for i in range(self.num_q_learning): # Add this
-            self.players.append(Q_learning_business(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
-            num += 1
+        # for i in range(self.num_q_learning): # Add this
+        #     self.players.append(Q_learning_business(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+        #     num += 1
         for i in range(self.num_DQN): # Add this
             self.players.append(DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path))
             num += 1       
