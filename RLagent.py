@@ -12,6 +12,7 @@ from collections import deque
 import os
 import math
 import pdb 
+import sys
 
 class QNetwork(nn.Module):
     def __init__(self, input_dim, history_num):
@@ -62,7 +63,7 @@ class DQN(Player):
         self.epsilon = epsilon  # Exploration rate
         self.history_length = history_length  # Length of opponent action history
         self.memory = deque(maxlen=100)  # Replay memory
-        self.batch_size = 32
+        self.batch_size = 4
         self.update_target_every = 5
         self.step = 0
         self.history = {}
@@ -85,12 +86,6 @@ class DQN(Player):
             self.prev_history[opponent_player] = [base_list] * self.history_length
 
         self.prev_history[opponent_player] = self.history[opponent_player]
-        
-        self.history[opponent_player].append(current_state)
-
-        if len(self.history[opponent_player]) > self.history_length:
-            self.history[opponent_player].pop(0)
-        
         if (agent_last_action,opponent_last_action) == ("Cooperate","Cooperate"):
             current_state = [0,0,0,0,1]
         elif (agent_last_action,opponent_last_action) == ("Cooperate","Betray"):
@@ -99,21 +94,30 @@ class DQN(Player):
             current_state = [0,0,1,0,0]
         elif (agent_last_action,opponent_last_action) == ("Betray","Betray"):
             current_state = [0,1,0,0,0]
+        else: 
+            print("Wrong last action tuples")
+            sys.exit(1)
         
-       
+        self.history[opponent_player].append(current_state)
+
+        if len(self.history[opponent_player]) > self.history_length:
+            self.history[opponent_player].pop(0)
+        
 
         if np.random.rand() <= self.epsilon:
             return random.choice(["Cooperate", "Betray"])
         
-        state = torch.FloatTensor(state).unsqueeze(0)
+        state = torch.FloatTensor(self.history[opponent_player])
+
         with torch.no_grad():
             q_values = self.q_network(state)
         action =  "Cooperate" if q_values[0][0] > q_values[0][1] else "Betray"
         return action
+    
 
-    def update_q_table(self, state, action, reward, next_state):
+    def update_q_table(self, action, reward, opponent_player):
         
-        self.memory.append((state, action, reward, next_state)) # remember
+        self.memory.append((self.prev_history[opponent_player], action, reward, self.history[opponent_player])) # remember
         
         if len(self.memory) < self.batch_size:
             return
@@ -126,6 +130,7 @@ class DQN(Player):
         reward_batch = torch.FloatTensor(reward_batch)
         next_state_batch = torch.FloatTensor(next_state_batch)
 
+        
         current_q_values = self.q_network(state_batch).gather(1, action_batch.unsqueeze(1)).squeeze(1)
         max_next_q_values = self.target_network(next_state_batch).max(1)[0]
         expected_q_values = reward_batch + (self.gamma * max_next_q_values)

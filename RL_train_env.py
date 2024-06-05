@@ -35,9 +35,10 @@ class Game:
         self.num_rlplayer = 0
         self.num_smarty = 0
         self.num_q_learning = 0
+        self.num_DQN = 0
 
-        self.original_player_num = [2,2,2,2,2,2,2,2,2,2,2]
-        self.num_players = 22
+        self.original_player_num = [2,2,2,2,2,2,2,2,2,2,2,2]
+        self.num_players = 24
         self.epsilon = 0.9
 
         # Q learning business에서는 3으로 고정
@@ -62,6 +63,7 @@ class Game:
                 self.num_rlplayer = self.original_player_num[8]
                 self.num_smarty = self.original_player_num[9]
                 self.num_q_learning = self.original_player_num[10]
+                self.num_DQN = self.original_player_num[11]
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -99,7 +101,9 @@ class Game:
         for i in range(self.num_q_learning): # Add this
             self.players.append(Q_learning_business(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
             num += 1
-        
+        for i in range(self.num_DQN): # Add this
+            self.players.append(DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+            num += 1       
         self.player_num = num
 
     def start(self):
@@ -130,12 +134,12 @@ class Game:
 
                 for round_number in range(1, self.num_rounds + 1):
                     
-                    if isinstance(player1, Q_learning) or isinstance(player1, Q_learning_business):
+                    if isinstance(player1, Q_learning) or isinstance(player1, Q_learning_business) or isinstance(player1, DQN):
                         action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num, epsilon=self.epsilon)
                     else:
                         action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num)
                     
-                    if isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business):
+                    if isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business) or isinstance(player1, DQN):
                         action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num, epsilon=self.epsilon)
                     else:
                         action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num)
@@ -163,6 +167,11 @@ class Game:
                             player1.update_q_table(reward1, player2_num)
                         if isinstance(player2, RLPlayer) or isinstance(player2, Smarty) or isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business):
                             player2.update_q_table(reward2, player1_num)
+                        if isinstance(player1, DQN):
+                            player1.update_q_table(action1, reward1, player2_num)
+                        if isinstance(player2, DQN):
+                            player2.update_q_table(action2, reward2, player1_num)
+                
                 
                     # Update players' money based on actions and payoffs
                     player1.money += reward1
@@ -289,6 +298,10 @@ class Game:
                     new_players.append(Q_learning_business(f"Q_learning Player {self.num_q_learning + 1}", num, history_length=self.history_length, output_path=self.output_path))
                     num += 1
                     self.num_q_learning += 1
+                elif isinstance(player, DQN):
+                    new_players.append(DQN(f"DQN Player {self.num_DQN + 1}", num, history_length=self.history_length, output_path=self.output_path))
+                    num += 1
+                    self.num_DQN += 1
             self.player_num = num
             self.players = [player for player in self.players if player not in very_poors]+new_players
             for deleted_player in very_poors:
