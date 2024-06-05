@@ -16,7 +16,6 @@ import pickle
 import gc
 
 
-
 class lstm_encoder(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers = 1):
         super(lstm_encoder, self).__init__()
@@ -165,7 +164,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-
 class LSTM(Player):
     def __init__(self, name, num, learning_rate=0.01, epoch = 3, traindata_given = 10, traindata_predicting = 1):
         super().__init__(name, num)
@@ -174,7 +172,7 @@ class LSTM(Player):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.traindata_given = traindata_given
         self.traindata_predicting = traindata_predicting
-        self.model = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
+        self.models = {}
         self.learning_rate=learning_rate
         self.epoch = epoch
         self.optimizer = optim.Adam(self.model.parameters(), lr = learning_rate)
@@ -183,33 +181,48 @@ class LSTM(Player):
 
 
     def perform_action(self, recent_actions, other_player_num):
-        action = self.model.predict(torch.tensor(recent_actions).to(self.device).float(), target_len=self.traindata_predicting)
+        if self.num > other_player_num:
+            recent_actions = [item for sublist in recent_actions for item in (sublist[1] == "Cooperate", sublist[0] == "Cooperate")]
+        else:
+            recent_actions = [item for sublist in recent_actions for item in (sublist[0] == "Cooperate", sublist[1] == "Cooperate")]
+        
+        prefix_list = [1/2] * self.traindata_given*2 - len(recent_actions)
+        recent_actions = prefix_list + recent_actions
+
+        self.train(self,recent_actions,other_player_num)
+
+        if other_player_num not in self.models:
+            self.models[other_player_num] = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
+        model = self.models[other_player_num]
+        action = model.predict(torch.tensor(recent_actions).to(self.device).float(), target_len=self.traindata_predicting)
         return action
 
 
-    def train(self):
-
-        train = np.random.choice([0, 1], size=800) # 모델 선택, 상대 선택이 번갈아나오는 np 배열이면 성립
+    def train(self, recent_actions, other_player_num):
+        
+        train = recent_actions
         train_dataset = windowDataset(train, input_window=self.traindata_given, output_window=self.traindata_predicting, stride=2)
         train_loader = DataLoader(train_dataset, batch_size=64)
 
-        self.model.train()
+        model = self.models[other_player_num]
+        model.train()
         for i in range(self.epoch):
             total_loss = 0.0
             for x,y in train_loader:
                 self.optimizer.zero_grad()
                 x = x.to(self.device).float()
                 y = y.to(self.device).float()
-                output = self.model(x, y, self.traindata_predicting, 0.6).to(self.device)
+                output = model(x, y, self.traindata_predicting, 0.6).to(self.device)
                 loss = self.criterion(output, y)
                 loss.backward()
                 self.optimizer.step()
                 total_loss += loss.cpu().item()
 
     def reset(self):
-        del self.model  # 모델 객체 삭제
+        for i in range(len(self.models)):
+            del self.models[i]  # 모델 객체 삭제
         gc.collect()  # 가비지 컬렉터 실행
         torch.cuda.empty_cache()  # CUDA 캐시 비우기 (GPU 사용 시)
         self.opponent_history = []
         self.last_action = None
-        self.model = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
+        
