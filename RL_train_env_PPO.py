@@ -1,7 +1,8 @@
 import random
 from Players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
-from RLagent import *
+from agents import *
 from tqdm import tqdm
+from agents.PPOagent import *
 # from math import cos, pi
 
 class Game:
@@ -11,7 +12,7 @@ class Game:
         self.mode = mode
 
         self.num_rounds = 10
-        self.num_replace = 2
+        self.num_replace = 0
         self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
         self.c_c = 2
         self.c_ch = -1
@@ -24,21 +25,36 @@ class Game:
         self.num_players_left = 0
         
         # player 종류별 숫자
-        self.num_copycat=0
-        self.num_selfish=0
-        self.num_generous=0
-        self.num_grudger=0
-        self.num_detective=0
-        self.num_simpleton=0
-        self.num_copykitten=0
-        self.num_random=0
+        self.num_copycat=1
+        self.num_selfish=1
+        self.num_generous=1
+        self.num_grudger=1
+        self.num_detective=1
+        self.num_simpleton=1
+        self.num_copykitten=1
+        self.num_random=1
         self.num_rlplayer = 0
         self.num_smarty = 0
         self.num_q_learning = 0
         self.num_DQN = 0
+        self.num_PPO = 1
 
-        self.original_player_num = [2,2,2,2,2,2,2,2,0,0,0,2]
-        self.num_players = 18
+        self.original_player_num = [self.num_copycat,
+                                    self.num_selfish,
+                                    self.num_generous,
+                                    self.num_grudger,
+                                    self.num_detective,
+                                    self.num_simpleton,
+                                    self.num_copykitten,
+                                    self.num_random,
+                                    self.num_rlplayer,
+                                    self.num_smarty ,
+                                    self.num_q_learning,
+                                    self.num_DQN,
+                                    self.num_PPO
+                                    ]
+        self.num_players = self.num_copycat+self.num_selfish +self.num_generous +self.num_grudger +self.num_detective+self.num_simpleton\
+                                    +self.num_copykitten+self.num_random +self.num_rlplayer +self.num_smarty  +self.num_q_learning +self.num_DQN + self.num_PPO
         self.epsilon = 0.9
 
         # Q learning business에서는 3으로 고정
@@ -52,9 +68,9 @@ class Game:
             try:
                 self.num_players = self.num_players
                 self.num_players_left = self.num_players
-                self.num_generous = self.original_player_num[0]
+                self.num_copycat = self.original_player_num[0]
                 self.num_selfish = self.original_player_num[1]
-                self.num_copycat = self.original_player_num[2]
+                self.num_generous = self.original_player_num[2]
                 self.num_grudger = self.original_player_num[3]
                 self.num_detective = self.original_player_num[4]
                 self.num_simpleton = self.original_player_num[5]
@@ -64,6 +80,7 @@ class Game:
                 self.num_smarty = self.original_player_num[9]
                 self.num_q_learning = self.original_player_num[10]
                 self.num_DQN = self.original_player_num[11]
+                self.num_PPO = self.original_player_num[12]
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -98,11 +115,14 @@ class Game:
         for i in range(self.num_smarty): # Add this
             self.players.append(Smarty(f"Smarty Player {i+1}", num, output_path=self.output_path))
             num += 1
-        # for i in range(self.num_q_learning): # Add this
-        #     self.players.append(Q_learning_business(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
-        #     num += 1
+        for i in range(self.num_q_learning): # Add this
+            self.players.append(Q_learning_business(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+            num += 1
         for i in range(self.num_DQN): # Add this
-            self.players.append(DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+            self.players.append(DQN(f"DQN {i+1}", num, output_path=self.output_path))
+            num += 1       
+        for i in range(self.num_PPO): # Add this
+            self.players.append(PPO(f"PPO {i+1}", num, output_path=self.output_path))
             num += 1       
         self.player_num = num
 
@@ -134,12 +154,12 @@ class Game:
 
                 for round_number in range(1, self.num_rounds + 1):
                     
-                    if isinstance(player1, Q_learning) or isinstance(player1, Q_learning_business) or isinstance(player1, DQN):
+                    if isinstance(player1, Q_learning) or isinstance(player1, Q_learning_business) or isinstance(player1, DQN) or isinstance(player1, PPO):
                         action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num, epsilon=self.epsilon)
                     else:
                         action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num)
                     
-                    if isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business) or isinstance(player1, DQN):
+                    if isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business) or isinstance(player2, DQN) or isinstance(player2, PPO):
                         action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num, epsilon=self.epsilon)
                     else:
                         action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num)
@@ -167,9 +187,9 @@ class Game:
                             player1.update_q_table(reward1, player2_num)
                         if isinstance(player2, RLPlayer) or isinstance(player2, Smarty) or isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business):
                             player2.update_q_table(reward2, player1_num)
-                        if isinstance(player1, DQN):
+                        if isinstance(player1, DQN) or isinstance(player1, PPO):
                             player1.update_q_table(action1, reward1, player2_num)
-                        if isinstance(player2, DQN):
+                        if isinstance(player2, DQN) or isinstance(player2, PPO):
                             player2.update_q_table(action2, reward2, player1_num)
                 
                 
@@ -302,6 +322,10 @@ class Game:
                     new_players.append(DQN(f"DQN Player {self.num_DQN + 1}", num, history_length=self.history_length, output_path=self.output_path))
                     num += 1
                     self.num_DQN += 1
+                elif isinstance(player, PPO):
+                    new_players.append(PPO(f"PPO Player {self.num_PPO + 1}", num, history_length=self.history_length, output_path=self.output_path))
+                    num += 1
+                    self.num_PPO += 1
             self.player_num = num
             self.players = [player for player in self.players if player not in very_poors]+new_players
             for deleted_player in very_poors:
@@ -350,7 +374,7 @@ def load_q_table(filename):
 def main():
     
     # output_path에 학습 결과 저장
-    output_path = '1000_epoch'
+    output_path = 'pratice'
 
     root_path = './results'
     output_path = os.path.join(root_path, output_path)
@@ -370,7 +394,7 @@ def main():
     max_episode_len = 10
 
     # init epsilon
-    epsilon = 0.9
+    epsilon = 0.1
 
     # warmup time
     warmup_t = 300
@@ -390,14 +414,14 @@ def main():
         for i in range(max_episode_len):
             if len(set(type(player) for player in game.players)) > 1:
                 
-                # print(f"round number {i+1} started")
-                # print(f"epsilon : {epsilon}")
+                print(f"round number {i+1} started")
+                print(f"epsilon : {epsilon}")
                 
                 game.epsilon = epsilon
                 game.start()
 
                 
-                # game.show_result()
+                game.show_result()
 
                 game.next_generation()
                 game.reset_player_money()

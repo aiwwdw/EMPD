@@ -1,6 +1,4 @@
 import numpy as np 
-import pandas as pd 
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 import random
 import torch
@@ -76,7 +74,6 @@ class lstm_encoder_decoder(nn.Module):
         return outputs
 
     def predict(self, inputs, target_len):
-        inputs = inputs.unsqueeze(0)
         self.eval()
         batch_size = inputs.shape[0]
         input_size = inputs.shape[2]
@@ -122,89 +119,115 @@ class windowDataset(Dataset):
         return self.len
 
 # 홀수 인자들이 학습할 수 있는 요소들, 이것들을 학습.
-def main():
+# def main():
     
-    # 데이터 정보
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    traindata_given = 10 # 짝수개에 stride 2인게 홀수 번째 예측을 유도
-    traindata_predicting = 1
+#     # 데이터 정보
+#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#     traindata_given = 10 # 짝수개에 stride 2인게 홀수 번째 예측을 유도
+#     traindata_predicting = 1
 
-    # data
-    train = np.random.choice([0, 1], size=800) # 모델 선택, 상대 선택이 번갈아나오는 np 배열이면 성립
-    test = np.random.choice([0, 1], size=traindata_given).reshape(-1, 1)
-    train_dataset = windowDataset(train, input_window=traindata_given, output_window=traindata_predicting, stride=2)
-    train_loader = DataLoader(train_dataset, batch_size=64)
+#     # data
+#     train = np.random.choice([0, 1], size=800) # 모델 선택, 상대 선택이 번갈아나오는 np 배열이면 성립
+#     test = np.random.choice([0, 1], size=traindata_given).reshape(-1, 1)
+#     train_dataset = windowDataset(train, input_window=traindata_given, output_window=traindata_predicting, stride=2)
+#     train_loader = DataLoader(train_dataset, batch_size=64)
 
-    # 모델 설정
-    model = lstm_encoder_decoder(input_size=1, hidden_size=16).to(device)
-    learning_rate=0.01
-    epoch = 3
-    optimizer = optim.Adam(model.parameters(), lr = learning_rate)
-    criterion = nn.MSELoss()
+#     # 모델 설정
+#     model = lstm_encoder_decoder(input_size=1, hidden_size=16).to(device)
+#     learning_rate=0.01
+#     epoch = 3
+#     optimizer = optim.Adam(model.parameters(), lr = learning_rate)
+#     criterion = nn.MSELoss()
     
-    # Train
-    model.train()
-    with tqdm(range(epoch)) as tr:
-        for i in tr:
-            total_loss = 0.0
-            for x,y in train_loader:
-                optimizer.zero_grad()
-                x = x.to(device).float()
-                y = y.to(device).float()
-                output = model(x, y, traindata_predicting, 0.6).to(device)
-                loss = criterion(output, y)
-                loss.backward()
-                optimizer.step()
-                total_loss += loss.cpu().item()
-            tr.set_postfix(loss="{0:.5f}".format(total_loss/len(train_loader)))
+#     # Train
+#     model.train()
+#     with tqdm(range(epoch)) as tr:
+#         for i in tr:
+#             total_loss = 0.0
+#             for x,y in train_loader:
+#                 optimizer.zero_grad()
+#                 x = x.to(device).float()
+#                 y = y.to(device).float()
+#                 output = model(x, y, traindata_predicting, 0.6).to(device)
+#                 loss = criterion(output, y)
+#                 loss.backward()
+#                 optimizer.step()
+#                 total_loss += loss.cpu().item()
+#             tr.set_postfix(loss="{0:.5f}".format(total_loss/len(train_loader)))
 
-    predict = model.predict(torch.tensor(test).to(device).float(), target_len=traindata_predicting)
-    print(predict)
+#     predict = model.predict(torch.tensor(test).to(device).float(), target_len=traindata_predicting)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 class LSTM(Player):
     def __init__(self, name, num, learning_rate=0.01, epoch = 3, traindata_given = 10, traindata_predicting = 1):
         super().__init__(name, num)
-        self.last_action = None
-
+        
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.traindata_given = traindata_given
         self.traindata_predicting = traindata_predicting
-        self.models = {}
+        # self.models = {}
+        self.model = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
         self.learning_rate=learning_rate
         self.epoch = epoch
         self.optimizer = optim.Adam(self.model.parameters(), lr = learning_rate)
         self.criterion = nn.MSELoss()
-        self.history = {}
+        self.history = [1/2] * self.traindata_given * 2
 
-
-    def perform_action(self, recent_actions, other_player_num):
-        if self.num > other_player_num:
-            recent_actions = [item for sublist in recent_actions for item in (sublist[1] == "Cooperate", sublist[0] == "Cooperate")]
-        else:
-            recent_actions = [item for sublist in recent_actions for item in (sublist[0] == "Cooperate", sublist[1] == "Cooperate")]
+    def perform_action(self,player1_last_action, player2_last_action, round_num, other_player_num):
+        player1_last_action = 1 if player1_last_action=="Cooperate" else 0
+        player2_last_action = 1 if player2_last_action=="Cooperate" else 0
         
-        prefix_list = [1/2] * self.traindata_given*2 - len(recent_actions)
-        recent_actions = prefix_list + recent_actions
+        player1_last_action = player1_last_action if self.num < other_player_num else player2_last_action
+        player2_last_action = player2_last_action if self.num < other_player_num else player1_last_action
+        
+        recent_actions = self.history[2:] + [player2_last_action,player1_last_action]
+        self.train(recent_actions, other_player_num)
 
-        self.train(self,recent_actions,other_player_num)
-
-        if other_player_num not in self.models:
-            self.models[other_player_num] = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
-        model = self.models[other_player_num]
-        action = model.predict(torch.tensor(recent_actions).to(self.device).float(), target_len=self.traindata_predicting)
+        # if other_player_num not in self.models:
+        #     self.models[other_player_num] = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
+        # model = self.models[other_player_num]
+        model = self.model
+        model.to(self.device)
+        recent_actions = torch.tensor(recent_actions)
+        recent_actions = recent_actions[10:].reshape(1, 10, 1)
+        recent_actions = recent_actions.to(self.device)
+        action = model.predict(recent_actions, target_len=self.traindata_predicting)
+        action = "Cooperate" if action>0.5 else "Betray"
         return action
+    
+
+    # def perform_action_list(self, recent_actions, other_player_num):
+    #     if self.num > other_player_num:
+    #         recent_actions = [item for sublist in recent_actions for item in (sublist[1] == "Cooperate", sublist[0] == "Cooperate")]
+    #     else:
+    #         recent_actions = [item for sublist in recent_actions for item in (sublist[0] == "Cooperate", sublist[1] == "Cooperate")]
+        
+    #     if self.traindata_given*2 - len(recent_actions) > 0:
+    #         prefix_list = [1/2] * self.traindata_given*2 - len(recent_actions)
+    #         recent_actions = prefix_list + recent_actions
+
+    #     self.train(self,recent_actions,other_player_num)
+
+    #     if other_player_num not in self.models:
+    #         self.models[other_player_num] = lstm_encoder_decoder(input_size=1, hidden_size=16).to(self.device)
+    #     model = self.models[other_player_num]
+    #     action = model.predict(torch.tensor(recent_actions).to(self.device).float(), target_len=self.traindata_predicting)
+    #     return action
 
 
     def train(self, recent_actions, other_player_num):
-        
-        train = recent_actions
-        train_dataset = windowDataset(train, input_window=self.traindata_given, output_window=self.traindata_predicting, stride=2)
-        train_loader = DataLoader(train_dataset, batch_size=64)
+        train = np.array(recent_actions)
+        # train = torch.tensor(train)
+        # train = train.to(self.device)
 
-        model = self.models[other_player_num]
+        train_dataset = windowDataset(train, input_window=self.traindata_given, output_window=self.traindata_predicting, stride=2)
+        train_loader = DataLoader(train_dataset, batch_size=1)
+
+        # model = self.models[other_player_num]
+        model = self.model
+        model.to(self.device)
         model.train()
         for i in range(self.epoch):
             total_loss = 0.0
@@ -216,13 +239,12 @@ class LSTM(Player):
                 loss = self.criterion(output, y)
                 loss.backward()
                 self.optimizer.step()
-                total_loss += loss.cpu().item()
+                total_loss += loss.item()
 
     def reset(self):
-        for i in range(len(self.models)):
-            del self.models[i]  # 모델 객체 삭제
+        # for i in range(len(self.models)):
+        #     del self.models[i]  # 모델 객체 삭제
+        del self.model
         gc.collect()  # 가비지 컬렉터 실행
         torch.cuda.empty_cache()  # CUDA 캐시 비우기 (GPU 사용 시)
-        self.opponent_history = []
-        self.last_action = None
         

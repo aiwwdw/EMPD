@@ -1,10 +1,17 @@
 import random
 from Players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
 from RLagent import *
-class Game:
-    def __init__(self):
+from tqdm import tqdm
+from RLagent_LSTM import *
+# from math import cos, pi
 
-        self.num_rounds = 100
+class Game:
+    def __init__(self, mode='train', output_path='./results'):
+
+        self.output_path=output_path
+        self.mode = mode
+
+        self.num_rounds = 10
         self.num_replace = 2
         self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
         self.c_c = 2
@@ -29,26 +36,37 @@ class Game:
         self.num_rlplayer = 0
         self.num_smarty = 0
         self.num_q_learning = 0
+        self.num_DQN = 0
+        self.num_lstm = 0
+
+        self.original_player_num = [2,2,2,2,2,2,2,2,0,0,0,0,2]
+        self.num_players = sum(self.original_player_num)
+        self.epsilon = 0.9
+
+        # Q learning business에서는 3으로 고정
+        self.history_length=3 # 5 -> 3
        
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
 
-    def create_players(self, num_players = 22, original_player_num = [2,2,2,2,2,2,2,2,2,2,2]):
+    def create_players(self):
         while True:
             try:
-                self.num_players = num_players
+                self.num_players = self.num_players
                 self.num_players_left = self.num_players
-                self.num_generous = original_player_num[0]
-                self.num_selfish = original_player_num[1]
-                self.num_copycat = original_player_num[2]
-                self.num_grudger = original_player_num[3]
-                self.num_detective = original_player_num[4]
-                self.num_simpleton = original_player_num[5]
-                self.num_copykitten = original_player_num[6]
-                self.num_random = original_player_num[7]
-                self.num_rlplayer = original_player_num[8]
-                self.num_smarty = original_player_num[9]
-                self.num_q_learning = original_player_num[10]
+                self.num_generous = self.original_player_num[0]
+                self.num_selfish = self.original_player_num[1]
+                self.num_copycat = self.original_player_num[2]
+                self.num_grudger = self.original_player_num[3]
+                self.num_detective = self.original_player_num[4]
+                self.num_simpleton = self.original_player_num[5]
+                self.num_copykitten = self.original_player_num[6]
+                self.num_random = self.original_player_num[7]
+                self.num_rlplayer = self.original_player_num[8]
+                self.num_smarty = self.original_player_num[9]
+                self.num_q_learning = self.original_player_num[10]
+                self.num_DQN = self.original_player_num[11]
+                self.num_lstm = self.original_player_num[12]
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -78,13 +96,19 @@ class Game:
             self.players.append(RandomPlayer(f"RandomPlayer Player {i+1}", num)) 
             num += 1   
         for i in range(self.num_rlplayer): # Add this
-            self.players.append(RLPlayer(f"RLPlayer Player {i+1}", num))
+            self.players.append(RLPlayer(f"RLPlayer Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_smarty): # Add this
-            self.players.append(Smarty(f"Smarty Player {i+1}", num))
+            self.players.append(Smarty(f"Smarty Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_q_learning): # Add this
-            self.players.append(Q_learning(f"Q_learning {i+1}", num))
+            self.players.append(Q_learning_business(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+            num += 1
+        for i in range(self.num_DQN): # Add this
+            self.players.append(DQN(f"DQN {i+1}", num, output_path=self.output_path))
+            num += 1  
+        for i in range(self.num_lstm): # Add this
+            self.players.append(LSTM(f"LSTM {i+1}", num))
             num += 1
         self.player_num = num
 
@@ -99,46 +123,63 @@ class Game:
                 
                 
                 # 가장 최근 action의 정의
+                
                 player1_last_action = "Cooperate"
                 player2_last_action = "Cooperate" 
                 # 이전 사이클 내에서 전적 있을시, 최근 action 수정 
-                if player_tuple in self.history_dic:
-                    if player_tuple[0] == player1.num:
-                        player1_last_action = self.history_dic[player_tuple][-1][0]
-                        player2_last_action = self.history_dic[player_tuple][-1][1]
-                    else:
-                        player1_last_action = self.history_dic[player_tuple][-1][1]
-                        player2_last_action = self.history_dic[player_tuple][-1][0]
-
-
+                # if player_tuple in self.history_dic:
+                #     if player_tuple[0] == player1.num:
+                #         player1_last_action = self.history_dic[player_tuple][-1][0]
+                #         player2_last_action = self.history_dic[player_tuple][-1][1]
+                #     else:
+                #         player1_last_action = self.history_dic[player_tuple][-1][1]
+                #         player2_last_action = self.history_dic[player_tuple][-1][0]
                 
+
+                    
+
                 for round_number in range(1, self.num_rounds + 1):
                     
-                    action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num)
-                    action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num)
-
+                    if isinstance(player1, Q_learning) or isinstance(player1, Q_learning_business) or isinstance(player1, DQN):
+                        action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num, epsilon=self.epsilon)
+                    else:
+                        action1 = player1.perform_action(player1_last_action, player2_last_action, round_number, player2_num)
+                    
+                    if isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business) or isinstance(player2, DQN):
+                        action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num, epsilon=self.epsilon)
+                    else:
+                        action2 = player2.perform_action(player2_last_action, player1_last_action, round_number, player1_num)
 
                     # History 저장
-                    a1 = 1 if action1 == "Cooperate" else 0
-                    a2 = 1 if action2 == "Cooperate" else 0
-                    if player_tuple in self.history_dic:
-                        self.history_dic[player_tuple].append((a1,a2))
-                    else:
-                        self.history_dic[player_tuple] = [(a1,a2)]
+                    # a1 = 1 if action1 == "Cooperate" else 0
+                    # a2 = 1 if action2 == "Cooperate" else 0
+                    # if player_tuple in self.history_dic:
+                    #     self.history_dic[player_tuple].append((a1,a2))
+                    # else:
+                    #     self.history_dic[player_tuple] = [(a1,a2)]
 
+                    if player_tuple in self.history_dic:
+                        self.history_dic[player_tuple].append((action1,action2))
+                    else:
+                        self.history_dic[player_tuple] = [(action1,action2)]
+
+                    if isinstance(player1, LSTM) or isinstance(player2, LSTM):
+                        print(player1.name, ": ", action1 , player2.name, ": ", action2)
 
                     reward1 = self.get_reward(action1, action2)
                     reward2 = self.get_reward(action2, action1)
 
                     # Train
-                    if isinstance(player1, RLPlayer) or isinstance(player1, Smarty) or isinstance(player1, Q_learning):
-                        player1.update_q_table(reward1, player2_num)
-                    if isinstance(player2, RLPlayer) or isinstance(player2, Smarty) or isinstance(player2, Q_learning):
-                        player2.update_q_table(reward2, player1_num)
-                    if isinstance(player1, DQN):
-                        player1.update_q_table(reward1, player2_num)
-                    if isinstance(player2, DQN):
-                        player2.update_q_table(reward2, player1_num)
+                    if self.mode == 'train':
+                        if isinstance(player1, RLPlayer) or isinstance(player1, Smarty) or isinstance(player1, Q_learning) or isinstance(player1, Q_learning_business):
+                            player1.update_q_table(reward1, player2_num)
+                        if isinstance(player2, RLPlayer) or isinstance(player2, Smarty) or isinstance(player2, Q_learning) or isinstance(player2, Q_learning_business):
+                            player2.update_q_table(reward2, player1_num)
+                        if isinstance(player1, DQN):
+                            player1.update_q_table(action1, reward1, player2_num)
+                        if isinstance(player2, DQN):
+                            player2.update_q_table(action2, reward2, player1_num)
+                
                 
                     # Update players' money based on actions and payoffs
                     player1.money += reward1
@@ -146,11 +187,18 @@ class Game:
 
                     player1_last_action = action1
                     player2_last_action = action2
+                
+                
+            player1 = self.players[i]
+            if isinstance(player1, Q_learning_business):
+                player1.past_history = player1.temp_history
+                player1.current_history = {}
 
                     # print(f"{player1.name} action: {action1}, {player2.name} action: {action2}")
                     # print(f"{player1.name} earn money: {self.get_reward(action1, action2)}, {player2.name} earn money: {self.get_reward(action2, action1)}")
                     # print(f"{player1.name} final money: {player1.money}, {player2.name} final money: {player2.money}")
-                    
+            
+                        
     def get_reward(self, action1, action2):
         if action1 == "Cooperate" and action2 == "Cooperate":
             return self.c_c
@@ -160,7 +208,7 @@ class Game:
             return self.ch_c
         elif action1 == "Betray" and action2 == "Betray":
             return self.ch_Ch 
-  
+        
     def show_result(self):
         print("Final Results:")
         for player in self.players:
@@ -247,17 +295,21 @@ class Game:
                     num += 1
                     self.num_random += 1    
                 elif isinstance(player, RLPlayer):
-                    new_players.append(RLPlayer(f"RLPlayer Player {self.num_rlplayer + 1}", num))
+                    new_players.append(RLPlayer(f"RLPlayer Player {self.num_rlplayer + 1}", num, output_path=self.output_path))
                     num += 1
                     self.num_rlplayer += 1    
                 elif isinstance(player, Smarty):
-                    new_players.append(Smarty(f"Smarty Player {self.num_smarty + 1}", num))
+                    new_players.append(Smarty(f"Smarty Player {self.num_smarty + 1}", num, output_path=self.output_path))
                     num += 1
                     self.num_smarty += 1
-                elif isinstance(player, Q_learning):
-                    new_players.append(Q_learning(f"Q_learning Player {self.num_q_learning + 1}", num))
+                elif isinstance(player, Q_learning_business):
+                    new_players.append(Q_learning_business(f"Q_learning Player {self.num_q_learning + 1}", num, history_length=self.history_length, output_path=self.output_path))
                     num += 1
                     self.num_q_learning += 1
+                elif isinstance(player, DQN):
+                    new_players.append(DQN(f"DQN Player {self.num_DQN + 1}", num, history_length=self.history_length, output_path=self.output_path))
+                    num += 1
+                    self.num_DQN += 1
             self.player_num = num
             self.players = [player for player in self.players if player not in very_poors]+new_players
             for deleted_player in very_poors:
@@ -294,27 +346,102 @@ class Game:
         elif isinstance(player, Smarty):
             print("Winners are 2nd Smarts")
 
-
+def save_q_table(filename):
+    with open(filename, 'wb') as f:
+        pickle.dump({}, f)
+def load_q_table(filename):
+        with open(filename, 'rb') as f:
+            return pickle.load(f)
+        
 # GUI는 return 하는 반면 여기는 다 print로 처리
 #
 def main():
-    game = Game()
-    game.create_players()
     
-    c=1
-    while len(set(type(player) for player in game.players)) > 1 and c<9:
-        
-        print(f"round number {c} started")
-        
-        game.start()
-        
-        game.show_result()
+    # output_path에 학습 결과 저장
+    output_path = 'pratice'
 
-        game.next_generation()
-        game.reset_player_money()
-        c+=1
+    root_path = './results'
+    output_path = os.path.join(root_path, output_path)
 
-    # game.announce_winner()
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+
+    # initialize q_tables
+    save_q_table(os.path.join(output_path, "simple_q_table.pkl"))
+    save_q_table(os.path.join(output_path, "q_table.pkl"))
+    save_q_table(os.path.join(output_path, "smarty_table.pkl"))
+    
+    # number of episodes
+    episode_num = 1000
+
+    # maximum length of episode
+    max_episode_len = 10
+
+    # init epsilon
+    epsilon = 0.9
+
+    # warmup time
+    warmup_t = 300
+
+    # epsilon decay rate
+    decay_rate = 0.997 # 100: 0.98, 1000: 0.997
+
+    # threshold
+    threshold = 0.1
+
+    for idx, _ in enumerate(tqdm(range(episode_num))):
+        # Reset the game
+        game = Game(output_path=output_path)
+        game.create_players()
+
+        # Rollout the episode until max_episode_len
+        for i in range(max_episode_len):
+            if len(set(type(player) for player in game.players)) > 1:
+                
+                print(f"round number {i+1} started")
+                print(f"epsilon : {epsilon}")
+                
+                game.epsilon = epsilon
+                game.start()
+
+                
+                game.show_result()
+
+                game.next_generation()
+                game.reset_player_money()
+
+        if idx >= warmup_t:
+            epsilon = max(threshold, epsilon * decay_rate)
+        
+        # visualize q_table
+        # if idx % 20 == 0:
+        #     print(f"Q_learning table: {load_q_table(os.path.join(output_path,'q_table.pkl'))}")
+        
+        # for player in game.players:
+        #     if isinstance(player, Q_learning):
+        #         print(f"Q_learning {player.num}: {player.q_table}")
+
+    # Validation
+    game = Game(mode='test', output_path=output_path)
+    game.create_players()
+
+    # Rollout the episode until max_episode_len
+    for i in range(max_episode_len):
+        if len(set(type(player) for player in game.players)) > 1:
+            
+            print(f"round number {i+1} started")
+            print(f"epsilon : {game.epsilon}")
+            
+            game.start()
+
+            game.epsilon = 0
+            
+            game.show_result()
+
+            game.next_generation()
+            game.reset_player_money()
+
+    game.announce_winner()
 
 
 if __name__ == "__main__":
