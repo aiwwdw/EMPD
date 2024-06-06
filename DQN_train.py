@@ -11,8 +11,8 @@ class Game:
         self.output_path=output_path
         self.mode = mode
 
-        self.num_rounds = 500
-        self.num_replace = 1
+        self.num_rounds = 20
+        self.num_replace = 0
         self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
         self.c_c = 2
         self.c_ch = -1
@@ -56,7 +56,7 @@ class Game:
         # self.num_players = self.num_copycat+self.num_selfish +self.num_generous +self.num_grudger +self.num_detective+self.num_simpleton\
         #                             +self.num_copykitten+self.num_random +self.num_rlplayer +self.num_smarty  +self.num_q_learning +self.num_DQN + self.num_PPO
         self.num_players = sum(self.original_player_num)
-        self.epsilon = 0.9
+        self.epsilon = 0.2
 
         # Q learning business에서는 3으로 고정
         self.history_length=3 # 5 -> 3
@@ -64,7 +64,7 @@ class Game:
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
 
-    def create_players(self):
+    def create_players(self,dqn):
         while True:
             try:
                 self.num_players = self.num_players
@@ -121,6 +121,8 @@ class Game:
             num += 1
         for i in range(self.num_DQN): # Add this
             self.players.append(DQN(f"DQN {i+1}", num, output_path=self.output_path))
+            # self.players.append(dqn)
+            self.players[-1].load_model(path = os.path.join(self.output_path, "checkpoints.pt"))
             num += 1       
         for i in range(self.num_PPO): # Add this
             self.players.append(PPO(f"PPO {i+1}", num, output_path=self.output_path))
@@ -201,7 +203,8 @@ class Game:
 
                     player1_last_action = action1
                     player2_last_action = action2
-                
+                    # if player2_num == 9:
+                    #     print(player1_num, action1, player2_num, action2)
                 
             player1 = self.players[i]
             if isinstance(player1, Q_learning_business):
@@ -228,7 +231,7 @@ class Game:
         for player in self.players:
             print(f"Player Num - {player.num}, {player.name}: {player.money}")
     
-    def next_generation(self):
+    def next_generation(self,dqn):
         very_poors=[]
         reaches = []
         poors = []
@@ -321,11 +324,13 @@ class Game:
                     num += 1
                     self.num_q_learning += 1
                 elif isinstance(player, DQN):
-                    new_players.append(DQN(f"DQN Player {self.num_DQN + 1}", num, history_length=self.history_length, output_path=self.output_path))
+                    new_players.append(DQN(f"DQN Player {self.num_DQN + 1}", num, output_path=self.output_path))
+                    # new_players.append(dqn)
+                    new_players[-1].load_model(path = os.path.join(self.output_path, "checkpoints.pt"))
                     num += 1
                     self.num_DQN += 1
                 elif isinstance(player, PPO):
-                    new_players.append(PPO(f"PPO Player {self.num_PPO + 1}", num, history_length=self.history_length, output_path=self.output_path))
+                    new_players.append(PPO(f"PPO Player {self.num_PPO + 1}", num, output_path=self.output_path))
                     num += 1
                     self.num_PPO += 1
 
@@ -382,8 +387,9 @@ def load_q_table(filename):
 #
 def main():
     
+    # mode = 'eval' # train at train
     # output_path에 학습 결과 저장
-    output_path = 'pratice'
+    output_path = 'dqn_debug'
 
     root_path = './results'
     output_path = os.path.join(root_path, output_path)
@@ -395,48 +401,77 @@ def main():
     save_q_table(os.path.join(output_path, "simple_q_table.pkl"))
     save_q_table(os.path.join(output_path, "q_table.pkl"))
     save_q_table(os.path.join(output_path, "smarty_table.pkl"))
+    # dqn= 0
+    dqn = DQN(f"DQN Player {0}", 0, output_path=output_path)
+    dqn.q_network._initialize_weights()
+    dqn.save_model(path=output_path)
+
+    # From pretrained
+    # pretrained = None
+    # if pretrained != None:
+    # dqn.load_model(path = os.path.join(output_path, "checkpoints.pt"))
+    
     
     # number of episodes
-    episode_num = 1000
+    episode_num = 30 # 600
 
     # maximum length of episode
     max_episode_len = 10
 
     # init epsilon
-    epsilon = 0.1
+    epsilon = 0
 
     # warmup time
-    warmup_t = 300
+    warmup_t = 5 #200
 
     # epsilon decay rate
-    decay_rate = 0.997 # 100: 0.98, 1000: 0.997
+    decay_rate = 0.94 # 100: 0.98, 1000: 0.997ßß
 
     # threshold
-    threshold = 0.1
+    threshold = 0 # 0.1
+
+    score_dict = {}
 
     for idx, _ in enumerate(tqdm(range(episode_num))):
         # Reset the game
         game = Game(output_path=output_path)
-        game.create_players()
-
+        game.create_players(dqn)
+        print(f"epsilon : {epsilon}")
         # Rollout the episode until max_episode_len
-        for i in range(max_episode_len):
+        for i in tqdm(range(max_episode_len)):
             if len(set(type(player) for player in game.players)) > 1:
                 
-                print(f"round number {i+1} started")
-                print(f"epsilon : {epsilon}")
+                # print()
+                # print(f"round number {i+1} started")
+                # print(f"epsilon : {epsilon}")
                 
                 game.epsilon = epsilon
                 game.start()
 
                 
-                game.show_result()
+                # game.show_result()
 
-                done = game.next_generation()
+                # TODO: mean reward 구하기, mean round도
+                for player in game.players:
+                    if player.name not in score_dict:
+                        score_dict[player.name] = []
+                    else:
+                        score_dict[player.name].append(player.money)
+
+                done = game.next_generation(dqn)
                 if done:
                     break
 
                 game.reset_player_money()
+
+        
+        print("Average score")
+        for player in score_dict.keys():
+            print(f"{player}: {sum(score_dict[player])/len(score_dict[player]):.2f}")
+        score_dict = {}
+        
+        if idx % 5 == 0:
+            dqn.save_model(path = output_path)
 
         if idx >= warmup_t:
             epsilon = max(threshold, epsilon * decay_rate)
@@ -450,26 +485,40 @@ def main():
         #         print(f"Q_learning {player.num}: {player.q_table}")
 
     # Validation
-    game = Game(mode='test', output_path=output_path)
-    game.create_players()
+    valid_epoch = 5
+    score_dict = {}
+    for idx, _ in enumerate(tqdm(range(valid_epoch))):
+        game = Game(mode='test', output_path=output_path)
+        game.create_players(dqn)
 
-    # Rollout the episode until max_episode_len
-    for i in range(max_episode_len):
-        if len(set(type(player) for player in game.players)) > 1:
-            
-            print(f"round number {i+1} started")
-            print(f"epsilon : {game.epsilon}")
-            
-            game.start()
+        # Rollout the episode until max_episode_len
+        for i in range(max_episode_len):
+            if len(set(type(player) for player in game.players)) > 1:
+                
+                print()
+                print(f"round number {i+1} started")
+                print(f"epsilon : {game.epsilon}")
+                
+                game.start()
 
-            game.epsilon = 0
-            
-            game.show_result()
+                game.epsilon = 0
+                
+                game.show_result()
+                # TODO: mean reward 구하기, mean round도
+                for player in game.players:
+                    if player.name not in score_dict:
+                        score_dict[player.name] = []
+                    else:
+                        score_dict[player.name].append(player.money)
+                    # print(f"Player Num - {player.num}, {player.name}: {player.money}")
 
-            game.next_generation()
-            game.reset_player_money()
-
-    game.announce_winner()
+                game.next_generation(dqn)
+                game.reset_player_money()
+    
+    print("Average score")
+    for player in score_dict.keys():
+        print(f"{player}: {sum(score_dict[player])/len(score_dict[player]):.2f}")
+    # game.announce_winner()
 
 
 if __name__ == "__main__":

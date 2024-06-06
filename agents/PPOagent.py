@@ -156,17 +156,15 @@ class PPO(Player):
         self.history[opponent_player].append(current_state)
         self.history[opponent_player].pop(0)
         
-
         state = torch.FloatTensor(self.history[opponent_player]).unsqueeze(0).to('cuda')
 
         with torch.no_grad():
             action, action_logprob, state_val = self.policy_old.act(state)
-            
             self.buffer.states.append(state)
             self.buffer.actions.append(action)
             self.buffer.logprobs.append(action_logprob)
             self.buffer.state_values.append(state_val)
-
+        
         action = "Cooperate" if action == 1 else "Betray"
         return action
 
@@ -196,6 +194,7 @@ class PPO(Player):
         # calculate advantages
         advantages = rewards.detach() - old_state_values.detach()
 
+        print(old_states.size())
         # Optimize policy for K epochs
         for _ in range(self.K_epochs):
 

@@ -1,0 +1,1395 @@
+nohup: ignoring input
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+  0%|          | 0/30 [00:00<?, ?it/s]Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:12,  1.38s/it][A
+ 20%|██        | 2/10 [00:06<00:26,  3.31s/it][A
+ 30%|███       | 3/10 [00:10<00:27,  3.93s/it][A
+ 40%|████      | 4/10 [00:15<00:25,  4.22s/it][A
+ 50%|█████     | 5/10 [00:20<00:21,  4.39s/it][A
+ 60%|██████    | 6/10 [00:24<00:17,  4.49s/it][A
+ 70%|███████   | 7/10 [00:29<00:13,  4.57s/it][A
+ 80%|████████  | 8/10 [00:34<00:09,  4.61s/it][A
+ 90%|█████████ | 9/10 [00:38<00:04,  4.65s/it][A
+100%|██████████| 10/10 [00:43<00:00,  4.68s/it][A100%|██████████| 10/10 [00:43<00:00,  4.36s/it]
+  3%|▎         | 1/30 [00:43<21:13, 43.90s/it]Average score
+CopyCat Player 1: 233.56
+Selfish Player 1: 167.00
+Generous Player 1: 119.33
+Grudger Player 1: 220.33
+Detective Player 1: 159.67
+Simpleton Player 1: 197.67
+Copykitten Player 1: 187.56
+RandomPlayer Player 1: 160.22
+DQN 1: 165.78
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.19s/it][A
+ 20%|██        | 2/10 [00:06<00:26,  3.35s/it][A
+ 30%|███       | 3/10 [00:11<00:28,  4.14s/it][A
+ 40%|████      | 4/10 [00:16<00:26,  4.48s/it][A
+ 50%|█████     | 5/10 [00:21<00:23,  4.71s/it][A
+ 60%|██████    | 6/10 [00:26<00:19,  4.87s/it][A
+ 70%|███████   | 7/10 [00:31<00:14,  4.97s/it][A
+ 80%|████████  | 8/10 [00:36<00:09,  5.00s/it][A
+ 90%|█████████ | 9/10 [00:41<00:05,  5.05s/it][A
+100%|██████████| 10/10 [00:46<00:00,  5.06s/it][A100%|██████████| 10/10 [00:46<00:00,  4.69s/it]
+  7%|▋         | 2/30 [01:30<21:20, 45.74s/it]Average score
+CopyCat Player 1: 243.78
+Selfish Player 1: 152.33
+Generous Player 1: 157.33
+Grudger Player 1: 199.44
+Detective Player 1: 156.00
+Simpleton Player 1: 194.67
+Copykitten Player 1: 203.44
+RandomPlayer Player 1: 147.89
+DQN 1: 168.22
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.15s/it][A
+ 20%|██        | 2/10 [00:06<00:26,  3.33s/it][A
+ 30%|███       | 3/10 [00:11<00:28,  4.11s/it][A
+ 40%|████      | 4/10 [00:16<00:27,  4.55s/it][A
+ 50%|█████     | 5/10 [00:21<00:23,  4.80s/it][A
+ 60%|██████    | 6/10 [00:26<00:19,  4.93s/it][A
+ 70%|███████   | 7/10 [00:31<00:15,  5.03s/it][A
+ 80%|████████  | 8/10 [00:37<00:10,  5.09s/it][A
+ 90%|█████████ | 9/10 [00:42<00:05,  5.11s/it][A
+100%|██████████| 10/10 [00:47<00:00,  5.11s/it][A100%|██████████| 10/10 [00:47<00:00,  4.74s/it]
+ 10%|█         | 3/30 [02:18<20:56, 46.55s/it]Average score
+CopyCat Player 1: 223.33
+Selfish Player 1: 149.33
+Generous Player 1: 124.33
+Grudger Player 1: 205.67
+Detective Player 1: 150.44
+Simpleton Player 1: 190.22
+Copykitten Player 1: 181.56
+RandomPlayer Player 1: 143.56
+DQN 1: 155.11
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.13s/it][A
+ 20%|██        | 2/10 [00:05<00:26,  3.30s/it][A
+ 30%|███       | 3/10 [00:11<00:28,  4.10s/it][A
+ 40%|████      | 4/10 [00:16<00:27,  4.54s/it][A
+ 50%|█████     | 5/10 [00:21<00:23,  4.79s/it][A
+ 60%|██████    | 6/10 [00:26<00:19,  4.88s/it][A
+ 70%|███████   | 7/10 [00:31<00:14,  4.99s/it][A
+ 80%|████████  | 8/10 [00:36<00:10,  5.07s/it][A
+ 90%|█████████ | 9/10 [00:42<00:05,  5.13s/it][A
+100%|██████████| 10/10 [00:49<00:00,  5.74s/it][A100%|██████████| 10/10 [00:49<00:00,  4.93s/it]
+ 13%|█▎        | 4/30 [03:07<20:39, 47.69s/it]Average score
+CopyCat Player 1: 225.33
+Selfish Player 1: 147.67
+Generous Player 1: 133.00
+Grudger Player 1: 199.78
+Detective Player 1: 147.89
+Simpleton Player 1: 201.00
+Copykitten Player 1: 183.56
+RandomPlayer Player 1: 141.00
+DQN 1: 153.22
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.71s/it][A
+ 20%|██        | 2/10 [00:13<00:59,  7.38s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.79s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.48s/it][A
+ 50%|█████     | 5/10 [00:44<00:49,  9.89s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.10s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.25s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.36s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.42s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.31s/it][A100%|██████████| 10/10 [01:37<00:00,  9.72s/it]
+ 17%|█▋        | 5/30 [04:45<27:20, 65.61s/it]Average score
+CopyCat Player 1: 229.67
+Selfish Player 1: 170.33
+Generous Player 1: 115.33
+Grudger Player 1: 214.44
+Detective Player 1: 155.67
+Simpleton Player 1: 194.00
+Copykitten Player 1: 181.11
+RandomPlayer Player 1: 139.22
+DQN 1: 159.33
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.64s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.37s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.86s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.56s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.96s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.18s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.33s/it][A
+ 80%|████████  | 8/10 [01:17<00:20, 10.41s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.39s/it][A
+100%|██████████| 10/10 [01:38<00:00, 10.46s/it][A100%|██████████| 10/10 [01:38<00:00,  9.81s/it]
+ 20%|██        | 6/30 [06:23<30:42, 76.75s/it]Average score
+CopyCat Player 1: 226.89
+Selfish Player 1: 158.00
+Generous Player 1: 129.67
+Grudger Player 1: 212.44
+Detective Player 1: 151.89
+Simpleton Player 1: 195.11
+Copykitten Player 1: 179.22
+RandomPlayer Player 1: 147.67
+DQN 1: 151.11
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.67s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.36s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.85s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.55s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.94s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.19s/it][A
+ 70%|███████   | 7/10 [01:06<00:31, 10.35s/it][A
+ 80%|████████  | 8/10 [01:17<00:20, 10.42s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.40s/it][A
+100%|██████████| 10/10 [01:38<00:00, 10.45s/it][A100%|██████████| 10/10 [01:38<00:00,  9.80s/it]
+ 23%|██▎       | 7/30 [08:01<32:06, 83.77s/it]Average score
+CopyCat Player 1: 230.22
+Selfish Player 1: 156.33
+Generous Player 1: 132.33
+Grudger Player 1: 210.00
+Detective Player 1: 158.33
+Simpleton Player 1: 192.78
+Copykitten Player 1: 187.56
+RandomPlayer Player 1: 148.11
+DQN 1: 166.33
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.70s/it][A
+ 20%|██        | 2/10 [00:13<00:59,  7.40s/it][A
+ 30%|███       | 3/10 [00:24<01:02,  8.94s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.57s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.95s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.18s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.32s/it][A
+ 80%|████████  | 8/10 [01:17<00:20, 10.43s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.43s/it][A
+100%|██████████| 10/10 [01:38<00:00, 10.49s/it][A100%|██████████| 10/10 [01:38<00:00,  9.83s/it]
+ 27%|██▋       | 8/30 [09:40<32:25, 88.44s/it]Average score
+CopyCat Player 1: 223.22
+Selfish Player 1: 159.33
+Generous Player 1: 135.00
+Grudger Player 1: 210.89
+Detective Player 1: 150.89
+Simpleton Player 1: 195.22
+Copykitten Player 1: 178.22
+RandomPlayer Player 1: 140.78
+DQN 1: 146.89
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.71s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.37s/it][A
+ 30%|███       | 3/10 [00:23<01:02,  8.86s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.57s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.98s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.20s/it][A
+ 70%|███████   | 7/10 [01:06<00:31, 10.37s/it][A
+ 80%|████████  | 8/10 [01:17<00:20, 10.38s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.44s/it][A
+100%|██████████| 10/10 [01:38<00:00, 10.50s/it][A100%|██████████| 10/10 [01:38<00:00,  9.83s/it]
+ 30%|███       | 9/30 [11:18<32:03, 91.58s/it]Average score
+CopyCat Player 1: 242.11
+Selfish Player 1: 156.00
+Generous Player 1: 168.33
+Grudger Player 1: 222.33
+Detective Player 1: 151.33
+Simpleton Player 1: 193.56
+Copykitten Player 1: 206.22
+RandomPlayer Player 1: 149.67
+DQN 1: 189.78
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.69s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.37s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.85s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.52s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.93s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.18s/it][A
+ 70%|███████   | 7/10 [01:06<00:31, 10.34s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.28s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.37s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.45s/it][A100%|██████████| 10/10 [01:37<00:00,  9.78s/it]
+ 33%|███▎      | 10/30 [12:56<31:11, 93.56s/it]Average score
+CopyCat Player 1: 229.78
+Selfish Player 1: 157.67
+Generous Player 1: 125.33
+Grudger Player 1: 210.22
+Detective Player 1: 157.89
+Simpleton Player 1: 201.22
+Copykitten Player 1: 181.56
+RandomPlayer Player 1: 143.56
+DQN 1: 156.56
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.66s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.29s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.80s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.51s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.91s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.16s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.30s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.30s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.42s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.48s/it][A100%|██████████| 10/10 [01:37<00:00,  9.78s/it]
+ 37%|███▋      | 11/30 [14:34<30:04, 94.97s/it]Average score
+CopyCat Player 1: 228.44
+Selfish Player 1: 152.00
+Generous Player 1: 133.67
+Grudger Player 1: 208.22
+Detective Player 1: 156.33
+Simpleton Player 1: 204.56
+Copykitten Player 1: 188.22
+RandomPlayer Player 1: 148.11
+DQN 1: 161.56
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.70s/it][A
+ 20%|██        | 2/10 [00:13<00:59,  7.40s/it][A
+ 30%|███       | 3/10 [00:24<01:02,  8.89s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.58s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.96s/it][A
+ 60%|██████    | 6/10 [00:56<00:40, 10.21s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.27s/it][A
+ 80%|████████  | 8/10 [01:17<00:20, 10.40s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.46s/it][A
+100%|██████████| 10/10 [01:38<00:00, 10.51s/it][A100%|██████████| 10/10 [01:38<00:00,  9.83s/it]
+ 40%|████      | 12/30 [16:13<28:48, 96.03s/it]Average score
+CopyCat Player 1: 225.78
+Selfish Player 1: 153.67
+Generous Player 1: 123.00
+Grudger Player 1: 199.78
+Detective Player 1: 153.33
+Simpleton Player 1: 191.78
+Copykitten Player 1: 182.89
+RandomPlayer Player 1: 140.78
+DQN 1: 165.00
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.64s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.34s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.85s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.53s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.93s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.18s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.22s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.35s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.43s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.48s/it][A100%|██████████| 10/10 [01:37<00:00,  9.79s/it]
+ 43%|████▎     | 13/30 [17:51<27:23, 96.66s/it]Average score
+CopyCat Player 1: 224.78
+Selfish Player 1: 157.67
+Generous Player 1: 141.00
+Grudger Player 1: 209.56
+Detective Player 1: 156.11
+Simpleton Player 1: 194.56
+Copykitten Player 1: 183.89
+RandomPlayer Player 1: 148.33
+DQN 1: 151.67
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.67s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.36s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.84s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.54s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.93s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.15s/it][A
+ 70%|███████   | 7/10 [01:06<00:30, 10.21s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.32s/it][A
+ 90%|█████████ | 9/10 [01:27<00:10, 10.40s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.47s/it][A100%|██████████| 10/10 [01:37<00:00,  9.78s/it]
+ 47%|████▋     | 14/30 [19:29<25:52, 97.06s/it]Average score
+CopyCat Player 1: 225.89
+Selfish Player 1: 150.00
+Generous Player 1: 140.00
+Grudger Player 1: 194.89
+Detective Player 1: 151.67
+Simpleton Player 1: 195.89
+Copykitten Player 1: 185.33
+RandomPlayer Player 1: 149.89
+DQN 1: 158.22
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.66s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.35s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.84s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.49s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.93s/it][A
+ 60%|██████    | 6/10 [00:55<00:39, 10.00s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.14s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.27s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.37s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.43s/it][A100%|██████████| 10/10 [01:37<00:00,  9.74s/it]
+ 50%|█████     | 15/30 [21:07<24:17, 97.20s/it]Average score
+CopyCat Player 1: 230.78
+Selfish Player 1: 152.00
+Generous Player 1: 175.00
+Grudger Player 1: 200.22
+Detective Player 1: 158.44
+Simpleton Player 1: 194.11
+Copykitten Player 1: 203.33
+RandomPlayer Player 1: 148.11
+DQN 1: 156.22
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.62s/it][A
+ 20%|██        | 2/10 [00:13<00:57,  7.24s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.79s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.51s/it][A
+ 50%|█████     | 5/10 [00:44<00:49,  9.90s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.00s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.18s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.29s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.38s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.44s/it][A100%|██████████| 10/10 [01:37<00:00,  9.74s/it]
+ 53%|█████▎    | 16/30 [22:44<22:42, 97.34s/it]Average score
+CopyCat Player 1: 232.44
+Selfish Player 1: 165.67
+Generous Player 1: 131.00
+Grudger Player 1: 213.56
+Detective Player 1: 158.67
+Simpleton Player 1: 199.56
+Copykitten Player 1: 185.67
+RandomPlayer Player 1: 153.67
+DQN 1: 162.22
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.59s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.30s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.78s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.49s/it][A
+ 50%|█████     | 5/10 [00:44<00:49,  9.89s/it][A
+ 60%|██████    | 6/10 [00:55<00:39,  9.98s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.19s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.29s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.37s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.41s/it][A100%|██████████| 10/10 [01:37<00:00,  9.72s/it]
+ 57%|█████▋    | 17/30 [24:22<21:05, 97.36s/it]Average score
+CopyCat Player 1: 227.89
+Selfish Player 1: 165.33
+Generous Player 1: 174.67
+Grudger Player 1: 210.44
+Detective Player 1: 156.11
+Simpleton Player 1: 201.44
+Copykitten Player 1: 193.00
+RandomPlayer Player 1: 151.67
+DQN 1: 138.33
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.66s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.29s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.79s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.48s/it][A
+ 50%|█████     | 5/10 [00:44<00:49,  9.88s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.01s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.18s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.33s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.37s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.43s/it][A100%|██████████| 10/10 [01:37<00:00,  9.73s/it]
+ 60%|██████    | 18/30 [25:59<19:28, 97.40s/it]Average score
+CopyCat Player 1: 229.44
+Selfish Player 1: 158.67
+Generous Player 1: 142.67
+Grudger Player 1: 210.67
+Detective Player 1: 155.44
+Simpleton Player 1: 197.00
+Copykitten Player 1: 187.33
+RandomPlayer Player 1: 144.56
+DQN 1: 152.89
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.60s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.29s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.80s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.52s/it][A
+ 50%|█████     | 5/10 [00:45<00:49,  9.91s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.03s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.20s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.33s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.41s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.43s/it][A100%|██████████| 10/10 [01:37<00:00,  9.75s/it]
+ 63%|██████▎   | 19/30 [27:37<17:52, 97.48s/it]Average score
+CopyCat Player 1: 227.33
+Selfish Player 1: 149.00
+Generous Player 1: 169.67
+Grudger Player 1: 205.11
+Detective Player 1: 150.22
+Simpleton Player 1: 195.67
+Copykitten Player 1: 189.11
+RandomPlayer Player 1: 153.56
+DQN 1: 136.11
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.62s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.27s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.78s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.49s/it][A
+ 50%|█████     | 5/10 [00:44<00:49,  9.86s/it][A
+ 60%|██████    | 6/10 [00:54<00:39,  9.92s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.13s/it][A
+ 80%|████████  | 8/10 [01:15<00:20, 10.24s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.36s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.41s/it][A100%|██████████| 10/10 [01:37<00:00,  9.71s/it]
+ 67%|██████▋   | 20/30 [29:14<16:13, 97.39s/it]Average score
+CopyCat Player 1: 233.56
+Selfish Player 1: 159.33
+Generous Player 1: 148.67
+Grudger Player 1: 213.00
+Detective Player 1: 162.33
+Simpleton Player 1: 204.22
+Copykitten Player 1: 183.00
+RandomPlayer Player 1: 163.22
+DQN 1: 155.78
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.62s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.32s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.81s/it][A
+ 40%|████      | 4/10 [00:34<00:57,  9.51s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.77s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.04s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.20s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.31s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.37s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.44s/it][A100%|██████████| 10/10 [01:37<00:00,  9.74s/it]
+ 70%|███████   | 21/30 [30:52<14:37, 97.49s/it]Average score
+CopyCat Player 1: 235.33
+Selfish Player 1: 150.33
+Generous Player 1: 151.33
+Grudger Player 1: 211.78
+Detective Player 1: 156.33
+Simpleton Player 1: 215.89
+Copykitten Player 1: 207.56
+RandomPlayer Player 1: 143.56
+DQN 1: 179.44
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:22,  2.53s/it][A
+ 20%|██        | 2/10 [00:13<00:57,  7.24s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.77s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.48s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.75s/it][A
+ 60%|██████    | 6/10 [00:54<00:40, 10.01s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.21s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.29s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.35s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.41s/it][A100%|██████████| 10/10 [01:37<00:00,  9.71s/it]
+ 73%|███████▎  | 22/30 [32:29<12:59, 97.42s/it]Average score
+CopyCat Player 1: 232.89
+Selfish Player 1: 163.00
+Generous Player 1: 122.00
+Grudger Player 1: 220.44
+Detective Player 1: 159.44
+Simpleton Player 1: 194.67
+Copykitten Player 1: 181.22
+RandomPlayer Player 1: 144.00
+DQN 1: 161.89
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.68s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.32s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.81s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.50s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.76s/it][A
+ 60%|██████    | 6/10 [00:55<00:40, 10.02s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.18s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.28s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.34s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.41s/it][A100%|██████████| 10/10 [01:37<00:00,  9.72s/it]
+ 77%|███████▋  | 23/30 [34:06<11:21, 97.39s/it]Average score
+CopyCat Player 1: 240.33
+Selfish Player 1: 162.67
+Generous Player 1: 176.00
+Grudger Player 1: 229.67
+Detective Player 1: 157.78
+Simpleton Player 1: 215.22
+Copykitten Player 1: 211.22
+RandomPlayer Player 1: 160.44
+DQN 1: 209.33
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.65s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.25s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.75s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.44s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.71s/it][A
+ 60%|██████    | 6/10 [00:54<00:39,  9.98s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.16s/it][A
+ 80%|████████  | 8/10 [01:15<00:20, 10.28s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.36s/it][A
+100%|██████████| 10/10 [01:36<00:00, 10.40s/it][A100%|██████████| 10/10 [01:36<00:00,  9.69s/it]
+ 80%|████████  | 24/30 [35:43<09:43, 97.30s/it]Average score
+CopyCat Player 1: 228.56
+Selfish Player 1: 156.33
+Generous Player 1: 120.67
+Grudger Player 1: 205.44
+Detective Player 1: 156.11
+Simpleton Player 1: 194.89
+Copykitten Player 1: 186.44
+RandomPlayer Player 1: 150.44
+DQN 1: 166.67
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.64s/it][A
+ 20%|██        | 2/10 [00:13<00:57,  7.25s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.76s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.44s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.65s/it][A
+ 60%|██████    | 6/10 [00:54<00:39,  9.97s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.12s/it][A
+ 80%|████████  | 8/10 [01:15<00:20, 10.25s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.33s/it][A
+100%|██████████| 10/10 [01:36<00:00, 10.38s/it][A100%|██████████| 10/10 [01:36<00:00,  9.67s/it]
+ 83%|████████▎ | 25/30 [37:20<08:05, 97.17s/it]Average score
+CopyCat Player 1: 231.00
+Selfish Player 1: 158.00
+Generous Player 1: 148.67
+Grudger Player 1: 220.67
+Detective Player 1: 152.33
+Simpleton Player 1: 198.33
+Copykitten Player 1: 186.22
+RandomPlayer Player 1: 153.33
+DQN 1: 153.67
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.66s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.31s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.76s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.44s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.70s/it][A
+ 60%|██████    | 6/10 [00:54<00:39,  9.99s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.17s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.30s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.35s/it][A
+100%|██████████| 10/10 [01:36<00:00, 10.40s/it][A100%|██████████| 10/10 [01:36<00:00,  9.70s/it]
+ 87%|████████▋ | 26/30 [38:57<06:28, 97.21s/it]Average score
+CopyCat Player 1: 223.44
+Selfish Player 1: 149.33
+Generous Player 1: 133.33
+Grudger Player 1: 200.89
+Detective Player 1: 154.44
+Simpleton Player 1: 188.22
+Copykitten Player 1: 183.89
+RandomPlayer Player 1: 150.00
+DQN 1: 151.56
+Model saved to ./results/dqn_num_round_20_epsilon_0_num_replace_0.pt
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.66s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.27s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.77s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.47s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.67s/it][A
+ 60%|██████    | 6/10 [00:54<00:39,  9.96s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.14s/it][A
+ 80%|████████  | 8/10 [01:15<00:20, 10.29s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.36s/it][A
+100%|██████████| 10/10 [01:36<00:00, 10.40s/it][A100%|██████████| 10/10 [01:36<00:00,  9.69s/it]
+ 90%|█████████ | 27/30 [40:35<04:51, 97.18s/it]Average score
+CopyCat Player 1: 224.78
+Selfish Player 1: 138.00
+Generous Player 1: 117.67
+Grudger Player 1: 200.89
+Detective Player 1: 147.44
+Simpleton Player 1: 194.33
+Copykitten Player 1: 179.78
+RandomPlayer Player 1: 139.56
+DQN 1: 164.00
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:23,  2.65s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.28s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.80s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.48s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.75s/it][A
+ 60%|██████    | 6/10 [00:55<00:39, 10.00s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.20s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.30s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.38s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.43s/it][A100%|██████████| 10/10 [01:37<00:00,  9.72s/it]
+ 93%|█████████▎| 28/30 [42:12<03:14, 97.24s/it]Average score
+CopyCat Player 1: 225.89
+Selfish Player 1: 164.00
+Generous Player 1: 134.00
+Grudger Player 1: 216.44
+Detective Player 1: 157.67
+Simpleton Player 1: 199.44
+Copykitten Player 1: 183.67
+RandomPlayer Player 1: 142.89
+DQN 1: 153.56
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.68s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.30s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.80s/it][A
+ 40%|████      | 4/10 [00:34<00:56,  9.43s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.73s/it][A
+ 60%|██████    | 6/10 [00:54<00:40, 10.00s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.18s/it][A
+ 80%|████████  | 8/10 [01:16<00:20, 10.29s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.36s/it][A
+100%|██████████| 10/10 [01:37<00:00, 10.39s/it][A100%|██████████| 10/10 [01:37<00:00,  9.70s/it]
+ 97%|█████████▋| 29/30 [43:49<01:37, 97.22s/it]Average score
+CopyCat Player 1: 242.33
+Selfish Player 1: 157.33
+Generous Player 1: 159.67
+Grudger Player 1: 219.00
+Detective Player 1: 156.22
+Simpleton Player 1: 195.78
+Copykitten Player 1: 189.67
+RandomPlayer Player 1: 150.22
+DQN 1: 182.00
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+epsilon : 0
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:02<00:24,  2.67s/it][A
+ 20%|██        | 2/10 [00:13<00:58,  7.35s/it][A
+ 30%|███       | 3/10 [00:23<01:01,  8.80s/it][A
+ 40%|████      | 4/10 [00:33<00:55,  9.29s/it][A
+ 50%|█████     | 5/10 [00:44<00:48,  9.73s/it][A
+ 60%|██████    | 6/10 [00:54<00:40, 10.02s/it][A
+ 70%|███████   | 7/10 [01:05<00:30, 10.19s/it][A
+ 80%|████████  | 8/10 [01:15<00:20, 10.27s/it][A
+ 90%|█████████ | 9/10 [01:26<00:10, 10.34s/it][A
+100%|██████████| 10/10 [01:36<00:00, 10.40s/it][A100%|██████████| 10/10 [01:36<00:00,  9.70s/it]
+100%|██████████| 30/30 [45:26<00:00, 97.19s/it]100%|██████████| 30/30 [45:26<00:00, 90.89s/it]
+Average score
+CopyCat Player 1: 234.22
+Selfish Player 1: 165.67
+Generous Player 1: 131.33
+Grudger Player 1: 213.67
+Detective Player 1: 157.67
+Simpleton Player 1: 199.89
+Copykitten Player 1: 183.11
+RandomPlayer Player 1: 145.78
+DQN 1: 164.67
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:26,  6.73s/it] 40%|████      | 2/5 [00:13<00:19,  6.61s/it]Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+
+round number 1 started
+epsilon : 0.2
+Final Results:
+Player Num - 1, CopyCat Player 1: 233
+Player Num - 2, Selfish Player 1: 159
+Player Num - 3, Generous Player 1: 113
+Player Num - 4, Grudger Player 1: 214
+Player Num - 5, Detective Player 1: 158
+Player Num - 6, Simpleton Player 1: 186
+Player Num - 7, Copykitten Player 1: 185
+Player Num - 8, RandomPlayer Player 1: 153
+Player Num - 9, DQN 1: 161
+
+round number 2 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 236
+Player Num - 2, Selfish Player 1: 183
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 232
+Player Num - 5, Detective Player 1: 160
+Player Num - 6, Simpleton Player 1: 183
+Player Num - 7, Copykitten Player 1: 182
+Player Num - 8, RandomPlayer Player 1: 130
+Player Num - 9, DQN 1: 159
+
+round number 3 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 233
+Player Num - 2, Selfish Player 1: 189
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 235
+Player Num - 5, Detective Player 1: 156
+Player Num - 6, Simpleton Player 1: 192
+Player Num - 7, Copykitten Player 1: 179
+Player Num - 8, RandomPlayer Player 1: 168
+Player Num - 9, DQN 1: 130
+
+round number 4 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 225
+Player Num - 2, Selfish Player 1: 186
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 207
+Player Num - 5, Detective Player 1: 156
+Player Num - 6, Simpleton Player 1: 184
+Player Num - 7, Copykitten Player 1: 177
+Player Num - 8, RandomPlayer Player 1: 129
+Player Num - 9, DQN 1: 139
+
+round number 5 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 227
+Player Num - 2, Selfish Player 1: 201
+Player Num - 3, Generous Player 1: 119
+Player Num - 4, Grudger Player 1: 214
+Player Num - 5, Detective Player 1: 150
+Player Num - 6, Simpleton Player 1: 181
+Player Num - 7, Copykitten Player 1: 164
+Player Num - 8, RandomPlayer Player 1: 134
+Player Num - 9, DQN 1: 152
+
+round number 6 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 228
+Player Num - 2, Selfish Player 1: 174
+Player Num - 3, Generous Player 1: 137
+Player Num - 4, Grudger Player 1: 234
+Player Num - 5, Detective Player 1: 152
+Player Num - 6, Simpleton Player 1: 194
+Player Num - 7, Copykitten Player 1: 181
+Player Num - 8, RandomPlayer Player 1: 119
+Player Num - 9, DQN 1: 153
+
+round number 7 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 232
+Player Num - 2, Selfish Player 1: 189
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 216
+Player Num - 5, Detective Player 1: 152
+Player Num - 6, Simpleton Player 1: 184
+Player Num - 7, Copykitten Player 1: 180
+Player Num - 8, RandomPlayer Player 1: 172
+Player Num - 9, DQN 1: 144
+
+round number 8 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 231
+Player Num - 2, Selfish Player 1: 183
+Player Num - 3, Generous Player 1: 122
+Player Num - 4, Grudger Player 1: 207
+Player Num - 5, Detective Player 1: 153
+Player Num - 6, Simpleton Player 1: 185
+Player Num - 7, Copykitten Player 1: 170
+Player Num - 8, RandomPlayer Player 1: 140
+Player Num - 9, DQN 1: 155
+
+round number 9 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 240
+Player Num - 2, Selfish Player 1: 186
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 213
+Player Num - 5, Detective Player 1: 150
+Player Num - 6, Simpleton Player 1: 189
+Player Num - 7, Copykitten Player 1: 170
+Player Num - 8, RandomPlayer Player 1: 148
+Player Num - 9, DQN 1: 149
+
+round number 10 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 238
+Player Num - 2, Selfish Player 1: 183
+Player Num - 3, Generous Player 1: 113
+Player Num - 4, Grudger Player 1: 221
+Player Num - 5, Detective Player 1: 149
+Player Num - 6, Simpleton Player 1: 188
+Player Num - 7, Copykitten Player 1: 173
+Player Num - 8, RandomPlayer Player 1: 142
+Player Num - 9, DQN 1: 143
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+
+round number 1 started
+epsilon : 0.2
+Final Results:
+Player Num - 1, CopyCat Player 1: 221
+Player Num - 2, Selfish Player 1: 144
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 227
+Player Num - 5, Detective Player 1: 142
+Player Num - 6, Simpleton Player 1: 181
+Player Num - 7, Copykitten Player 1: 186
+Player Num - 8, RandomPlayer Player 1: 141
+Player Num - 9, DQN 1: 154
+
+round number 2 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 226
+Player Num - 2, Selfish Player 1: 159
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 223
+Player Num - 5, Detective Player 1: 151
+Player Num - 6, Simpleton Player 1: 190
+Player Num - 7, Copykitten Player 1: 185
+Player Num - 8, RandomPlayer Player 1: 135
+Player Num - 9, DQN 1: 165
+
+round number 3 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 238
+Player Num - 2, Selfish Player 1: 153
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 219
+Player Num - 5, Detective Player 1: 151
+Player Num - 6, Simpleton Player 1: 167
+Player Num - 7, Copykitten Player 1: 179
+Player Num - 8, RandomPlayer Player 1: 158
+Player Num - 9, DQN 1: 141
+
+round number 4 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 227
+Player Num - 2, Selfish Player 1: 156
+Player Num - 3, Generous Player 1: 116
+Player Num - 4, Grudger Player 1: 214
+Player Num - 5, Detective Player 1: 159
+Player Num - 6, Simpleton Player 1: 176
+Player Num - 7, Copykitten Player 1: 168
+Player Num - 8, RandomPlayer Player 1: 138
+Player Num - 9, DQN 1: 152
+
+round number 5 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 225
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 134
+Player Num - 4, Grudger Player 1: 217
+Player Num - 5, Detective Player 1: 149
+Player Num - 6, Simpleton Player 1: 178
+Player Num - 7, Copykitten Player 1: 177
+Player Num - 8, RandomPlayer Player 1: 142
+Player Num - 9, DQN 1: 158
+
+round number 6 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 226
+Player Num - 2, Selfish Player 1: 162
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 223
+Player Num - 5, Detective Player 1: 157
+Player Num - 6, Simpleton Player 1: 177
+Player Num - 7, Copykitten Player 1: 173
+Player Num - 8, RandomPlayer Player 1: 120
+Player Num - 9, DQN 1: 146
+
+round number 7 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 238
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 113
+Player Num - 4, Grudger Player 1: 208
+Player Num - 5, Detective Player 1: 158
+Player Num - 6, Simpleton Player 1: 181
+Player Num - 7, Copykitten Player 1: 173
+Player Num - 8, RandomPlayer Player 1: 144
+Player Num - 9, DQN 1: 151
+
+round number 8 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 224
+Player Num - 2, Selfish Player 1: 156
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 220
+Player Num - 5, Detective Player 1: 156
+Player Num - 6, Simpleton Player 1: 176
+Player Num - 7, Copykitten Player 1: 170
+Player Num - 8, RandomPlayer Player 1: 135
+Player Num - 9, DQN 1: 153
+
+round number 9 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 229
+Player Num - 2, Selfish Player 1: 174
+Player Num - 3, Generous Player 1: 122
+Player Num - 4, Grudger Player 1: 210
+Player Num - 5, Detective Player 1: 150
+Player Num - 6, Simpleton Player 1: 184
+Player Num - 7, Copykitten Player 1: 176
+Player Num - 8, RandomPlayer Player 1: 135
+Player Num - 9, DQN 1: 142
+
+round number 10 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 236
+Player Num - 2, Selfish Player 1: 186
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 214
+Player Num - 5, Detective Player 1: 163
+Player Num - 6, Simpleton Player 1: 176
+Player Num - 7, Copykitten Player 1: 173
+Player Num - 8, RandomPlayer Player 1: 157
+Player Num - 9, DQN 1: 144
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+
+round number 1 started
+ 60%|██████    | 3/5 [00:19<00:13,  6.62s/it] 80%|████████  | 4/5 [00:26<00:06,  6.51s/it]epsilon : 0.2
+Final Results:
+Player Num - 1, CopyCat Player 1: 217
+Player Num - 2, Selfish Player 1: 159
+Player Num - 3, Generous Player 1: 143
+Player Num - 4, Grudger Player 1: 212
+Player Num - 5, Detective Player 1: 141
+Player Num - 6, Simpleton Player 1: 180
+Player Num - 7, Copykitten Player 1: 183
+Player Num - 8, RandomPlayer Player 1: 124
+Player Num - 9, DQN 1: 161
+
+round number 2 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 225
+Player Num - 2, Selfish Player 1: 162
+Player Num - 3, Generous Player 1: 122
+Player Num - 4, Grudger Player 1: 225
+Player Num - 5, Detective Player 1: 140
+Player Num - 6, Simpleton Player 1: 189
+Player Num - 7, Copykitten Player 1: 176
+Player Num - 8, RandomPlayer Player 1: 116
+Player Num - 9, DQN 1: 149
+
+round number 3 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 239
+Player Num - 2, Selfish Player 1: 165
+Player Num - 3, Generous Player 1: 119
+Player Num - 4, Grudger Player 1: 222
+Player Num - 5, Detective Player 1: 148
+Player Num - 6, Simpleton Player 1: 180
+Player Num - 7, Copykitten Player 1: 180
+Player Num - 8, RandomPlayer Player 1: 174
+Player Num - 9, DQN 1: 145
+
+round number 4 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 225
+Player Num - 2, Selfish Player 1: 156
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 213
+Player Num - 5, Detective Player 1: 155
+Player Num - 6, Simpleton Player 1: 184
+Player Num - 7, Copykitten Player 1: 174
+Player Num - 8, RandomPlayer Player 1: 174
+Player Num - 9, DQN 1: 152
+
+round number 5 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 229
+Player Num - 2, Selfish Player 1: 171
+Player Num - 3, Generous Player 1: 137
+Player Num - 4, Grudger Player 1: 223
+Player Num - 5, Detective Player 1: 148
+Player Num - 6, Simpleton Player 1: 192
+Player Num - 7, Copykitten Player 1: 175
+Player Num - 8, RandomPlayer Player 1: 114
+Player Num - 9, DQN 1: 157
+
+round number 6 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 231
+Player Num - 2, Selfish Player 1: 162
+Player Num - 3, Generous Player 1: 116
+Player Num - 4, Grudger Player 1: 232
+Player Num - 5, Detective Player 1: 160
+Player Num - 6, Simpleton Player 1: 183
+Player Num - 7, Copykitten Player 1: 179
+Player Num - 8, RandomPlayer Player 1: 138
+Player Num - 9, DQN 1: 157
+
+round number 7 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 231
+Player Num - 2, Selfish Player 1: 162
+Player Num - 3, Generous Player 1: 116
+Player Num - 4, Grudger Player 1: 225
+Player Num - 5, Detective Player 1: 164
+Player Num - 6, Simpleton Player 1: 188
+Player Num - 7, Copykitten Player 1: 173
+Player Num - 8, RandomPlayer Player 1: 136
+Player Num - 9, DQN 1: 151
+
+round number 8 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 225
+Player Num - 2, Selfish Player 1: 171
+Player Num - 3, Generous Player 1: 119
+Player Num - 4, Grudger Player 1: 216
+Player Num - 5, Detective Player 1: 153
+Player Num - 6, Simpleton Player 1: 183
+Player Num - 7, Copykitten Player 1: 179
+Player Num - 8, RandomPlayer Player 1: 167
+Player Num - 9, DQN 1: 143
+
+round number 9 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 221
+Player Num - 2, Selfish Player 1: 165
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 225
+Player Num - 5, Detective Player 1: 155
+Player Num - 6, Simpleton Player 1: 198
+Player Num - 7, Copykitten Player 1: 170
+Player Num - 8, RandomPlayer Player 1: 134
+Player Num - 9, DQN 1: 151
+
+round number 10 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 228
+Player Num - 2, Selfish Player 1: 162
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 210
+Player Num - 5, Detective Player 1: 155
+Player Num - 6, Simpleton Player 1: 178
+Player Num - 7, Copykitten Player 1: 180
+Player Num - 8, RandomPlayer Player 1: 145
+Player Num - 9, DQN 1: 145
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+
+round number 1 started
+epsilon : 0.2
+Final Results:
+Player Num - 1, CopyCat Player 1: 224
+Player Num - 2, Selfish Player 1: 147
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 202
+Player Num - 5, Detective Player 1: 148
+Player Num - 6, Simpleton Player 1: 188
+Player Num - 7, Copykitten Player 1: 180
+Player Num - 8, RandomPlayer Player 1: 132
+Player Num - 9, DQN 1: 169
+
+round number 2 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 219
+Player Num - 2, Selfish Player 1: 153
+Player Num - 3, Generous Player 1: 119
+Player Num - 4, Grudger Player 1: 216
+Player Num - 5, Detective Player 1: 147
+Player Num - 6, Simpleton Player 1: 182
+Player Num - 7, Copykitten Player 1: 183
+Player Num - 8, RandomPlayer Player 1: 137
+Player Num - 9, DQN 1: 146
+
+round number 3 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 221
+Player Num - 2, Selfish Player 1: 165
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 210
+Player Num - 5, Detective Player 1: 162
+Player Num - 6, Simpleton Player 1: 179
+Player Num - 7, Copykitten Player 1: 171
+Player Num - 8, RandomPlayer Player 1: 139
+Player Num - 9, DQN 1: 156
+
+round number 4 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 239
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 119
+Player Num - 4, Grudger Player 1: 221
+Player Num - 5, Detective Player 1: 157
+Player Num - 6, Simpleton Player 1: 171
+Player Num - 7, Copykitten Player 1: 179
+Player Num - 8, RandomPlayer Player 1: 154
+Player Num - 9, DQN 1: 144
+
+round number 5 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 231
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 215
+Player Num - 5, Detective Player 1: 144
+Player Num - 6, Simpleton Player 1: 181
+Player Num - 7, Copykitten Player 1: 176
+Player Num - 8, RandomPlayer Player 1: 154
+Player Num - 9, DQN 1: 146
+
+round number 6 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 218
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 122
+Player Num - 4, Grudger Player 1: 224
+Player Num - 5, Detective Player 1: 152
+Player Num - 6, Simpleton Player 1: 172
+Player Num - 7, Copykitten Player 1: 177
+Player Num - 8, RandomPlayer Player 1: 132
+Player Num - 9, DQN 1: 149
+
+round number 7 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 230
+Player Num - 2, Selfish Player 1: 180
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 211
+Player Num - 5, Detective Player 1: 146
+Player Num - 6, Simpleton Player 1: 184
+Player Num - 7, Copykitten Player 1: 177
+Player Num - 8, RandomPlayer Player 1: 132
+Player Num - 9, DQN 1: 154
+
+round number 8 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 227
+Player Num - 2, Selfish Player 1: 165
+Player Num - 3, Generous Player 1: 122
+Player Num - 4, Grudger Player 1: 213
+Player Num - 5, Detective Player 1: 145
+Player Num - 6, Simpleton Player 1: 182
+Player Num - 7, Copykitten Player 1: 177
+Player Num - 8, RandomPlayer Player 1: 133
+Player Num - 9, DQN 1: 160
+
+round number 9 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 226
+Player Num - 2, Selfish Player 1: 165
+Player Num - 3, Generous Player 1: 122
+Player Num - 4, Grudger Player 1: 213
+Player Num - 5, Detective Player 1: 148
+Player Num - 6, Simpleton Player 1: 193
+Player Num - 7, Copykitten Player 1: 178
+Player Num - 8, RandomPlayer Player 1: 106
+Player Num - 9, DQN 1: 163
+
+round number 10 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 232
+Player Num - 2, Selfish Player 1: 171
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 219
+Player Num - 5, Detective Player 1: 148
+Player Num - 6, Simpleton Player 1: 167
+Player Num - 7, Copykitten Player 1: 180
+Player Num - 8, RandomPlayer Player 1: 139
+Player Num - 9, DQN 1: 152
+Model loaded from ./results/dqn_num_round_20_epsilon_0_num_replace_0/checkpoints.pt
+
+round number 1 started
+epsilon : 0.2
+Final Results:
+Player Num - 1, CopyCat Player 1: 215
+Player Num - 2, Selfish Player 1: 162
+100%|██████████| 5/5 [00:32<00:00,  6.57s/it]100%|██████████| 5/5 [00:32<00:00,  6.58s/it]
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 222
+Player Num - 5, Detective Player 1: 147
+Player Num - 6, Simpleton Player 1: 189
+Player Num - 7, Copykitten Player 1: 184
+Player Num - 8, RandomPlayer Player 1: 129
+Player Num - 9, DQN 1: 154
+
+round number 2 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 219
+Player Num - 2, Selfish Player 1: 174
+Player Num - 3, Generous Player 1: 116
+Player Num - 4, Grudger Player 1: 222
+Player Num - 5, Detective Player 1: 158
+Player Num - 6, Simpleton Player 1: 186
+Player Num - 7, Copykitten Player 1: 176
+Player Num - 8, RandomPlayer Player 1: 150
+Player Num - 9, DQN 1: 139
+
+round number 3 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 228
+Player Num - 2, Selfish Player 1: 171
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 217
+Player Num - 5, Detective Player 1: 164
+Player Num - 6, Simpleton Player 1: 176
+Player Num - 7, Copykitten Player 1: 171
+Player Num - 8, RandomPlayer Player 1: 141
+Player Num - 9, DQN 1: 141
+
+round number 4 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 227
+Player Num - 2, Selfish Player 1: 174
+Player Num - 3, Generous Player 1: 140
+Player Num - 4, Grudger Player 1: 211
+Player Num - 5, Detective Player 1: 148
+Player Num - 6, Simpleton Player 1: 181
+Player Num - 7, Copykitten Player 1: 187
+Player Num - 8, RandomPlayer Player 1: 140
+Player Num - 9, DQN 1: 148
+
+round number 5 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 230
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 222
+Player Num - 5, Detective Player 1: 157
+Player Num - 6, Simpleton Player 1: 198
+Player Num - 7, Copykitten Player 1: 172
+Player Num - 8, RandomPlayer Player 1: 145
+Player Num - 9, DQN 1: 125
+
+round number 6 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 227
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 228
+Player Num - 5, Detective Player 1: 151
+Player Num - 6, Simpleton Player 1: 190
+Player Num - 7, Copykitten Player 1: 174
+Player Num - 8, RandomPlayer Player 1: 136
+Player Num - 9, DQN 1: 137
+
+round number 7 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 227
+Player Num - 2, Selfish Player 1: 183
+Player Num - 3, Generous Player 1: 131
+Player Num - 4, Grudger Player 1: 225
+Player Num - 5, Detective Player 1: 146
+Player Num - 6, Simpleton Player 1: 191
+Player Num - 7, Copykitten Player 1: 180
+Player Num - 8, RandomPlayer Player 1: 129
+Player Num - 9, DQN 1: 142
+
+round number 8 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 226
+Player Num - 2, Selfish Player 1: 168
+Player Num - 3, Generous Player 1: 125
+Player Num - 4, Grudger Player 1: 225
+Player Num - 5, Detective Player 1: 160
+Player Num - 6, Simpleton Player 1: 178
+Player Num - 7, Copykitten Player 1: 173
+Player Num - 8, RandomPlayer Player 1: 130
+Player Num - 9, DQN 1: 155
+
+round number 9 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 220
+Player Num - 2, Selfish Player 1: 183
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 214
+Player Num - 5, Detective Player 1: 159
+Player Num - 6, Simpleton Player 1: 187
+Player Num - 7, Copykitten Player 1: 176
+Player Num - 8, RandomPlayer Player 1: 140
+Player Num - 9, DQN 1: 143
+
+round number 10 started
+epsilon : 0
+Final Results:
+Player Num - 1, CopyCat Player 1: 225
+Player Num - 2, Selfish Player 1: 183
+Player Num - 3, Generous Player 1: 128
+Player Num - 4, Grudger Player 1: 222
+Player Num - 5, Detective Player 1: 151
+Player Num - 6, Simpleton Player 1: 202
+Player Num - 7, Copykitten Player 1: 171
+Player Num - 8, RandomPlayer Player 1: 128
+Player Num - 9, DQN 1: 130
+Average score
+CopyCat Player 1: 227.80
+Selfish Player 1: 169.78
+Generous Player 1: 125.73
+Grudger Player 1: 218.55
+Detective Player 1: 152.47
+Simpleton Player 1: 183.63
+Copykitten Player 1: 176.47
+RandomPlayer Player 1: 139.49
+DQN 1: 148.86

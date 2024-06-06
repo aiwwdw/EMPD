@@ -1,0 +1,468 @@
+nohup: ignoring input
+Model saved to ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1.pt
+  0%|          | 0/100 [00:00<?, ?it/s]Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:11,  1.30s/it][A
+ 20%|██        | 2/10 [00:05<00:25,  3.22s/it][A 20%|██        | 2/10 [00:10<00:41,  5.23s/it]
+  1%|          | 1/100 [00:10<17:38, 10.70s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 244.33
+Selfish Player 1: 133.50
+Generous Player 1: 140.00
+Grudger Player 1: 234.00
+Detective Player 1: 161.00
+Simpleton Player 1: 214.00
+Copykitten Player 1: 194.67
+RandomPlayer Player 1: 147.67
+DQN 1: 125.67
+CopyCat Player 2: 251.50
+CopyCat Player 3: 278.00
+Model saved to ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1.pt
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.04s/it][A
+ 20%|██        | 2/10 [00:05<00:25,  3.15s/it][A 20%|██        | 2/10 [00:10<00:41,  5.15s/it]
+  2%|▏         | 2/100 [00:21<17:12, 10.54s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 260.67
+Selfish Player 1: 139.50
+Generous Player 1: 182.00
+Grudger Player 1: 243.00
+Detective Player 1: 185.00
+Simpleton Player 1: 235.33
+Copykitten Player 1: 213.33
+RandomPlayer Player 1: 138.00
+DQN 1: 158.33
+CopyCat Player 2: 266.50
+CopyCat Player 3: 287.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.05s/it][A
+ 20%|██        | 2/10 [00:05<00:25,  3.23s/it][A 20%|██        | 2/10 [00:10<00:43,  5.39s/it]
+  3%|▎         | 3/100 [00:31<17:16, 10.69s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 262.33
+Selfish Player 1: 147.00
+Generous Player 1: 194.00
+Grudger Player 1: 241.00
+Detective Player 1: 182.33
+Simpleton Player 1: 226.33
+Copykitten Player 1: 221.33
+RandomPlayer Player 1: 150.00
+DQN 1: 163.67
+CopyCat Player 2: 274.50
+CopyCat Player 3: 298.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.11s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.45s/it][A
+ 30%|███       | 3/10 [00:11<00:29,  4.20s/it][A 30%|███       | 3/10 [00:16<00:38,  5.48s/it]
+  4%|▍         | 4/100 [00:48<20:47, 12.99s/it]
+Average score
+Survived round : 4
+CopyCat Player 1: 251.75
+Selfish Player 1: 121.50
+Generous Player 1: 131.00
+Grudger Player 1: 237.00
+Detective Player 1: 168.00
+Simpleton Player 1: 230.00
+Copykitten Player 1: 211.75
+RandomPlayer Player 1: 135.00
+DQN 1: 147.25
+CopyCat Player 2: 262.67
+CopyCat Player 3: 291.00
+CopyCat Player 4: 304.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A  0%|          | 0/10 [00:01<?, ?it/s]
+  5%|▌         | 5/100 [00:49<13:50,  8.75s/it]
+Average score
+Survived round : 1
+CopyCat Player 1: 234.00
+Selfish Player 1: 174.00
+Generous Player 1: 149.00
+Grudger Player 1: 223.00
+Detective Player 1: 170.00
+Simpleton Player 1: 226.00
+Copykitten Player 1: 183.00
+RandomPlayer Player 1: 149.00
+DQN 1: 148.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.12s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.46s/it][A 20%|██        | 2/10 [00:11<00:45,  5.67s/it]
+  6%|▌         | 6/100 [01:01<15:12,  9.71s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 257.00
+Selfish Player 1: 147.00
+Generous Player 1: 185.00
+Grudger Player 1: 233.33
+Detective Player 1: 187.67
+Simpleton Player 1: 222.33
+Copykitten Player 1: 223.00
+RandomPlayer Player 1: 127.00
+DQN 1: 170.33
+CopyCat Player 2: 282.00
+CopyCat Player 3: 287.00
+Model saved to ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1.pt
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A  0%|          | 0/10 [00:01<?, ?it/s]
+  7%|▋         | 7/100 [01:02<10:47,  6.96s/it]
+Average score
+Survived round : 1
+CopyCat Player 1: 243.00
+Selfish Player 1: 168.00
+Generous Player 1: 152.00
+Grudger Player 1: 228.00
+Detective Player 1: 158.00
+Simpleton Player 1: 203.00
+Copykitten Player 1: 187.00
+RandomPlayer Player 1: 162.00
+DQN 1: 149.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.15s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.48s/it][A 20%|██        | 2/10 [00:11<00:45,  5.63s/it]
+  8%|▊         | 8/100 [01:13<12:49,  8.37s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 246.00
+Selfish Player 1: 135.00
+Generous Player 1: 146.00
+Grudger Player 1: 234.67
+Detective Player 1: 153.00
+Simpleton Player 1: 218.67
+Copykitten Player 1: 191.67
+RandomPlayer Player 1: 152.33
+DQN 1: 119.00
+CopyCat Player 2: 249.50
+CopyCat Player 3: 263.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.09s/it][A 10%|█         | 1/10 [00:06<00:55,  6.14s/it]
+  9%|▉         | 9/100 [01:20<11:40,  7.70s/it]
+Average score
+Survived round : 2
+CopyCat Player 1: 238.00
+Selfish Player 1: 150.00
+Generous Player 1: 158.00
+Grudger Player 1: 211.50
+Detective Player 1: 151.50
+Simpleton Player 1: 207.00
+Copykitten Player 1: 190.00
+RandomPlayer Player 1: 143.00
+DQN 1: 136.00
+CopyCat Player 2: 234.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.11s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.46s/it][A 20%|██        | 2/10 [00:11<00:45,  5.65s/it]
+ 10%|█         | 10/100 [01:31<13:15,  8.84s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 261.33
+Selfish Player 1: 156.00
+Generous Player 1: 184.00
+Grudger Player 1: 240.33
+Detective Player 1: 160.67
+Simpleton Player 1: 237.33
+Copykitten Player 1: 218.33
+RandomPlayer Player 1: 134.00
+DQN 1: 149.00
+Grudger Player 2: 245.50
+CopyCat Player 2: 298.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.04s/it][A
+ 20%|██        | 2/10 [00:05<00:25,  3.20s/it][A 20%|██        | 2/10 [00:10<00:43,  5.40s/it]
+ 11%|█         | 11/100 [01:42<14:06,  9.51s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 260.33
+Selfish Player 1: 159.00
+Generous Player 1: 187.00
+Grudger Player 1: 235.00
+Detective Player 1: 186.67
+Simpleton Player 1: 234.00
+Copykitten Player 1: 213.33
+RandomPlayer Player 1: 146.00
+DQN 1: 152.00
+CopyCat Player 2: 275.50
+CopyCat Player 3: 296.00
+Model saved to ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1.pt
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.13s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.47s/it][A 20%|██        | 2/10 [00:11<00:45,  5.65s/it]
+ 12%|█▏        | 12/100 [01:54<14:48, 10.09s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 267.33
+Selfish Player 1: 163.50
+Generous Player 1: 182.00
+Grudger Player 1: 241.00
+Detective Player 1: 188.67
+Simpleton Player 1: 227.67
+Copykitten Player 1: 216.33
+RandomPlayer Player 1: 140.00
+DQN 1: 174.67
+CopyCat Player 2: 275.00
+CopyCat Player 3: 302.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A  0%|          | 0/10 [00:01<?, ?it/s]
+ 13%|█▎        | 13/100 [01:55<10:44,  7.41s/it]
+Average score
+Survived round : 1
+CopyCat Player 1: 246.00
+Selfish Player 1: 174.00
+Generous Player 1: 155.00
+Grudger Player 1: 229.00
+Detective Player 1: 169.00
+Simpleton Player 1: 202.00
+Copykitten Player 1: 182.00
+RandomPlayer Player 1: 150.00
+DQN 1: 135.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.13s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.46s/it][A 20%|██        | 2/10 [00:11<00:45,  5.63s/it]
+ 14%|█▍        | 14/100 [02:06<12:19,  8.60s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 260.00
+Selfish Player 1: 154.50
+Generous Player 1: 183.00
+Grudger Player 1: 236.67
+Detective Player 1: 191.33
+Simpleton Player 1: 236.33
+Copykitten Player 1: 217.00
+RandomPlayer Player 1: 142.00
+DQN 1: 177.00
+CopyCat Player 2: 269.00
+CopyCat Player 3: 293.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.05s/it][A
+ 20%|██        | 2/10 [00:05<00:26,  3.26s/it][A 20%|██        | 2/10 [00:10<00:43,  5.45s/it]
+ 15%|█▌        | 15/100 [02:17<13:11,  9.32s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 263.00
+Selfish Player 1: 154.50
+Generous Player 1: 188.00
+Grudger Player 1: 238.33
+Detective Player 1: 184.33
+Simpleton Player 1: 235.33
+Copykitten Player 1: 217.00
+RandomPlayer Player 1: 137.00
+DQN 1: 174.67
+CopyCat Player 2: 280.50
+CopyCat Player 3: 299.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.13s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.47s/it][A 20%|██        | 2/10 [00:11<00:45,  5.65s/it]
+ 16%|█▌        | 16/100 [02:29<13:58,  9.98s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 252.67
+Selfish Player 1: 132.00
+Generous Player 1: 155.00
+Grudger Player 1: 228.00
+Detective Player 1: 158.33
+Simpleton Player 1: 228.33
+Copykitten Player 1: 203.00
+RandomPlayer Player 1: 156.00
+DQN 1: 137.00
+CopyCat Player 2: 250.50
+CopyCat Player 3: 270.00
+Model saved to ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1.pt
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A  0%|          | 0/10 [00:01<?, ?it/s]
+ 17%|█▋        | 17/100 [02:30<10:08,  7.34s/it]
+Average score
+Survived round : 1
+CopyCat Player 1: 245.00
+Selfish Player 1: 180.00
+Generous Player 1: 152.00
+Grudger Player 1: 234.00
+Detective Player 1: 157.00
+Simpleton Player 1: 208.00
+Copykitten Player 1: 183.00
+RandomPlayer Player 1: 153.00
+DQN 1: 144.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.14s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.44s/it][A 20%|██        | 2/10 [00:11<00:44,  5.61s/it]
+ 18%|█▊        | 18/100 [02:41<11:39,  8.53s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 261.67
+Selfish Player 1: 154.50
+Generous Player 1: 183.00
+Grudger Player 1: 234.33
+Detective Player 1: 179.67
+Simpleton Player 1: 238.67
+Copykitten Player 1: 215.00
+RandomPlayer Player 1: 126.00
+DQN 1: 161.33
+CopyCat Player 2: 266.50
+CopyCat Player 3: 297.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.06s/it][A
+ 20%|██        | 2/10 [00:05<00:26,  3.27s/it][A 20%|██        | 2/10 [00:10<00:43,  5.48s/it]
+ 19%|█▉        | 19/100 [02:52<12:32,  9.29s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 265.67
+Selfish Player 1: 156.00
+Generous Player 1: 183.00
+Grudger Player 1: 235.67
+Detective Player 1: 186.33
+Simpleton Player 1: 242.00
+Copykitten Player 1: 216.00
+RandomPlayer Player 1: 140.00
+DQN 1: 162.00
+CopyCat Player 2: 278.50
+CopyCat Player 3: 291.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.05s/it][A
+ 20%|██        | 2/10 [00:05<00:25,  3.21s/it][A 20%|██        | 2/10 [00:10<00:42,  5.37s/it]
+ 20%|██        | 20/100 [03:03<13:00,  9.75s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 259.67
+Selfish Player 1: 156.00
+Generous Player 1: 189.00
+Grudger Player 1: 241.67
+Detective Player 1: 188.00
+Simpleton Player 1: 233.33
+Copykitten Player 1: 216.00
+RandomPlayer Player 1: 131.00
+DQN 1: 174.00
+CopyCat Player 2: 276.50
+CopyCat Player 3: 293.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.4
+
+  0%|          | 0/10 [00:00<?, ?it/s][A  0%|          | 0/10 [00:01<?, ?it/s]
+ 21%|██        | 21/100 [03:04<09:31,  7.23s/it]
+Average score
+Survived round : 1
+CopyCat Player 1: 248.00
+Selfish Player 1: 153.00
+Generous Player 1: 152.00
+Grudger Player 1: 234.00
+Detective Player 1: 172.00
+Simpleton Player 1: 211.00
+Copykitten Player 1: 174.00
+RandomPlayer Player 1: 153.00
+DQN 1: 151.00
+Model saved to ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1.pt
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.392
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.13s/it][A
+ 20%|██        | 2/10 [00:06<00:27,  3.45s/it][A 20%|██        | 2/10 [00:11<00:45,  5.65s/it]
+ 22%|██▏       | 22/100 [03:16<11:01,  8.49s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 264.67
+Selfish Player 1: 154.50
+Generous Player 1: 180.00
+Grudger Player 1: 252.67
+Detective Player 1: 189.67
+Simpleton Player 1: 233.00
+Copykitten Player 1: 219.67
+RandomPlayer Player 1: 130.00
+DQN 1: 177.67
+CopyCat Player 2: 281.00
+CopyCat Player 3: 293.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.38416
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:09,  1.06s/it][A
+ 20%|██        | 2/10 [00:06<00:26,  3.35s/it][A 20%|██        | 2/10 [00:11<00:44,  5.56s/it]
+ 23%|██▎       | 23/100 [03:27<11:56,  9.30s/it]
+Average score
+Survived round : 3
+CopyCat Player 1: 243.00
+Selfish Player 1: 130.50
+Generous Player 1: 140.00
+Grudger Player 1: 238.33
+Detective Player 1: 151.00
+Simpleton Player 1: 220.33
+Copykitten Player 1: 204.33
+RandomPlayer Player 1: 147.33
+DQN 1: 137.00
+CopyCat Player 2: 246.00
+CopyCat Player 3: 287.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.3764768
+
+  0%|          | 0/10 [00:00<?, ?it/s][A  0%|          | 0/10 [00:01<?, ?it/s]
+ 24%|██▍       | 24/100 [03:28<08:43,  6.89s/it]
+Average score
+Survived round : 1
+CopyCat Player 1: 236.00
+Selfish Player 1: 180.00
+Generous Player 1: 161.00
+Grudger Player 1: 232.00
+Detective Player 1: 159.00
+Simpleton Player 1: 202.00
+Copykitten Player 1: 188.00
+RandomPlayer Player 1: 147.00
+DQN 1: 139.00
+Model loaded from ./results/dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1/checkpoints.pt
+epsilon : 0.368947264
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 10%|█         | 1/10 [00:01<00:10,  1.15s/it][A
