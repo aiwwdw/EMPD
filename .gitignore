@@ -1,6 +1,7 @@
 __pycache__
 
 /developement
+/results
 
 *.pkl
 *.pyc
