@@ -48,11 +48,10 @@ class QNetwork(nn.Module):
         batch_size = x.size(0)
         # Apply linear layer to each input in the history
         x = self.fc1(x)
+        # x = F.relu(x)
         
         # Reshape to (batch_size, 1, history_num, 256)
         x = x.unsqueeze(1)
-
-        # Apply Convolutional layers
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = F.relu(self.conv3(x))
@@ -65,8 +64,6 @@ class QNetwork(nn.Module):
         x = self.fc2(x)
         
         return x
-
-    
 
 class DQN(Player):
     def __init__(self, name, num, alpha=0.001, gamma=0.99, epsilon=0.1, history_length=10, input_dim=5, history_dim=10, output_path='./results'):

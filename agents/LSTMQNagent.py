@@ -19,17 +19,17 @@ import sys
 class LSTMQNetwork(nn.Module):
     def __init__(self, input_dim, history_num):
         super(LSTMQNetwork, self).__init__()
-        self.hidden_space = 256
+        self.hidden_input_space = 64
+        self.hidden_output_space = 1024
         self.history_num = history_num
         
-        # Linear layer to expand input_dim to 64
-        
-        self.Linear1 = nn.Linear(input_dim, self.hidden_space)
-        self.lstm    = nn.LSTM(self.hidden_space,self.hidden_space, batch_first=True)
-        self.Linear2 = nn.Linear(self.hidden_space, 512)
+        # Linear layer to expand input_dim to 64 
+        self.Linear1 = nn.Linear(input_dim, self.hidden_input_space)
+        self.lstm    = nn.LSTM(self.hidden_input_space,self.hidden_output_space, batch_first=True)
+        self.Linear2 = nn.Linear(self.hidden_output_space, self.hidden_input_space)
         
         # Fully Connected layer to convert 512 to 2
-        self.fc2 = nn.Linear(512, 2)
+        self.fc2 = nn.Linear(self.hidden_input_space, 2)
 
     def _initialize_weights(self):
         for m in self.modules():
@@ -51,24 +51,64 @@ class LSTMQNetwork(nn.Module):
                         nn.init.zeros_(param.data)
         
     def forward(self, x):
-        # x shape: (batch_size, history_num, input_dim)
+        batch_size = x.size(0)
+        
+        x = F.relu(self.Linear1(x))
+        x,_ = self.lstm(x)
+        x = F.relu(x)
+        x = x[:, -1, :].unsqueeze(1)
+        x = F.relu(self.Linear2(x))
+        x = x.view(batch_size, -1)
+        x = self.fc2(x)
+        return x
+    
+    
+class ConvLstmQNetwork(nn.Module):
+    def __init__(self, input_dim, history_num):
+        super(ConvLstmQNetwork, self).__init__()
+        self.history_num = history_num
+        
+        # self.fc1 = nn.Linear(input_dim, 64)
+        self.lstm = nn.LSTM(input_dim, 64, batch_first=True)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=128, kernel_size=(3, 10), stride=2, padding=1)
+        self.conv2 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 10), stride=2, padding=1)
+        self.conv3 = nn.Conv2d(in_channels=256, out_channels=512, kernel_size=(3, 10), stride=2, padding=1)
+        
+        # Fully Connected layer to convert 512 to 2
+        self.fc2 = nn.Linear(512, 2)
+    
+    def _initialize_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, nn.Conv2d):
+                nn.init.xavier_uniform_(m.weight)
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, nn.LSTM):
+                for name, param in m.named_parameters():
+                    if 'weight_ih' in name:
+                        nn.init.xavier_uniform_(param.data)
+                    elif 'weight_hh' in name:
+                        nn.init.orthogonal_(param.data)
+                    elif 'bias' in name:
+                        nn.init.zeros_(param.data)
+        
+    def forward(self, x):
         batch_size = x.size(0)
         # Apply linear layer to each input in the history
-        # x = self.fc1(x)
-
-        h = torch.zeros(1, batch_size, self.hidden_space, requires_grad=True)
-        c = torch.zeros(1, batch_size, self.hidden_space, requires_grad=True)
         
-        x = self.Linear1(x)
-        x, (new_h, new_c) = self.lstm(x,(h,c))
-        print("~~~~~~~~~~~~")
-        print(x)
-        print(x.shape)
-        
-        x = x[-1]
+        x,_ = self.lstm(x)
+        x = F.relu(x)
         # Reshape to (batch_size, 1, history_num, 256)
         x = x.unsqueeze(1)
 
+        # Apply Convolutional layers
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = F.relu(self.conv3(x))
         
         # Apply global average pooling to reduce (batch_size, 512, history_num, 256) to (batch_size, 512, 1, 1)
         x = F.adaptive_avg_pool2d(x, (1, 1))
@@ -78,7 +118,7 @@ class LSTMQNetwork(nn.Module):
         x = self.fc2(x)
         
         return x
-    
+
     
 
 class LSTMQN(Player):
@@ -96,13 +136,13 @@ class LSTMQN(Player):
         self.prev_history={}
         self.output_path = output_path
 
-        self.q_network = LSTMQNetwork(input_dim, history_dim).to('cuda')
-        self.target_network = LSTMQNetwork(input_dim, history_dim).to('cuda')
+        self.q_network = ConvLstmQNetwork(input_dim, history_dim).to('cuda')
+        self.target_network = ConvLstmQNetwork(input_dim, history_dim).to('cuda')
         self.optimizer = optim.Adam(self.q_network.parameters(), lr=self.alpha)
         self.loss_fn = nn.MSELoss()
 
         self.target_network.load_state_dict(self.q_network.state_dict())
-        self.target_network.eval()
+        self.target_network.train() # eval()
         
     def perform_action(self, agent_last_action ,opponent_last_action, round_number, opponent_player, epsilon):
         self.epsilon = epsilon
@@ -137,6 +177,7 @@ class LSTMQN(Player):
         #     print("Exploitation")
 
         state = torch.FloatTensor(self.history[opponent_player]).unsqueeze(0).to('cuda')
+        self.q_network.train()
         with torch.no_grad():
             q_values = self.q_network(state,)
         action =  "Cooperate" if q_values[0][0] < q_values[0][1] else "Betray"

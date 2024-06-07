@@ -3,8 +3,9 @@ from Players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simp
 from agents import *
 from tqdm import tqdm
 from agents.PPOagent import *
-
 # from math import cos, pi
+# from conf import config
+
 
 class Game:
     def __init__(self, mode='train', output_path='./results'):
@@ -65,7 +66,7 @@ class Game:
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
 
-    def create_players(self,LSTMQN):
+    def create_players(self,lstmqn):
         while True:
             try:
                 self.num_players = self.num_players
@@ -232,7 +233,7 @@ class Game:
         for player in self.players:
             print(f"Player Num - {player.num}, {player.name}: {player.money}")
     
-    def next_generation(self,LSTMQN):
+    def next_generation(self,lstmqn):
         very_poors=[]
         reaches = []
         poors = []
@@ -435,7 +436,7 @@ def main():
     for idx, _ in enumerate(tqdm(range(episode_num))):
         # Reset the game
         game = Game(output_path=output_path)
-        game.create_players(LSTMQN)
+        game.create_players(lstmqn)
         print(f"epsilon : {epsilon}")
         # Rollout the episode until max_episode_len
         for i in tqdm(range(max_episode_len)):
@@ -458,7 +459,7 @@ def main():
                     else:
                         score_dict[player.name].append(player.money)
 
-                done = game.next_generation(LSTMQN)
+                done = game.next_generation(lstmqn)
                 if done:
                     break
 
@@ -471,7 +472,7 @@ def main():
         score_dict = {}
         
         if idx % 5 == 0:
-            LSTMQN.save_model(path = output_path)
+            lstmqn.save_model(path = output_path)
 
         if idx >= warmup_t:
             epsilon = max(threshold, epsilon * decay_rate)
@@ -489,7 +490,7 @@ def main():
     score_dict = {}
     for idx, _ in enumerate(tqdm(range(valid_epoch))):
         game = Game(mode='test', output_path=output_path)
-        game.create_players(LSTMQN)
+        game.create_players(lstmqn)
 
         # Rollout the episode until max_episode_len
         for i in range(max_episode_len):
@@ -512,7 +513,7 @@ def main():
                         score_dict[player.name].append(player.money)
                     # print(f"Player Num - {player.num}, {player.name}: {player.money}")
 
-                game.next_generation(LSTMQN)
+                game.next_generation(lstmqn)
                 game.reset_player_money()
     
     print("Average score")
