@@ -389,7 +389,7 @@ def main():
     
     # mode = 'eval' # train at train
     # output_path에 학습 결과 저장
-    output_path = 'dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1'
+    output_path = 'test_dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1'
 
     root_path = './results'
     output_path = os.path.join(root_path, output_path)
