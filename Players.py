@@ -8,21 +8,21 @@ class Player(ABC):
         self.num = num
 
     @abstractmethod
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon):
         pass
 
 class Generous(Player):
     def __init__(self, name, num):
         super().__init__(name,num)
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         return "Cooperate"
 
 class Selfish(Player):
     def __init__(self, name, num):
         super().__init__(name, num)
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         return "Betray"
 
 
@@ -30,7 +30,7 @@ class RandomPlayer(Player):
     def __init__(self, name, num):
         super().__init__(name, num)
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         actions = ["Cooperate", "Betray"]
         return random.choice(actions)
     
@@ -39,7 +39,7 @@ class CopyCat(Player):
     def __init__(self, name, num):
         super().__init__(name, num)
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         if round_number==1:
             return "Cooperate"
         else:
@@ -51,7 +51,7 @@ class Grudger(Player):
         super().__init__(name, num)
         self.actions=[]
     
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         if round_number==1:
             self.actions=[]
             return "Cooperate"
@@ -75,7 +75,7 @@ class Detective(Player):
         super().__init__(name, num)
         self.actions = []
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         
         if round_number==1:
             self.actions=[]
@@ -100,7 +100,7 @@ class Simpleton(Player):
         super().__init__(name, num)
         self.actions = []
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         if round_number==1:
             self.actions.append("Cooperate")
             return "Cooperate"
@@ -123,7 +123,7 @@ class Copykitten(Player):
         super().__init__(name, num)
         self.actions = []
 
-    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player):
+    def perform_action(self, agent_last_action ,opponent_last_action, round_number,opponent_player,epsilon=1):
         if round_number==1:
             return "Cooperate"
         elif round_number==2:

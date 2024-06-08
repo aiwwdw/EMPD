@@ -6,65 +6,77 @@ from Players import Generous, Selfish, RandomPlayer, CopyCat, Grudger, Detective
 from agents import *
 from tqdm import tqdm
 from agents.PPOagent import *
-from DQN_train_v1 import Game, save_q_table, load_q_table
+from DQN_train_v1 import save_q_table, load_q_table
+from game import Game
 import pickle
 import matplotlib.pyplot as plt
 
 
 def main():
-    # mode = 'eval' # train at train
-    # output_path에 학습 결과 저장
-    output_path = 'test2_dqn_epoch_100_num_round_20_epsilon_0_4_num_replace_1'
 
-    root_path = './results'
-    output_path = os.path.join(root_path, output_path)
+    # episode 총 게임 수
+    # max episode len 게임이 끝이 안나면 제한
+    # round 한 게임 안에서 죽이는 사이클 내부 자체적으로 몇판씩 싸우나
+    ############################################################################
+    episode_num = 20 # number of episodes 600
+    max_episode_len = 10 # maximum length of episode
+    round = 20
+    epsilon = 0.4 # init epsilon
+    warmup_t = 20 # warmup time 200
+    decay_rate = 0.98 # 100: 0.98, 1000: 0.997ßß # epsilon decay rate
+    threshold = 0.1 # 0.1
+    plot_num = 3 # number of plot to draw
+    num_replace = 0
 
+    # copycat selfish generous grudger detective simpleton copykitten random
+    original_player_num = [1,1,1,1,1,1,1,1]
+    # rlplayer smarty q_learning q_learning_business DQN LSTMDQN PPO
+    rl_player_num = [0,0,0,0,1,0,0]
+
+    history_length = 3 # 아직 연결 안됨
+    test_title = '0608_dqn_1'
+    plot = True # plot 할지 말지
+
+    reward = [2,3,-1,0] # 수정 말기
+    ############################################################################
+
+    output_path = f'{test_title}_episode_{episode_num}_max_len_{max_episode_len}_epsilon_{epsilon}_replace_{num_replace}'
+    output_path = os.path.join('./results', output_path)
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    # initialize q_tables
+    # initialize q_tables table based 모델의 정보 가져오기
     save_q_table(os.path.join(output_path, "simple_q_table.pkl"))
     save_q_table(os.path.join(output_path, "q_table.pkl"))
     save_q_table(os.path.join(output_path, "smarty_table.pkl"))
 
+    # dqn 모델의 정보 저장하기
     dqn = DQN(f"DQN Player {0}", 0, output_path=output_path)
     dqn.q_network._initialize_weights()
     dqn.save_model(path=output_path)
 
-    # number of episodes
-    episode_num = 3 #100 # 600
-
-    # maximum length of episode
-    max_episode_len = 10 #10
-
-    # init epsilon
-    epsilon = 0.4
-
-    # warmup time
-    warmup_t = 20 #200
-
-    # epsilon decay rate
-    decay_rate = 0.98 # 100: 0.98, 1000: 0.997ßß
-
-    # threshold
-    threshold = 0.1 # 0.1
-
+    # data for plot
+    plot_survived_round = []
     score_dict = {}
     born_dict = {}
-
-    plot_num = 3
-    # Save scores for plotting
-    # step = episode_num // plot_snum
-    # plot_step = [ i * step for i in range(plot_num)] + [episode_num-1]
-    plot_step = [0,1,2]
-
-    plot_survived_round = []
+    # episode_num 다 저장하면 너무 많아서 plot_num 만큼만 저장
+    step = episode_num // plot_num
+    plot_step = [ i * step for i in range(plot_num)] + [episode_num-1]
 
     for idx, _ in enumerate(tqdm(range(episode_num))):
-        # Reset the game
-        game = Game(output_path=output_path)
-        game.create_players(dqn)
-        print(f"epsilon : {epsilon}")
+        game = Game(
+            output_path=output_path,
+            mode='train',
+            reward = reward,
+            round = round, 
+            replace=num_replace,
+            original_player_num = original_player_num,
+            rl_player_num = rl_player_num,
+            epsilon = epsilon,
+            history_length = history_length
+            )
+        game.create_players()
+        
 
         survived_round = 1
         # Rollout the episode until max_episode_len
@@ -73,41 +85,48 @@ def main():
                 
                 game.epsilon = epsilon
                 game.start()
-                
+
+                ########### 게임 기록 저장 #############################
                 for player in game.players:
                     if player.name not in score_dict:
                         score_dict[player.name] = [player.money]
                         born_dict[player.name] = i
                     else:
                         score_dict[player.name].append(player.money)
+                #####################################################
 
                 done = game.next_generation(dqn)
                 if done:
                     survived_round = i + 1
                     break
-
                 game.reset_player_money()
 
-        print()
-        print("Average score")
-        # Only for replace option ON
-        print(f"Survived round : {survived_round}")
-        plot_survived_round.append(survived_round)
-
-        for player in score_dict.keys():
-            print(f"{player}: {sum(score_dict[player])/len(score_dict[player]):.2f}")
-        
-        if idx in plot_step:
-            score_dict_filename = 'score_dict_' + str(idx) + '.pkl'
-            score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
-            born_dict_filename = 'born_dict_' + str(idx) + '.pkl'
-            born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
+       
+        ########### Save data for plot #############################
+        if plot:
+            plot_survived_round.append(survived_round)
             if not os.path.exists(os.path.join(output_path, "dict")):
                 os.makedirs(os.path.join(output_path, "dict"))
-            with open(score_dict_filename, 'wb') as f:
-                pickle.dump(score_dict, f)
-            with open(born_dict_filename, 'wb') as f:
-                pickle.dump(born_dict, f)
+            if idx in plot_step:
+                score_dict_filename = 'score_dict_' + str(idx) + '.pkl'
+                score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
+                born_dict_filename = 'born_dict_' + str(idx) + '.pkl'
+                born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
+                
+                with open(score_dict_filename, 'wb') as f:
+                    pickle.dump(score_dict, f)
+                with open(born_dict_filename, 'wb') as f:
+                    pickle.dump(born_dict, f)
+        #############################################################
+
+
+        ############# print 부분 ######################################
+        print(f"epsilon : {epsilon}\n")
+        print("Average score")
+        print(f"Survived round : {survived_round}")
+        for player in score_dict.keys():
+            print(f"{player}: {sum(score_dict[player])/len(score_dict[player]):.2f}")
+        #############################################################
         
         score_dict = {}
         born_dic = {}
@@ -120,9 +139,7 @@ def main():
 
 
     # plot 활성화 여부
-    plot = True
-    if plot:
-        
+    if plot:   
         # Plot survived_round
         plt.figure(figsize=(10, 6))
         plt.plot(plot_survived_round)
@@ -149,7 +166,6 @@ def main():
             with open(born_dict_filename, 'rb') as f:
                 born_dict = pickle.load(f)
 
-
             # Plot the scores
             plt.figure(figsize=(10, 6))
             for player in score_dict:
@@ -157,7 +173,7 @@ def main():
                 x_value = list(range(born_dict[player], born_dict[player]+len(score_dict[player])))
                 plt.plot(x_value, score_dict[player], label=player)
 
-            plt.xlabel('Episode')
+            plt.xlabel('Round')
             plt.ylabel('Score')
             plt.title('Scores of Players in Episode ' + str(idx))
             plt.legend(loc='upper left')
