@@ -29,6 +29,15 @@ class QNetwork(nn.Module):
         # self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=(2, 2), stride=1)
         # self.conv2 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2, 2), stride=1)
         # self.conv3 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2, 2), stride=1)
+        
+        # Size = 2
+        # self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=(2, 5))
+        # self.bn1 = nn.BatchNorm2d(16)
+        # self.conv2 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2, 5))
+        # self.bn2 = nn.BatchNorm2d(16)
+        # self.conv3 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2, 5))
+        # self.bn3 = nn.BatchNorm2d(16)
+
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=(3, 3), padding=1)
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(3, 3), padding=1)
         self.conv3 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(3, 3), padding=1)
@@ -57,6 +66,9 @@ class QNetwork(nn.Module):
         
         # Reshape to (batch_size, 1, history_num, 256)
         x = x.unsqueeze(1)
+        # x = F.relu(self.bn1(self.conv1(x)))
+        # x = F.relu(self.bn2(self.conv2(x)))
+        # x = F.relu(self.bn3(self.conv3(x)))
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = F.relu(self.conv3(x))
@@ -129,7 +141,7 @@ class DQN(Player):
                  history_length = 3,
                  batch_size = 32,
                  input_dim= 3,
-                 update_target_every = 100, #100
+                 update_target_every = 10, #100
                  output_path='./results'
                  ):
         
@@ -138,7 +150,7 @@ class DQN(Player):
         self.alpha = alpha  # Learning rate
         self.gamma = gamma  # Discount factor
         self.history_length = history_length  # Length of opponent action history
-        self.memory = deque(maxlen=128)  # Replay memory
+        self.memory = deque(maxlen=1000)  # Replay memory
         self.batch_size = batch_size
         self.input_dim = input_dim
         self.update_target_every = update_target_every
@@ -173,7 +185,9 @@ class DQN(Player):
 
         state = torch.FloatTensor(self.history[opponent_player]).unsqueeze(0).to('cuda')
         with torch.no_grad():
+            # self.q_network.eval()
             q_values = self.q_network(state)
+            # self.q_network.train()
     
         print(q_values)
         action =  "Cooperate" if q_values[0][0] < q_values[0][1] else "Betray"
@@ -214,6 +228,7 @@ class DQN(Player):
             action = 1
         elif agent_action == "Betray":
             action = 0
+
         if mode == 'train':
             self.memory.append((self.prev_history[opponent_player], action, reward, self.history[opponent_player], done))
             if len(self.memory) < self.batch_size:

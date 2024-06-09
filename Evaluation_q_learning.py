@@ -18,7 +18,7 @@ def main():
     # max episode len 게임이 끝이 안나면 제한
     # round 한 게임 안에서 죽이는 사이클 내부 자체적으로 몇판씩 싸우나
     ############################################################################
-    episode_num = 100 # number of episodes 600
+    episode_num = 1 # number of episodes 600
     max_episode_len = 10 # maximum length of episode
     round = 10
     epsilon = 1 # init epsilon
@@ -29,7 +29,7 @@ def main():
     num_replace = 1
 
     # copycat selfish generous grudger detective simpleton copykitten random
-    original_player_num = [0,0,0,0,1,0,0,0]
+    original_player_num = [1,1,1,1,1,1,1,1]
     opponent = 'detective'+'_'
     # rlplayer smarty q_learning q_learning_business DQN LSTMDQN PPO
     rl_player_num = [0,0,1,0,0,0,0]
@@ -179,11 +179,11 @@ def main():
             plt.xlabel('Round')
             plt.ylabel('Score')
             plt.title('Scores of Players in Episode ' + str(idx))
-            plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+            plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
             score_plot_filename = 'score_plot_' +opponent + str(idx) + '.png'
             score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
-            plt.savefig(score_plot_filename)
+            plt.savefig(score_plot_filename, bbox_inches="tight")
         
         plt.figure(figsize=(10, 6))
         for player in score_episode.keys():
@@ -192,13 +192,13 @@ def main():
             plt.xlabel('Episode')
             plt.ylabel('Average scores')
             plt.title('Average scores for each episode')
-        plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+        plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
         score_plot_filename = 'average_score_plot' +opponent +'.png'
         score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
         if not os.path.exists(os.path.join(output_path, "plot")):
             os.makedirs(os.path.join(output_path, "plot"))
-        plt.savefig(score_plot_filename)
+        plt.savefig(score_plot_filename, bbox_inches="tight")
 
     game = Game(
             output_path=output_path,
@@ -254,11 +254,11 @@ def main():
         plt.xlabel('Round')
         plt.ylabel('Score')
         plt.title('Validation Scores of Players in Episode ')
-        plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+        plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
         score_plot_filename = 'score_plot_validation_' +opponent + '.png'
         score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
-        plt.savefig(score_plot_filename)
+        plt.savefig(score_plot_filename, bbox_inches="tight")
 
     game.announce_winner()
 

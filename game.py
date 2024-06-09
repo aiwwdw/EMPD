@@ -101,6 +101,11 @@ class Game:
             self.players.append(Q_learning_business(f"Q_learning business {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_DQN): # Add this
+            # dqn = DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path)
+            # if self.mode == 'test':
+            #     dqn.q_network.eval()
+            # self.players.append(dqn)
+
             self.players.append(DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path))
             self.players[-1].load_model(path = os.path.join(self.output_path, "checkpoints.pt"))
             num += 1
@@ -278,6 +283,11 @@ class Game:
                     num += 1
                     self.num_q_learning += 1
                 elif isinstance(player, DQN):
+                    # dqn = DQN(f"DQN Player {self.num_DQN + 1}", num, history_length=self.history_length, output_path=self.output_path)
+                    # if self.mode == 'test':
+                    #     dqn.q_network.eval()
+                    # new_players.append(dqn)
+
                     new_players.append(DQN(f"DQN Player {self.num_DQN + 1}", num, history_length=self.history_length, output_path=self.output_path))
                     # new_players[-1].load_model(path = os.path.join(self.output_path, "checkpoints.pt"))
                     num += 1
