@@ -11,7 +11,7 @@ class Game:
         self.output_path=output_path
         self.mode = mode
 
-        self.num_rounds = 100
+        self.num_rounds = 200
         self.num_replace = 0
         self.ch_Ch = 0 # ch가 배반을 의미 왼쪽이 내 선택
         self.c_c = 2
@@ -25,13 +25,13 @@ class Game:
         self.num_players_left = 0
         
         # player 종류별 숫자
-        self.num_copycat=1
-        self.num_selfish=0
-        self.num_generous=0
-        self.num_grudger=0
-        self.num_detective=0
-        self.num_simpleton=0
-        self.num_copykitten=0
+        self.num_copycat= 0
+        self.num_selfish= 0
+        self.num_generous= 1
+        self.num_grudger= 0
+        self.num_detective= 0
+        self.num_simpleton= 0
+        self.num_copykitten= 0
         self.num_random=0
         self.num_rlplayer = 0
         self.num_smarty = 0
@@ -59,7 +59,7 @@ class Game:
         self.epsilon = 0.1
 
         # Q learning business에서는 3으로 고정
-        self.history_length=3 # 5 -> 3
+        self.history_length=5 # 5 -> 3
        
         # 게임 전적 기록 (1,2)는 player1과 player2의 게임 기록.
         self.history_dic = {}
@@ -117,7 +117,7 @@ class Game:
             self.players.append(Smarty(f"Smarty Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_q_learning): # Add this
-            self.players.append(Q_learning(f"Q_learning {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+            self.players.append(Q_learning_business(f"Q_learning_business {i+1}", num, history_length=self.history_length, output_path=self.output_path))
             num += 1
         for i in range(self.num_DQN): # Add this
             self.players.append(DQN(f"DQN {i+1}", num, output_path=self.output_path))
@@ -316,8 +316,8 @@ class Game:
                     new_players.append(Smarty(f"Smarty Player {self.num_smarty + 1}", num, output_path=self.output_path))
                     num += 1
                     self.num_smarty += 1
-                elif isinstance(player, Q_learning):
-                    new_players.append(Q_learning(f"Q_learning Player {self.num_q_learning + 1}", num, history_length=self.history_length, output_path=self.output_path))
+                elif isinstance(player, Q_learning_business):
+                    new_players.append(Q_learning_business(f"Q_learning Player {self.num_q_learning + 1}", num, history_length=self.history_length, output_path=self.output_path))
                     num += 1
                     self.num_q_learning += 1
                 elif isinstance(player, DQN):
@@ -393,7 +393,7 @@ def main():
 
     # initialize q_tables
     save_q_table(os.path.join(output_path, "simple_q_table.pkl"))
-    save_q_table(os.path.join(output_path, "q_table.pkl"))
+    # save_q_table(os.path.join(output_path, "q_table.pkl"))
     save_q_table(os.path.join(output_path, "smarty_table.pkl"))
     
     # number of episodes
@@ -403,7 +403,7 @@ def main():
     max_episode_len = 10
 
     # init epsilon
-    epsilon = 0.1
+    epsilon = 0.4
 
     # warmup time
     warmup_t = 300

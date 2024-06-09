@@ -79,17 +79,20 @@ class Detective(Player):
         
         if round_number==1:
             self.actions=[]
+            self.actions.append(opponent_last_action)
             return "Cooperate"
         elif round_number==2:
+            self.actions.append(opponent_last_action)
             return "Betray"
         elif round_number==3:
+            self.actions.append(opponent_last_action)
             return "Cooperate"
         elif round_number==4:
             self.actions.append(opponent_last_action)
             return "Cooperate"
         elif round_number>4:
             self.actions.append(opponent_last_action)
-            if "Betray" in self.actions[:-1]:
+            if "Betray" in self.actions[:4]:
                 return opponent_last_action
             else:
                 return "Betray"

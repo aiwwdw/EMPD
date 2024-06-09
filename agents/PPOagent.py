@@ -168,7 +168,7 @@ class PPO(Player):
         action = "Cooperate" if action == 1 else "Betray"
         return action
 
-    def update_q_table(self, action, reward, oppenent_player):
+    def update_q_table(self, action, reward, oppenent_playe, player1_last_action, player2_last_action):
         # Monte Carlo estimate of returns
 
         if action == "Cooperate":

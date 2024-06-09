@@ -44,7 +44,8 @@ class RLPlayer(Player):
             self.opponent_history.pop(0)  
 
         state = tuple(self.opponent_history)
-
+        print(state)
+        
         if random.random() < self.epsilon or state not in self.q_table:
             action = random.choice(["Cooperate", "Betray"])
         else:
@@ -53,12 +54,12 @@ class RLPlayer(Player):
         self.last_action = action
         return action
 
-    def update_q_table(self, reward, opponent_player):
+    def update_q_table(self, reward, opponent_player, player1_last_action, player2_last_action):
 
         state = tuple(self.opponent_history)
 
         if state not in self.q_table:
-            self.q_table[state] = {"Cooperate": 0, "Betray": 0}
+            self.q_table[state] = {"Cooperate": 1, "Betray": 0}
 
         prev_q_value = self.q_table[state][self.last_action]
         max_q_value = max(self.q_table[state].values())
@@ -111,7 +112,7 @@ class Smarty(Player):
         self.last_action = action
         return action
 
-    def update_q_table(self, reward, opponent_player):
+    def update_q_table(self, reward, opponent_player, player1_last_action, player2_last_action):
 
         state = tuple(self.opponent_history)
 

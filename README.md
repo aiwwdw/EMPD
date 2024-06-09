@@ -61,3 +61,31 @@ opservation 영역을: player들의 승패 유무로 할지, player들의 배신
   
 
 input 터미널에 입력 - 하드 코드로 변경 예정
+
+
+## 실험 진행
+
+### 1. Q-Learning
+
+  - 1:1게임에서 detective를 제외한 모든 player을 이길 전략을 찾아냄
+    - detective에서 지는 이유는 detective는 앞 4개의 상황을 보고 진행함
+    - History = 3, size of q table = 85 
+  
+  - History = 5로 사이즈를 늘려서 실험
+    - size of q table = 440
+    - detective를 이겨낼 전략도 찾아냄.
+    - 하지만 사이즈가 약 5정도 늘어나고, 실질적인 모든 q-table을 다 search를 구하지 못함. $5^5 \sim 3000$ 
+  - 새로운 state를 제안
+    - 앞 3개와 뒤 3개를 보고 전략을 짜도록 만들자
+    - $$진행해야함$$
+  - Q-learning에 단점으로 state space를 늘릴 수 없다는 점은 detective를 이길 전략을 없게 만듬
+
+  - 1:n 실험에서 q-learning은 완전히 패함
+    - 1:1로 싸울떄는 각 player에 대한 q_table을 만드는 것이 쉽지만,
+    - 상대 player를 모르는 상황에서는 q_table이 stable이 안되서 general한 전략을 짜는데 실패.
+
+
+### 2. DQN
+
+
+
