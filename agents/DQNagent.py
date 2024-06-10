@@ -44,7 +44,7 @@ class QNetwork(nn.Module):
         
         # Fully Connected layer to convert 512 to ㅌㄷ2
         # self.fc2 = nn.Linear(16, 2)
-        self.fc2 = nn.Linear(256*5, 2)
+        self.fc2 = nn.Linear(256*self.history_num, 2)
     
     def _initialize_weights(self):
         for m in self.modules():
@@ -136,12 +136,12 @@ class DQN(Player):
     def __init__(self, 
                  name, 
                  num, 
-                 alpha=0.001,
+                 alpha=1e-3,
                  gamma=0.99,
                  history_length = 3,
-                 batch_size = 32,
+                 batch_size = 64,
                  input_dim= 3,
-                 update_target_every = 10, #100
+                 update_target_every = 100,
                  output_path='./results'
                  ):
         
@@ -150,7 +150,7 @@ class DQN(Player):
         self.alpha = alpha  # Learning rate
         self.gamma = gamma  # Discount factor
         self.history_length = history_length  # Length of opponent action history
-        self.memory = deque(maxlen=1000)  # Replay memory
+        self.memory = deque(maxlen=10000)  # Replay memory
         self.batch_size = batch_size
         self.input_dim = input_dim
         self.update_target_every = update_target_every
@@ -166,7 +166,6 @@ class DQN(Player):
         self.history = {}
         self.prev_history={}
         self.loss_fn = nn.MSELoss()
-
         self.target_network.load_state_dict(self.q_network.state_dict())
         self.target_network.eval()
         
@@ -230,13 +229,14 @@ class DQN(Player):
             action = 0
 
         if mode == 'train':
-            self.memory.append((self.prev_history[opponent_player], action, reward, self.history[opponent_player], done))
+            # 혹시 모르니 prev_history도 copy.deepcopy해야될수도
+            self.memory.append((self.prev_history[opponent_player], action, reward, copy.deepcopy(self.history[opponent_player]), done))
+            # print((self.prev_history[opponent_player], action, reward, self.history[opponent_player], done))
             if len(self.memory) < self.batch_size:
                 return
 
             batch = random.sample(self.memory, self.batch_size)
             state_batch, action_batch, reward_batch, next_state_batch, done_batch = zip(*batch)
-
             state_batch = torch.FloatTensor(state_batch).to('cuda')
             action_batch = torch.LongTensor(action_batch).to('cuda')
             reward_batch = torch.FloatTensor(reward_batch).to('cuda')
@@ -245,8 +245,11 @@ class DQN(Player):
 
 
             current_q_values = self.q_network(state_batch).gather(1, action_batch.unsqueeze(1)).squeeze(1)
-            max_next_q_values = self.target_network(next_state_batch).max(1)[0]
+            with torch.no_grad():
+                max_next_q_values = self.target_network(next_state_batch).max(1)[0]
+
             expected_q_values = reward_batch + (self.gamma * max_next_q_values * (1-done_batch))
+            # expected_q_values = reward_batch + (self.gamma * max_next_q_values)
             loss = self.loss_fn(current_q_values, expected_q_values)
 
             self.optimizer.zero_grad()

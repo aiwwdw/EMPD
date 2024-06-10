@@ -19,7 +19,7 @@ class Game:
                  output_path='./results', 
                  reward = [2,3,-1,0], 
                  round = 20, 
-                 replace=0, 
+                 replace=0,
                  original_player_num = [1,1,1,1,1,1,1,1], 
                  rl_player_num = [0,0,0,0,1,0,0],
                  epsilon = 0.6,
@@ -95,10 +95,10 @@ class Game:
             self.players.append(Smarty(f"Smarty Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_q_learning): # Add this
-            self.players.append(Q_learning(f"Q_learning {i+1}", num, output_path=self.output_path))
+            self.players.append(Q_learning(f"Q_learning Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_q_learning_business): # Add this
-            self.players.append(Q_learning_business(f"Q_learning business {i+1}", num, output_path=self.output_path))
+            self.players.append(Q_learning_business(f"Q_learning business Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_DQN): # Add this
             # dqn = DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path)
@@ -106,11 +106,11 @@ class Game:
             #     dqn.q_network.eval()
             # self.players.append(dqn)
 
-            self.players.append(DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path))
+            self.players.append(DQN(f"DQN Player {i+1}", num, history_length=self.history_length, output_path=self.output_path))
             self.players[-1].load_model(path = os.path.join(self.output_path, "checkpoints.pt"))
             num += 1
         for i in range(self.num_PPO): # Add this
-            self.players.append(PPO(f"PPO {i+1}", num, output_path=self.output_path))
+            self.players.append(PPO(f"PPO Player {i+1}", num, output_path=self.output_path))
             num += 1       
         self.player_num = num
 
@@ -335,6 +335,6 @@ class Game:
         elif isinstance(player, RandomPlayer):
             print("Winners are RandomPlayer")
         elif isinstance(player, RLPlayer):
-            print("Winners are Smarts")
+            print("Winners are RLPlayer")
         elif isinstance(player, Smarty):
-            print("Winners are 2nd Smarts")
+            print("Winners are Smarty")

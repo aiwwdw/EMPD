@@ -4,21 +4,21 @@ from agents import *
 
 def print_pkl():
     # .pkl 파일 경로 설정
-    file_path = '/root/EMPD/results/q_learning_small_episode_10000_max_len_1_epsilon_1_replace_0/q_table.pkl'
+    file_path = '/root/EMPD/results/q_learning_history3/q_learning_history3_multi_episode_1000_max_len_10_epsilon_1_replace_1/q_table.pkl'
 
     # .pkl 파일 열기
     with open(file_path, 'rb') as file:
         data = pickle.load(file)
 
     # 데이터가 DataFrame인지 확인하고 출력
-    print(data)
+    print('q_learning_history3: ',len(data))
 
 
 
 def print_dqn_result():
 
-    his_len = 5
-    checkpoints = '/root/EMPD/results/0_dqn_solo_episode_100_max_len_2_epsilon_1_replace_0/checkpoints.pt'
+    his_len = 10
+    checkpoints = '/root/EMPD/results/0609_dqn_multi_episode_3000_max_len_5_epsilon_1_replace_0/checkpoints.pt'
 
 
     history = {}
@@ -43,6 +43,6 @@ def print_dqn_result():
 
 if __name__ == "__main__":
 
-    print_dqn_result()
-    # print_pkl()
+    # print_dqn_result()
+    print_pkl()
 

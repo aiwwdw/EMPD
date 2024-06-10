@@ -18,38 +18,39 @@ def main():
     # max episode len 게임이 끝이 안나면 제한
     # round 한 게임 안에서 죽이는 사이클 내부 자체적으로 몇판씩 싸우나
     ############################################################################
-    episode_num = 1 # number of episodes 600
-    max_episode_len = 10 # maximum length of episode
+    episode_num = 500 # number of episodes 600
+    max_episode_len = 1 # maximum length of episode
     round = 10
     epsilon = 1 # init epsilon
-    warmup_t = 10 # warmup time 200
-    decay_rate = 1 # 100: 0.98, 1000: 0.997ßß # epsilon decay rate
+    warmup_t = 500 # warmup time 200
+    decay_rate = .98 # 100: 0.98, 1000: 0.997ßß # epsilon decay rate
     threshold = 1 # 0.1
     plot_num = 1 # number of plot to draw
     num_replace = 1
 
-    # copycat selfish generous grudger detective simpleton copykitten random
-    original_player_num = [1,1,1,1,1,1,1,1]
-    opponent = 'detective'+'_'
+    name = "copycat selfish generous grudger detective simpleton copykitten random".split(" ")
+    original_player_num = [0,0,0,0,0,0,1,0]
+    opponent_name = name[original_player_num.index(1)]
+    # opponent_name = 'multi'
     # rlplayer smarty q_learning q_learning_business DQN LSTMDQN PPO
-    rl_player_num = [0,0,1,0,0,0,0]
+    rl_player_num = [0,0,0,1,0,0,0]
     history_length = 3 # 아직 연결 안됨
-    test_title = 'q_learning_history4_'
+    test_title = 'q_learning_business'
     plot = True # plot 할지 말지
     score_episode = {}
 
     reward = [2,3,-1,0] # 수정 말기
     ############################################################################
 
-    # output_path = f'{test_title}_episode_{episode_num}_max_len_{max_episode_len}_epsilon_{epsilon}_replace_{0}'
-    output_path = f'q_learning_history5__episode_100_max_len_10_epsilon_1_replace_0'
+    output_path = f'{test_title}_{opponent_name}_episode_{episode_num}_max_len_{max_episode_len}_epsilon_{epsilon}_replace_{num_replace}'
+    # output_path = f'q_learning_history5__episode_100_max_len_10_epsilon_1_replace_0'
     output_path = os.path.join('./results', output_path)
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
     # 비어있는 값 저장하기
     save_q_table(os.path.join(output_path, "simple_q_table.pkl"))
-    # save_q_table(os.path.join(output_path, "q_table.pkl"))
+    save_q_table(os.path.join(output_path, "q_table.pkl"))
     save_q_table(os.path.join(output_path, "smarty_table.pkl"))
 
     # output_path에 정보 저장하는 용도
@@ -110,9 +111,9 @@ def main():
             if not os.path.exists(os.path.join(output_path, "dict")):
                 os.makedirs(os.path.join(output_path, "dict"))
             if idx in plot_step:
-                score_dict_filename = 'score_dict_' +opponent+ str(idx) + '.pkl'
+                score_dict_filename = 'score_dict_' +opponent_name+ str(idx) + '.pkl'
                 score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
-                born_dict_filename = 'born_dict_' +opponent + str(idx) + '.pkl'
+                born_dict_filename = 'born_dict_' +opponent_name + str(idx) + '.pkl'
                 born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
                 
                 with open(score_dict_filename, 'wb') as f:
@@ -159,12 +160,12 @@ def main():
 
         
         for idx in plot_step:
-            score_dict_filename = 'score_dict_' + opponent + str(idx) + '.pkl'
+            score_dict_filename = 'score_dict_' + opponent_name + str(idx) + '.pkl'
             score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
             with open(score_dict_filename, 'rb') as f:
                 score_dict = pickle.load(f)
 
-            born_dict_filename = 'born_dict_' +opponent + str(idx) + '.pkl'
+            born_dict_filename = 'born_dict_' +opponent_name + str(idx) + '.pkl'
             born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
             with open(born_dict_filename, 'rb') as f:
                 born_dict = pickle.load(f)
@@ -181,7 +182,7 @@ def main():
             plt.title('Scores of Players in Episode ' + str(idx))
             plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
-            score_plot_filename = 'score_plot_' +opponent + str(idx) + '.png'
+            score_plot_filename = 'score_plot_' +opponent_name + str(idx) + '.png'
             score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
             plt.savefig(score_plot_filename, bbox_inches="tight")
         
@@ -194,7 +195,7 @@ def main():
             plt.title('Average scores for each episode')
         plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
-        score_plot_filename = 'average_score_plot' +opponent +'.png'
+        score_plot_filename = 'average_score_plot' +opponent_name +'.png'
         score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
         if not os.path.exists(os.path.join(output_path, "plot")):
             os.makedirs(os.path.join(output_path, "plot"))
@@ -235,9 +236,9 @@ def main():
             game.reset_player_money()
 
     if plot:
-        score_dict_filename = 'score_dict_episode' +opponent + '.pkl'
+        score_dict_filename = 'score_dict_episode' +opponent_name + '.pkl'
         score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
-        born_dict_filename = 'born_dict_episode' +opponent + '.pkl'
+        born_dict_filename = 'born_dict_episode' +opponent_name + '.pkl'
         born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
         
         with open(score_dict_filename, 'wb') as f:
@@ -256,7 +257,7 @@ def main():
         plt.title('Validation Scores of Players in Episode ')
         plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
-        score_plot_filename = 'score_plot_validation_' +opponent + '.png'
+        score_plot_filename = 'score_plot_validation_' +opponent_name + '.png'
         score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
         plt.savefig(score_plot_filename, bbox_inches="tight")
 

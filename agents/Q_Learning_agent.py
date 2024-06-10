@@ -68,7 +68,7 @@ class Q_learning_business(Player):
         return action
 
 
-    def update_q_table(self, reward, opponent_player, agent_last_action ,opponent_last_action,mode):
+    def update_q_table(self, reward, opponent_player, agent_last_action ,opponent_last_action,mode, done):
         
         prev_state = tuple(self.current_history[opponent_player] + self.past_history[opponent_player])
 
@@ -84,7 +84,7 @@ class Q_learning_business(Player):
         if mode == 'train':
             prev_q_value = self.q_table[prev_state][self.last_action]
             max_q_value = max(self.q_table[state].values())
-            new_q_value = prev_q_value + self.alpha * (reward + self.gamma * max_q_value - prev_q_value)
+            new_q_value = prev_q_value + self.alpha * (reward + self.gamma * max_q_value * (1-done)- prev_q_value)
             self.q_table[prev_state][self.last_action] = new_q_value
 
             self.save_q_table(os.path.join(self.output_path, "q_table.pkl"))
@@ -156,10 +156,10 @@ class Q_learning(Player):
         if state not in self.q_table:
             self.q_table[state] = {"Cooperate": 0, "Betray": 0}
 
-        if mode == 'train' and done == 0:
+        if mode == 'train':
             prev_q_value = self.q_table[prev_state][self.last_action]
             max_q_value = max(self.q_table[state].values())
-            new_q_value = prev_q_value + self.alpha * (reward + self.gamma * max_q_value - prev_q_value)
+            new_q_value = prev_q_value + self.alpha * (reward + self.gamma * max_q_value* (1-done)- prev_q_value)
             self.q_table[prev_state][self.last_action] = new_q_value
             self.save_q_table(os.path.join(self.output_path, "q_table.pkl"))
 
