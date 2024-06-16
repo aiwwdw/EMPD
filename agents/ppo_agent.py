@@ -1,5 +1,5 @@
 import random
-from Players import Player,Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
+from agents.orignal_players import Player,Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
 # from RLENV import *
 import pickle
 import torch

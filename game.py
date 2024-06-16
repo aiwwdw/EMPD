@@ -1,8 +1,8 @@
 import random
-from Players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
+from agents.orignal_players import Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
 from agents import *
 from tqdm import tqdm
-from agents.PPOagent import *
+from agents.ppo_agent import *
 import pdb
 
 def save_q_table(filename):

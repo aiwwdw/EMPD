@@ -2,10 +2,10 @@
 import matplotlib.pyplot as plt
 import os
 import pickle
-from Players import Generous, Selfish, RandomPlayer, CopyCat, Grudger, Detective, Simpleton, Copykitten
+from agents.orignal_players import Generous, Selfish, RandomPlayer, CopyCat, Grudger, Detective, Simpleton, Copykitten
 from agents import *
 from tqdm import tqdm
-from agents.PPOagent import *
+from agents.ppo_agent import *
 
 from game import Game, save_q_table, load_q_table
 import pickle
@@ -13,34 +13,37 @@ import matplotlib.pyplot as plt
 
 
 def main():
+
     # episode 총 게임 수
     # max episode len 게임이 끝이 안나면 제한
     # round 한 게임 안에서 죽이는 사이클 내부 자체적으로 몇판씩 싸우나
     ############################################################################
-    episode_num = 1000  # number of episodes 600
+    episode_num = 1000 # number of episodes 600
     max_episode_len = 10 # maximum length of episode
     round = 6
     epsilon = 1 # init epsilon
-
-    warmup_t = 50 # warmup time 200
-    decay_rate = 0.9 # 100: 0.98, 1000: 0.997 # epsilon decay rate
-    threshold = 0.1 # 0.1
-    plot_num = 10 # number of plot to draw
+    warmup_t = 2000 # warmup time 200
+    decay_rate = .99 # 100: 0.98, 1000: 0.997ßß # epsilon decay rate
+    threshold = 1 # 0.1
+    plot_num = 1 # number of plot to draw
     num_replace = 0
 
-    # copycat selfish generous grudger detective simpleton copykitten random
-    original_player_num = [1,1,1,1,1,1,1,1] #[1,1,1,1,1,1,1,1]
+    name = "copycat selfish generous grudger detective simpleton copykitten random".split(" ")
+    original_player_num = [1,1,1,1,1,1,1,1]
+    opponent_name = name[original_player_num.index(1)]
+    opponent_name = 'multi'
     # rlplayer smarty q_learning q_learning_business DQN LSTMDQN PPO
     rl_player_num = [0,0,0,1,0,0,0]
-
     history_length = 5
-    test_title = 'a_last_q_business_'
+    test_title = 'a_last_q_business_history_5_'
     plot = True # plot 할지 말지
-    
+    score_episode = {}
+
     reward = [2,3,-1,0] # 수정 말기
     ############################################################################
 
-    output_path = f'{test_title}_episode_{episode_num}_max_len_{max_episode_len}_epsilon_{epsilon}_replace_{num_replace}'
+    output_path = f'{test_title}_{opponent_name}_episode_{episode_num}_max_len_{max_episode_len}_epsilon_{epsilon}_replace_{num_replace}'
+    # output_path = f'q_learning_history5__episode_100_max_len_10_epsilon_1_replace_0'
     output_path = os.path.join('./results', output_path)
     if not os.path.exists(output_path):
         os.makedirs(output_path)
@@ -51,9 +54,6 @@ def main():
     save_q_table(os.path.join(output_path, "smarty_table.pkl"))
 
     # output_path에 정보 저장하는 용도
-    dqn = DQN(f"DQN Player {0}", 0, output_path=output_path)
-    dqn.q_network._initialize_weights()
-    dqn.save_model(path=output_path)
 
     # data for plot
     plot_survived_round = []
@@ -61,7 +61,6 @@ def main():
     born_dict = {}
     score_dict_val = {}
     born_dict_val = {}
-    score_episode={}
     # episode_num 다 저장하면 너무 많아서 plot_num 만큼만 저장
     step = episode_num // plot_num
     plot_step = [ i * step for i in range(plot_num)] + [episode_num-1]
@@ -82,11 +81,11 @@ def main():
         
         survived_round = 1
         # Rollout the episode until max_episode_len
-        for i in tqdm(range(max_episode_len)):
+        for i in range(max_episode_len):
             if len(set(type(player) for player in game.players)) > 1:
                 game.epsilon = epsilon
+
                 game.start()
-                # game.show_result()
 
                 ########### 게임 기록 저장 #############################
                 for player in game.players:
@@ -96,10 +95,13 @@ def main():
                     else:
                         score_dict[player.name].append(player.money)
                 #####################################################
+                
+                game.show_result()
                 done = game.next_generation()
-                survived_round = i + 1
                 if done:
+                    survived_round = i + 1
                     break
+                
                 game.reset_player_money()
 
        
@@ -109,9 +111,9 @@ def main():
             if not os.path.exists(os.path.join(output_path, "dict")):
                 os.makedirs(os.path.join(output_path, "dict"))
             if idx in plot_step:
-                score_dict_filename = 'score_dict_' + str(idx) + '.pkl'
+                score_dict_filename = 'score_dict_' +opponent_name+ str(idx) + '.pkl'
                 score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
-                born_dict_filename = 'born_dict_' + str(idx) + '.pkl'
+                born_dict_filename = 'born_dict_' +opponent_name + str(idx) + '.pkl'
                 born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
                 
                 with open(score_dict_filename, 'wb') as f:
@@ -133,7 +135,7 @@ def main():
         #############################################################
         
         score_dict = {}
-        born_dict = {}
+        born_dic = {}
 
         if idx >= warmup_t:
             epsilon = max(threshold, epsilon * decay_rate)
@@ -156,13 +158,14 @@ def main():
             os.makedirs(os.path.join(output_path, "plot"))
         plt.savefig(score_plot_filename)
 
+        
         for idx in plot_step:
-            score_dict_filename = 'score_dict_' + str(idx) + '.pkl'
+            score_dict_filename = 'score_dict_' + opponent_name + str(idx) + '.pkl'
             score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
             with open(score_dict_filename, 'rb') as f:
                 score_dict = pickle.load(f)
 
-            born_dict_filename = 'born_dict_' + str(idx) + '.pkl'
+            born_dict_filename = 'born_dict_' +opponent_name + str(idx) + '.pkl'
             born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
             with open(born_dict_filename, 'rb') as f:
                 born_dict = pickle.load(f)
@@ -177,33 +180,26 @@ def main():
             plt.xlabel('Round')
             plt.ylabel('Score')
             plt.title('Scores of Players in Episode ' + str(idx))
-            plt.legend(loc='upper left')
+            plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
-            score_plot_filename = 'score_plot_' + str(idx) + '.png'
+            score_plot_filename = 'score_plot_' +opponent_name + str(idx) + '.png'
             score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
-            plt.savefig(score_plot_filename)
+            plt.savefig(score_plot_filename, bbox_inches="tight")
         
         plt.figure(figsize=(10, 6))
         for player in score_episode.keys():
-            plt.plot(score_episode[player], label = player)
-        plt.xlabel('Episode')
-        plt.ylabel('Average scores')
-        plt.title('Average scores for each episode')
-        plt.legend(loc='upper left')
+            player = str(player)
+            plt.plot(score_episode[player], label=player)
+            plt.xlabel('Episode')
+            plt.ylabel('Average scores')
+            plt.title('Average scores for each episode')
+        plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
-        score_plot_filename = 'plot_average_score.png'
+        score_plot_filename = 'average_score_plot' +opponent_name +'.png'
         score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
-        score_dict_filename = 'plot_average_score.pkl'
-        score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
-
         if not os.path.exists(os.path.join(output_path, "plot")):
             os.makedirs(os.path.join(output_path, "plot"))
-        plt.savefig(score_plot_filename)
-
-        with open(score_dict_filename, 'wb') as f:
-            pickle.dump(score_episode, f)
-
-
+        plt.savefig(score_plot_filename, bbox_inches="tight")
 
     game = Game(
             output_path=output_path,
@@ -221,21 +217,28 @@ def main():
     # Rollout the episode until max_episode_len
     for i in range(max_episode_len):
         if len(set(type(player) for player in game.players)) > 1:
+            
+            print(f"round number {i+1} started")
+            
+            game.epsilon = 0
+            
             game.start()
+
             for player in game.players:
                     if player.name not in score_dict_val:
                         score_dict_val[player.name] = [player.money]
                         born_dict_val[player.name] = i
                     else:
                         score_dict_val[player.name].append(player.money)
+            
             game.show_result()
             game.next_generation()
             game.reset_player_money()
-    
+
     if plot:
-        score_dict_filename = 'score_dict_episode' + '.pkl'
+        score_dict_filename = 'score_dict_episode' +opponent_name + '.pkl'
         score_dict_filename = os.path.join(output_path, "dict", score_dict_filename)
-        born_dict_filename = 'born_dict_episode' + '.pkl'
+        born_dict_filename = 'born_dict_episode' +opponent_name + '.pkl'
         born_dict_filename = os.path.join(output_path, "dict", born_dict_filename)
         
         with open(score_dict_filename, 'wb') as f:
@@ -252,11 +255,13 @@ def main():
         plt.xlabel('Round')
         plt.ylabel('Score')
         plt.title('Validation Scores of Players in Episode ')
-        plt.legend(loc='upper left')
+        plt.legend(loc='lower left', bbox_to_anchor=(1, 0))
 
-        score_plot_filename = 'score_plot_validation' + '.png'
+        score_plot_filename = 'score_plot_validation_' +opponent_name + '.png'
         score_plot_filename = os.path.join(output_path, "plot", score_plot_filename)
-        plt.savefig(score_plot_filename)
+        plt.savefig(score_plot_filename, bbox_inches="tight")
+
+    game.announce_winner()
 
 if __name__ == "__main__":
     main()

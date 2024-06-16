@@ -2,10 +2,10 @@
 import matplotlib.pyplot as plt
 import os
 import pickle
-from Players import Generous, Selfish, RandomPlayer, CopyCat, Grudger, Detective, Simpleton, Copykitten
+from agents.orignal_players import Generous, Selfish, RandomPlayer, CopyCat, Grudger, Detective, Simpleton, Copykitten
 from agents import *
 from tqdm import tqdm
-from agents.PPOagent import *
+from agents.ppo_agent import *
 
 from game import Game, save_q_table, load_q_table
 import pickle

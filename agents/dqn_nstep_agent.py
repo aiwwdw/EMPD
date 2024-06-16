@@ -1,5 +1,5 @@
 import random
-from Players import Player,Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
+from agents.orignal_players import Player,Generous,Selfish,RandomPlayer,CopyCat,Grudger,Detective,Simpleton,Copykitten
 # from RLENV import *
 import pickle
 import torch
@@ -16,60 +16,15 @@ import pdb
 import sys
 
 
-class LSTMQNetwork(nn.Module):
+class QNetwork(nn.Module):
     def __init__(self, input_dim, history_num):
-        super(LSTMQNetwork, self).__init__()
-        self.hidden_input_space = 64
-        self.hidden_output_space = 1024
+        super(QNetwork, self).__init__()
         self.history_num = history_num
         
-        # Linear layer to expand input_dim to 64 
-        self.Linear1 = nn.Linear(input_dim, self.hidden_input_space)
-        self.lstm    = nn.LSTM(self.hidden_input_space,self.hidden_output_space, batch_first=True)
-        self.Linear2 = nn.Linear(self.hidden_output_space, self.hidden_input_space)
+        # Linear layer to expand input_dim to 64
+        self.fc1 = nn.Linear(input_dim, 64)
         
-        # Fully Connected layer to convert 512 to 2
-        self.fc2 = nn.Linear(self.hidden_input_space, 2)
-
-    def _initialize_weights(self):
-        for m in self.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_uniform_(m.weight)
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.Conv2d):
-                nn.init.xavier_uniform_(m.weight)
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.LSTM):
-                for name, param in m.named_parameters():
-                    if 'weight_ih' in name:
-                        nn.init.xavier_uniform_(param.data)
-                    elif 'weight_hh' in name:
-                        nn.init.orthogonal_(param.data)
-                    elif 'bias' in name:
-                        nn.init.zeros_(param.data)
-        
-    def forward(self, x):
-        batch_size = x.size(0)
-        
-        x = F.relu(self.Linear1(x))
-        x,_ = self.lstm(x)
-        x = F.relu(x)
-        x = x[:, -1, :].unsqueeze(1)
-        x = F.relu(self.Linear2(x))
-        x = x.view(batch_size, -1)
-        x = self.fc2(x)
-        return x
-    
-    
-class ConvLstmQNetwork(nn.Module):
-    def __init__(self, input_dim, history_num):
-        super(ConvLstmQNetwork, self).__init__()
-        self.history_num = history_num
-        
-        # self.fc1 = nn.Linear(input_dim, 64)
-        self.lstm = nn.LSTM(input_dim, 64, batch_first=True)
+        # Convolutional layers to convert (batch_size, 1, history_num, 64) to (batch_size, 512, 1, 1)
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=128, kernel_size=(3, 10), stride=2, padding=1)
         self.conv2 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 10), stride=2, padding=1)
         self.conv3 = nn.Conv2d(in_channels=256, out_channels=512, kernel_size=(3, 10), stride=2, padding=1)
@@ -87,21 +42,13 @@ class ConvLstmQNetwork(nn.Module):
                 nn.init.xavier_uniform_(m.weight)
                 if m.bias is not None:
                     nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.LSTM):
-                for name, param in m.named_parameters():
-                    if 'weight_ih' in name:
-                        nn.init.xavier_uniform_(param.data)
-                    elif 'weight_hh' in name:
-                        nn.init.orthogonal_(param.data)
-                    elif 'bias' in name:
-                        nn.init.zeros_(param.data)
         
     def forward(self, x):
+        # x shape: (batch_size, history_num, input_dim)
         batch_size = x.size(0)
         # Apply linear layer to each input in the history
+        x = self.fc1(x)
         
-        x,_ = self.lstm(x)
-        x = F.relu(x)
         # Reshape to (batch_size, 1, history_num, 256)
         x = x.unsqueeze(1)
 
@@ -121,7 +68,7 @@ class ConvLstmQNetwork(nn.Module):
 
     
 
-class LSTMQN(Player):
+class nstep_DQN(Player):
     def __init__(self, name, num, alpha=0.001, gamma=0.99, epsilon=0.1, history_length=10, input_dim=5, history_dim=10, output_path='./results'):
         super().__init__(name, num)
         self.alpha = alpha  # Learning rate
@@ -136,13 +83,13 @@ class LSTMQN(Player):
         self.prev_history={}
         self.output_path = output_path
 
-        self.q_network = ConvLstmQNetwork(input_dim, history_dim).to('cuda')
-        self.target_network = ConvLstmQNetwork(input_dim, history_dim).to('cuda')
+        self.q_network = QNetwork(input_dim, history_dim).to('cuda')
+        self.target_network = QNetwork(input_dim, history_dim).to('cuda')
         self.optimizer = optim.Adam(self.q_network.parameters(), lr=self.alpha)
         self.loss_fn = nn.MSELoss()
 
         self.target_network.load_state_dict(self.q_network.state_dict())
-        self.target_network.train() # eval()
+        self.target_network.eval()
         
     def perform_action(self, agent_last_action ,opponent_last_action, round_number, opponent_player, epsilon):
         self.epsilon = epsilon
@@ -171,15 +118,11 @@ class LSTMQN(Player):
         
 
         if np.random.rand() <= self.epsilon:
-            # print("Exploration")
             return random.choice(["Cooperate", "Betray"])
-        # else:
-        #     print("Exploitation")
-
+        
         state = torch.FloatTensor(self.history[opponent_player]).unsqueeze(0).to('cuda')
-        self.q_network.train()
         with torch.no_grad():
-            q_values = self.q_network(state,)
+            q_values = self.q_network(state)
         action =  "Cooperate" if q_values[0][0] < q_values[0][1] else "Betray"
         return action
     
@@ -223,17 +166,17 @@ class LSTMQN(Player):
     
     def save_model(self, path):
         torch.save({
-            'lstm_q_network_state_dict': self.q_network.state_dict(),
-            'lstm_target_network_state_dict': self.target_network.state_dict(),
-            'lstm_optimizer_state_dict': self.optimizer.state_dict(),
+            'q_network_state_dict': self.q_network.state_dict(),
+            'target_network_state_dict': self.target_network.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
         }, os.path.join(path,'checkpoints.pt'))
         print(f"Model saved to {path}.pt")
 
     def load_model(self, path):
         checkpoint = torch.load(path)
-        self.q_network.load_state_dict(checkpoint['lstm_q_network_state_dict'])
-        self.target_network.load_state_dict(checkpoint['lstm_target_network_state_dict'])
-        self.optimizer.load_state_dict(checkpoint['lstm_optimizer_state_dict'])
+        self.q_network.load_state_dict(checkpoint['q_network_state_dict'])
+        self.target_network.load_state_dict(checkpoint['target_network_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         print(f"Model loaded from {path}")
 
 
