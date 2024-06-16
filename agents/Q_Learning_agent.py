@@ -18,12 +18,12 @@ import sys
 
 class Q_learning_business(Player):
     def __init__(self, 
-                 name, 
-                 num, 
-                 alpha=0.1, 
+                 name,
+                 num,
+                 alpha=0.1,
                  gamma=0.9, 
                  epsilon=0.6, 
-                 history_length=3, 
+                 history_length=5,
                  output_path='./results'):
         
         super().__init__(name, num)
@@ -106,7 +106,7 @@ class Q_learning(Player):
                  alpha=0.1, 
                  gamma=0.9, 
                  epsilon=0.6, 
-                 history_length=5, 
+                 history_length=2,
                  output_path='./results'):
         
         super().__init__(name, num)

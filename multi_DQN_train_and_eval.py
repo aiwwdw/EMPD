@@ -17,9 +17,14 @@ def main():
     # max episode len 게임이 끝이 안나면 제한
     # round 한 게임 안에서 죽이는 사이클 내부 자체적으로 몇판씩 싸우나
     ############################################################################
-    episode_num = 10000  # number of episodes detective : sub optimal 1000
-    max_episode_len = 10 # maximum length of episode, 1
-    round = 10
+    # test_title = 'ppt_dqn_multi_nohistory'
+    # game.history 킨 상태도 실험,
+    test_title = 'report_dqn_multi_history'
+    plot = True # plot 할지 말지
+
+    episode_num = 200  # number of episodes detective : sub optimal 1000
+    max_episode_len = 10 # maximum length of episode, 1 -> episosde를 더 길게(1명만 남는 조건에 더 가까워지도록)
+    round = 6
     epsilon = 0.5 # init epsilon
     warmup_t = 9000 # warmup time 200, after t episodes
     decay_rate = 0.998 # 100: 0.98, 1000: 0.997 # epsilon decay rate
@@ -32,15 +37,13 @@ def main():
     # rlplayer smarty q_learning q_learning_business DQN LSTMDQN PPO
     rl_player_num = [0,0,0,0,1,0,0]
 
-    history_length = 10 # 아직 연결 안됨
-    
-    test_title = 'dqn_multi'
-    plot = True # plot 할지 말지
+    history_length = 5 # 아직 연결 안됨
     
     reward = [2,3,-1,0] # 수정 말기
     ############################################################################
 
     output_path = f'{test_title}_episode_{episode_num}_max_len_{max_episode_len}_epsilon_{epsilon}_replace_{num_replace}'
+    # output_path = 'from_pretrained_dqn_multi_episode_200_max_len_1_epsilon_0.5_replace_0'
     output_path = os.path.join('./results', output_path)
     if not os.path.exists(output_path):
         os.makedirs(output_path)
@@ -84,6 +87,11 @@ def main():
         # Rollout the episode until max_episode_len
         for i in tqdm(range(max_episode_len)):
             if len(set(type(player) for player in game.players)) > 1:
+                # max_episode_len 내에서 history shift로 과거+현재 데이터가 동시에 존재 business 도입 아니면 초기화 해주자, 
+                # 전판 기억못하는 단점있지만 어차피 max_episode_len = 1일때와 똑같이 될뿐
+                # game.history_dic = {}
+
+                ########
                 game.epsilon = epsilon
                 game.start()
                 # game.show_result()
@@ -221,6 +229,10 @@ def main():
     # Rollout the episode until max_episode_len
     for i in range(max_episode_len):
         if len(set(type(player) for player in game.players)) > 1:
+            # max_episode_len 내에서 history shift로 과거+현재 데이터가 동시에 존재 business 도입 아니면 초기화 해주자, 
+            # 전판 기억못하는 단점있지만 어차피 max_episode_len = 1일때와 똑같이 될뿐
+            # game.history_dic = {}
+
             game.start()
             for player in game.players:
                     if player.name not in score_dict_val:
@@ -231,6 +243,21 @@ def main():
             game.show_result()
             game.next_generation()
             game.reset_player_money()
+    
+    # while len(set(type(player) for player in game.players)) > 1:
+    #     # max_episode_len 내에서 history shift로 과거+현재 데이터가 동시에 존재 business 도입 아니면 초기화 해주자, 
+    #     # 전판 기억못하는 단점있지만 어차피 max_episode_len = 1일때와 똑같이 될뿐
+    #     game.history_dic = {}
+    #     game.start()
+    #     for player in game.players:
+    #             if player.name not in score_dict_val:
+    #                 score_dict_val[player.name] = [player.money]
+    #                 born_dict_val[player.name] = i
+    #             else:
+    #                 score_dict_val[player.name].append(player.money)
+    #     game.show_result()
+    #     game.next_generation()
+    #     game.reset_player_money()
     
     if plot:
         score_dict_filename = 'score_dict_episode' + '.pkl'

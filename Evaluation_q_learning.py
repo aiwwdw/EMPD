@@ -18,24 +18,24 @@ def main():
     # max episode len 게임이 끝이 안나면 제한
     # round 한 게임 안에서 죽이는 사이클 내부 자체적으로 몇판씩 싸우나
     ############################################################################
-    episode_num = 500 # number of episodes 600
-    max_episode_len = 1 # maximum length of episode
-    round = 10
+    episode_num = 1000 # number of episodes 600
+    max_episode_len = 10 # maximum length of episode
+    round = 6
     epsilon = 1 # init epsilon
-    warmup_t = 500 # warmup time 200
-    decay_rate = .98 # 100: 0.98, 1000: 0.997ßß # epsilon decay rate
+    warmup_t = 2000 # warmup time 200
+    decay_rate = .99 # 100: 0.98, 1000: 0.997ßß # epsilon decay rate
     threshold = 1 # 0.1
     plot_num = 1 # number of plot to draw
-    num_replace = 1
+    num_replace = 0
 
     name = "copycat selfish generous grudger detective simpleton copykitten random".split(" ")
-    original_player_num = [0,0,0,0,0,0,1,0]
+    original_player_num = [1,1,1,1,1,1,1,1]
     opponent_name = name[original_player_num.index(1)]
-    # opponent_name = 'multi'
+    opponent_name = 'multi'
     # rlplayer smarty q_learning q_learning_business DQN LSTMDQN PPO
     rl_player_num = [0,0,0,1,0,0,0]
-    history_length = 3 # 아직 연결 안됨
-    test_title = 'q_learning_business'
+    history_length = 5
+    test_title = 'a_last_q_business_history_5_'
     plot = True # plot 할지 말지
     score_episode = {}
 

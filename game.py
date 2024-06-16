@@ -95,10 +95,10 @@ class Game:
             self.players.append(Smarty(f"Smarty Player {i+1}", num, output_path=self.output_path))
             num += 1
         for i in range(self.num_q_learning): # Add this
-            self.players.append(Q_learning(f"Q_learning Player {i+1}", num, output_path=self.output_path))
+            self.players.append(Q_learning(f"Q_learning Player {i+1}", num, output_path=self.output_path,history_length=self.history_length))
             num += 1
         for i in range(self.num_q_learning_business): # Add this
-            self.players.append(Q_learning_business(f"Q_learning business Player {i+1}", num, output_path=self.output_path))
+            self.players.append(Q_learning_business(f"Q_learning business Player {i+1}", num, output_path=self.output_path,history_length=self.history_length))
             num += 1
         for i in range(self.num_DQN): # Add this
             # dqn = DQN(f"DQN {i+1}", num, history_length=self.history_length, output_path=self.output_path)
@@ -185,7 +185,14 @@ class Game:
         print("Final Results:")
         for player in self.players:
             print(f"Player Num: {player.num},\t\t\t {player.name}: {player.money}")
-    
+
+    def tell_result(self):
+        strings = ""
+        strings += "Final Results:\n"
+        for player in self.players:
+            strings += f"Player Num: {player.num},\t\t\t {player.name}: {player.money}\n"
+        return strings
+
     def next_generation(self):
         very_poors=[]
         reaches = []
@@ -275,11 +282,11 @@ class Game:
                     num += 1
                     self.num_smarty += 1
                 elif isinstance(player, Q_learning):
-                    new_players.append(Q_learning(f"Q_learning Player {self.num_q_learning + 1}", num, output_path=self.output_path))
+                    new_players.append(Q_learning(f"Q_learning Player {self.num_q_learning + 1}", num, output_path=self.output_path,history_length=self.history_length))
                     num += 1
                     self.num_q_learning += 1
                 elif isinstance(player, Q_learning_business):
-                    new_players.append(Q_learning_business(f"Q_learning_business Player {self.num_q_learning_business + 1}", num, output_path=self.output_path))
+                    new_players.append(Q_learning_business(f"Q_learning_business Player {self.num_q_learning_business + 1}", num, output_path=self.output_path,history_length=self.history_length))
                     num += 1
                     self.num_q_learning += 1
                 elif isinstance(player, DQN):
