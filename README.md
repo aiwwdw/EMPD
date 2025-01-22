@@ -41,3 +41,8 @@ This project explores **"The Evolution of Trust"**, a multiplayer extension of t
 2. Run the following command to start training and evaluation:
    ```bash
    python train_and_eval_q_learning.py
+
+## Resources
+
+- **[Research Paper](https://github.com/aiwwdw/EMPD/blob/main/Evolution_of_trust.pdf)**: A detailed explanation of the research, methodology, and results.
+- **[Presentation Slides](https://github.com/aiwwdw/EMPD/blob/main/강화학습%20최종%20발표.pdf)**: A concise overview of the project presented in slide format.
